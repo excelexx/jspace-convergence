@@ -1,0 +1,190 @@
+\begin{thebibliography}{27}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Biderman et~al.(2023)Biderman, Schoelkopf, Anthony, Bradley, O'Brien,
+  Hallahan, Khan, Purohit, Prashanth, Raff, et~al.]{biderman2023pythia}
+Stella Biderman, Hailey Schoelkopf, Quentin~Gregory Anthony, Herbie Bradley,
+  Kyle O'Brien, Eric Hallahan, Mohammad~Aflah Khan, Shivanshu Purohit,
+  USVSN~Sai Prashanth, Edward Raff, et~al.
+\newblock Pythia: A suite for analyzing large language models across training
+  and scaling.
+\newblock \emph{International Conference on Machine Learning}, 2023.
+
+\bibitem[Dar et~al.(2023)Dar, Geva, Gupta, and Berant]{dar2023analyzing}
+Guy Dar, Mor Geva, Ankit Gupta, and Jonathan Berant.
+\newblock Analyzing transformers in embedding space.
+\newblock In \emph{Proceedings of the 61st Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, pages 16124--16170,
+  2023.
+\newblock \doi{10.18653/v1/2023.acl-long.893}.
+
+\bibitem[Ding et~al.(2021)Ding, Denain, and Steinhardt]{ding2021grounding}
+Frances Ding, Jean-Stanislas Denain, and Jacob Steinhardt.
+\newblock Grounding representation similarity with statistical testing.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2021.
+
+\bibitem[Dosovitskiy et~al.(2021)Dosovitskiy, Beyer, Kolesnikov,
+  et~al.]{dosovitskiy2021imageworth16x16words}
+Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, et~al.
+\newblock An image is worth 16x16 words: Transformers for image recognition at
+  scale, 2021.
+\newblock URL \url{https://arxiv.org/abs/2010.11929}.
+
+\bibitem[Gao et~al.(2020)Gao, Biderman, Black,
+  et~al.]{gao2020pile800gbdatasetdiverse}
+Leo Gao, Stella Biderman, Sid Black, et~al.
+\newblock The {P}ile: An {800GB} dataset of diverse text for language modeling,
+  2020.
+\newblock URL \url{https://arxiv.org/abs/2101.00027}.
+
+\bibitem[{Gemma Team}(2024)]{gemmateam2024gemma2improvingopen}
+{Gemma Team}.
+\newblock Gemma 2: Improving open language models at a practical size, 2024.
+\newblock URL \url{https://arxiv.org/abs/2408.00118}.
+
+\bibitem[{Gemma Team}(2025)]{gemmateam2025gemma3technicalreport}
+{Gemma Team}.
+\newblock Gemma 3 technical report, 2025.
+\newblock URL \url{https://arxiv.org/abs/2503.19786}.
+
+\bibitem[Geva et~al.(2022)Geva, Caciularu, Wang, and
+  Goldberg]{geva2022transformer}
+Mor Geva, Avi Caciularu, Kevin Wang, and Yoav Goldberg.
+\newblock Transformer feed-forward layers build predictions by promoting
+  concepts in the vocabulary space.
+\newblock In \emph{Proceedings of the 2022 Conference on Empirical Methods in
+  Natural Language Processing}, pages 30--45, 2022.
+\newblock \doi{10.18653/v1/2022.emnlp-main.3}.
+
+\bibitem[Gokaslan and Cohen(2019)]{openwebtext}
+Aaron Gokaslan and Vanya Cohen.
+\newblock {OpenWebText} corpus.
+\newblock \url{http://Skylion007.github.io/OpenWebTextCorpus}, 2019.
+
+\bibitem[Gurnee et~al.(2026)Gurnee, Sofroniew, Pearce,
+  et~al.]{gurnee2026verbalizable}
+Wes Gurnee, Nicholas Sofroniew, Adam Pearce, et~al.
+\newblock Verbalizable representations form a global workspace in language
+  models, 2026.
+\newblock URL \url{https://arxiv.org/abs/2607.15495}.
+
+\bibitem[He et~al.(2021)He, Chen, Xie, Li, Doll\'ar, and
+  Girshick]{he2021maskedautoencodersscalablevision}
+Kaiming He, Xinlei Chen, Saining Xie, Yanghao Li, Piotr Doll\'ar, and Ross
+  Girshick.
+\newblock Masked autoencoders are scalable vision learners, 2021.
+\newblock URL \url{https://arxiv.org/abs/2111.06377}.
+
+\bibitem[Huh et~al.(2024)Huh, Cheung, Wang, and Isola]{huh2024platonic}
+Minyoung Huh, Brian Cheung, Tongzhou Wang, and Phillip Isola.
+\newblock Position: The {P}latonic {R}epresentation {H}ypothesis.
+\newblock In \emph{Proceedings of the 41st International Conference on Machine
+  Learning}, volume 235 of \emph{Proceedings of Machine Learning Research},
+  pages 20617--20642. PMLR, 2024.
+
+\bibitem[Kornblith et~al.(2019)Kornblith, Norouzi, Lee, and
+  Hinton]{kornblith2019cka}
+Simon Kornblith, Mohammad Norouzi, Honglak Lee, and Geoffrey Hinton.
+\newblock Similarity of neural network representations revisited.
+\newblock In \emph{International Conference on Machine Learning}, 2019.
+
+\bibitem[Kriegeskorte et~al.(2008)Kriegeskorte, Mur, and
+  Bandettini]{kriegeskorte2008rsa}
+Nikolaus Kriegeskorte, Marieke Mur, and Peter Bandettini.
+\newblock Representational similarity analysis -- connecting the branches of
+  systems neuroscience.
+\newblock \emph{Frontiers in Systems Neuroscience}, 2:\penalty0 4, 2008.
+
+\bibitem[Lin(2023)]{neuronpedia}
+Johnny Lin.
+\newblock Neuronpedia: Interactive reference and tooling for analyzing neural
+  networks, 2023.
+\newblock URL \url{https://www.neuronpedia.org}.
+\newblock Software available from neuronpedia.org.
+
+\bibitem[Nanda(2022)]{Nanda2022Pile10K}
+Neel Nanda.
+\newblock {NeelNanda/pile-10k} \textendash\ datasets at {H}ugging {F}ace.
+\newblock \url{https://huggingface.co/datasets/NeelNanda/pile-10k}, 2022.
+
+\bibitem[{nostalgebraist}(2020)]{nostalgebraist2020logitlens}
+{nostalgebraist}.
+\newblock interpreting {GPT}: the logit lens.
+\newblock LessWrong, 2020.
+\newblock URL
+  \url{https://www.lesswrong.com/posts/AcKRB8wDpdaN6v6ru/interpreting-gpt-the-logit-lens}.
+
+\bibitem[Oquab et~al.(2024)Oquab, Darcet, Moutakanni,
+  et~al.]{oquab2024dinov2learningrobustvisual}
+Maxime Oquab, Timoth\'ee Darcet, Th\'eo Moutakanni, et~al.
+\newblock {DINOv2}: Learning robust visual features without supervision, 2024.
+\newblock URL \url{https://arxiv.org/abs/2304.07193}.
+
+\bibitem[Oron et~al.(2018)Oron, Dekel, Xue, Freeman, and Avidan]{bestbuddies}
+Shaul Oron, Tali Dekel, Tianfan Xue, William~T. Freeman, and Shai Avidan.
+\newblock Best-buddies similarity---robust template matching using mutual
+  nearest neighbors.
+\newblock \emph{IEEE Transactions on Pattern Analysis \& Machine Intelligence},
+  40\penalty0 (08):\penalty0 1799--1813, August 2018.
+\newblock ISSN 1939-3539.
+\newblock \doi{10.1109/TPAMI.2017.2737424}.
+\newblock URL
+  \url{https://doi.ieeecomputersociety.org/10.1109/TPAMI.2017.2737424}.
+
+\bibitem[Radford et~al.(2019)Radford, Wu, Child, Luan, Amodei, and
+  Sutskever]{radford2019language}
+Alec Radford, Jeff Wu, Rewon Child, David Luan, Dario Amodei, and Ilya
+  Sutskever.
+\newblock Language models are unsupervised multitask learners.
+\newblock Technical report, OpenAI, 2019.
+
+\bibitem[Radford et~al.(2021)Radford, Kim, Hallacy,
+  et~al.]{radford2021learningtransferablevisualmodels}
+Alec Radford, Jong~Wook Kim, Chris Hallacy, et~al.
+\newblock Learning transferable visual models from natural language
+  supervision, 2021.
+\newblock URL \url{https://arxiv.org/abs/2103.00020}.
+
+\bibitem[Raghu et~al.(2017)Raghu, Gilmer, Yosinski, and
+  Sohl-Dickstein]{raghu2017svcca}
+Maithra Raghu, Justin Gilmer, Jason Yosinski, and Jascha Sohl-Dickstein.
+\newblock {SVCCA}: Singular vector canonical correlation analysis for deep
+  learning dynamics and interpretability.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2017.
+
+\bibitem[Srinivasan et~al.(2021)Srinivasan, Raman, Chen, Bendersky, and
+  Najork]{wit}
+Krishna Srinivasan, Karthik Raman, Jiecao Chen, Michael Bendersky, and Marc
+  Najork.
+\newblock {WIT:} {W}ikipedia-based image text dataset for multimodal
+  multilingual machine learning.
+\newblock \emph{CoRR}, abs/2103.01913, 2021.
+\newblock URL \url{https://arxiv.org/abs/2103.01913}.
+
+\bibitem[Team(2026)]{qwen35blog}
+Qwen Team.
+\newblock Qwen3.5: Towards native multimodal agents, February 2026.
+\newblock URL \url{https://qwen.ai/blog?id=qwen3.5}.
+
+\bibitem[Yang et~al.(2025)Yang, Li, Yang, et~al.]{qwen3}
+An~Yang, Anfeng Li, Baosong Yang, et~al.
+\newblock Qwen3 technical report.
+\newblock \emph{arXiv preprint arXiv:2505.09388}, 2025.
+
+\bibitem[Zellers et~al.(2019)Zellers, Holtzman, Bisk, Farhadi, and
+  Choi]{zellers2019hellaswagmachinereallyfinish}
+Rowan Zellers, Ari Holtzman, Yonatan Bisk, Ali Farhadi, and Yejin Choi.
+\newblock {HellaSwag}: Can a machine really finish your sentence?, 2019.
+\newblock URL \url{https://arxiv.org/abs/1905.07830}.
+
+\bibitem[Zhai et~al.(2023)Zhai, Mustafa, Kolesnikov, and
+  Beyer]{zhai2023sigmoidlosslanguageimage}
+Xiaohua Zhai, Basil Mustafa, Alexander Kolesnikov, and Lucas Beyer.
+\newblock Sigmoid loss for language image pre-training, 2023.
+\newblock URL \url{https://arxiv.org/abs/2303.15343}.
+
+\end{thebibliography}

@@ -1,0 +1,115 @@
+{
+ "per_model": {
+  "pythia70m": {
+   "chars_per_token": 4.058453646771071,
+   "mean_tokens_per_doc": 294.37,
+   "frac_docs_capped": 0.541,
+   "mean_chars_ingested": 1045.594,
+   "frac_corpus_ingested": 0.875203295926046
+  },
+  "gpt2": {
+   "chars_per_token": 3.7909722662943452,
+   "mean_tokens_per_doc": 315.14,
+   "frac_docs_capped": 0.574,
+   "mean_chars_ingested": 1014.505,
+   "frac_corpus_ingested": 0.8491805803528456
+  },
+  "gemma270": {
+   "chars_per_token": 4.096935923595274,
+   "mean_tokens_per_doc": 291.605,
+   "frac_docs_capped": 0.532,
+   "mean_chars_ingested": 1054.199,
+   "frac_corpus_ingested": 0.8824060193171935
+  },
+  "qwen08b": {
+   "chars_per_token": 4.117863802594072,
+   "mean_tokens_per_doc": 290.123,
+   "frac_docs_capped": 0.542,
+   "mean_chars_ingested": 1057.828,
+   "frac_corpus_ingested": 0.8854436350274172
+  },
+  "gemma": {
+   "chars_per_token": 4.096935923595274,
+   "mean_tokens_per_doc": 291.605,
+   "frac_docs_capped": 0.532,
+   "mean_chars_ingested": 1054.199,
+   "frac_corpus_ingested": 0.8824060193171935
+  },
+  "qwen17b": {
+   "chars_per_token": 4.185774448524259,
+   "mean_tokens_per_doc": 285.416,
+   "frac_docs_capped": 0.521,
+   "mean_chars_ingested": 1069.621,
+   "frac_corpus_ingested": 0.895314839786488
+  },
+  "qwen2b": {
+   "chars_per_token": 4.117863802594072,
+   "mean_tokens_per_doc": 290.123,
+   "frac_docs_capped": 0.542,
+   "mean_chars_ingested": 1057.828,
+   "frac_corpus_ingested": 0.8854436350274172
+  },
+  "gemma2_2b": {
+   "chars_per_token": 4.111090464244789,
+   "mean_tokens_per_doc": 290.601,
+   "frac_docs_capped": 0.523,
+   "mean_chars_ingested": 1056.636,
+   "frac_corpus_ingested": 0.8844458841520834
+  },
+  "qwen4b": {
+   "chars_per_token": 4.185774448524259,
+   "mean_tokens_per_doc": 285.416,
+   "frac_docs_capped": 0.521,
+   "mean_chars_ingested": 1069.621,
+   "frac_corpus_ingested": 0.895314839786488
+  },
+  "qwen35_4b": {
+   "chars_per_token": 4.117863802594072,
+   "mean_tokens_per_doc": 290.123,
+   "frac_docs_capped": 0.542,
+   "mean_chars_ingested": 1057.828,
+   "frac_corpus_ingested": 0.8854436350274172
+  },
+  "gemma3_4b": {
+   "chars_per_token": 4.096935923595274,
+   "mean_tokens_per_doc": 291.605,
+   "frac_docs_capped": 0.532,
+   "mean_chars_ingested": 1054.199,
+   "frac_corpus_ingested": 0.8824060193171935
+  }
+ },
+ "correlations": {
+  "full": {
+   "vs_frac_ingested": [
+    0.779752388364862,
+    0.004651935606481114
+   ],
+   "vs_chars_per_token": [
+    0.779752388364862,
+    0.004651935606481114
+   ]
+  },
+  "perp": {
+   "vs_frac_ingested": [
+    0.7054902561396371,
+    0.015291692931246988
+   ],
+   "vs_chars_per_token": [
+    0.7054902561396371,
+    0.015291692931246988
+   ]
+  },
+  "J": {
+   "vs_frac_ingested": [
+    0.5244763088406512,
+    0.09766207076521796
+   ],
+   "vs_chars_per_token": [
+    0.5244763088406512,
+    0.09766207076521796
+   ]
+  }
+ },
+ "max_tokens": 300,
+ "n_docs": 1000
+}

@@ -1,0 +1,13 @@
+{
+  "model": "gemma3_4b",
+  "hf": "google/gemma-3-4b-pt",
+  "hellaswag_acc_norm": 0.6633,
+  "hellaswag_stderr": 0.0122,
+  "gsm8k_strict": 0.365,
+  "gsm8k_flexible": 0.365,
+  "limits": {
+    "hellaswag": 1500,
+    "gsm8k": 200
+  },
+  "note": "HellaSwag re-measured 2026-08-18 with xeval_bench.py, reproducing the value previously hardcoded in xplot_combined_hs.py. GSM8K re-run to completion by xgsm8k_gemma3_4b.py at batch size 2."
+}

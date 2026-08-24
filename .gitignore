@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+
+# Artifacts the release deliberately does not ship (README section 8):
+# downloaded assets, the intermediate caches, and the per-pair heatmaps
+# step7_align.py writes into the working directory.
+cache/
+lenses/
+models/
+acts_*.pt
+heatmap_*_vs_*.png
+results/lenscontrol/jfit/
+results/lenscontrol/sparse/

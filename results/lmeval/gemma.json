@@ -1,0 +1,12 @@
+{
+  "model": "gemma",
+  "hf": "google/gemma-3-1b-pt",
+  "hellaswag_acc_norm": 0.548,
+  "hellaswag_stderr": 0.012854603347367256,
+  "gsm8k_strict": 0.035,
+  "gsm8k_flexible": 0.04,
+  "limits": {
+    "hellaswag": 1500,
+    "gsm8k": 200
+  }
+}

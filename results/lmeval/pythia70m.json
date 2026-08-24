@@ -1,0 +1,12 @@
+{
+  "model": "pythia70m",
+  "hf": "EleutherAI/pythia-70m-deduped",
+  "hellaswag_acc_norm": 0.308,
+  "hellaswag_stderr": 0.0119241543503644,
+  "gsm8k_strict": 0.0,
+  "gsm8k_flexible": 0.0,
+  "limits": {
+    "hellaswag": 1500,
+    "gsm8k": 200
+  }
+}

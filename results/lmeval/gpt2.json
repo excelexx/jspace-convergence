@@ -1,0 +1,12 @@
+{
+  "model": "gpt2",
+  "hf": "gpt2",
+  "hellaswag_acc_norm": 0.38466666666666666,
+  "hellaswag_stderr": 0.012565989185268477,
+  "gsm8k_strict": 0.005,
+  "gsm8k_flexible": 0.015,
+  "limits": {
+    "hellaswag": 1500,
+    "gsm8k": 200
+  }
+}

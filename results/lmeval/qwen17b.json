@@ -1,0 +1,12 @@
+{
+  "model": "qwen17b",
+  "hf": "Qwen/Qwen3-1.7B",
+  "hellaswag_acc_norm": 0.5473333333333333,
+  "hellaswag_stderr": 0.012856252403180064,
+  "gsm8k_strict": 0.675,
+  "gsm8k_flexible": 0.675,
+  "limits": {
+    "hellaswag": 1500,
+    "gsm8k": 200
+  }
+}

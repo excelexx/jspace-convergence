@@ -1,0 +1,514 @@
+{
+  "dinov2|gpt2": {
+    "raw": {
+      "observed": 0.05849609375,
+      "shuffled_mean": 0.009814453125,
+      "shuffled_max": 0.01240234375
+    },
+    "proj": null
+  },
+  "dinov2|gemma": {
+    "raw": {
+      "observed": 0.1052734375,
+      "shuffled_mean": 0.0097412109375,
+      "shuffled_max": 0.012109375
+    },
+    "proj": {
+      "observed": 0.069921875,
+      "shuffled_mean": 0.0098681640625,
+      "shuffled_max": 0.011328125
+    }
+  },
+  "dinov2|gemma270": {
+    "raw": {
+      "observed": 0.09111328125,
+      "shuffled_mean": 0.009560546875000001,
+      "shuffled_max": 0.0123046875
+    },
+    "proj": {
+      "observed": 0.062890625,
+      "shuffled_mean": 0.009794921875,
+      "shuffled_max": 0.01171875
+    }
+  },
+  "dinov2|pythia70m": {
+    "raw": {
+      "observed": 0.0578125,
+      "shuffled_mean": 0.0099560546875,
+      "shuffled_max": 0.01220703125
+    },
+    "proj": {
+      "observed": 0.03974609375,
+      "shuffled_mean": 0.009404296875,
+      "shuffled_max": 0.01201171875
+    }
+  },
+  "dinov2|qwen08b": {
+    "raw": {
+      "observed": 0.1041015625,
+      "shuffled_mean": 0.009726562499999999,
+      "shuffled_max": 0.01162109375
+    },
+    "proj": {
+      "observed": 0.07958984375,
+      "shuffled_mean": 0.009633789062499998,
+      "shuffled_max": 0.01240234375
+    }
+  },
+  "dinov2|qwen17b": {
+    "raw": {
+      "observed": 0.0796875,
+      "shuffled_mean": 0.0096728515625,
+      "shuffled_max": 0.01220703125
+    },
+    "proj": {
+      "observed": 0.05595703125,
+      "shuffled_mean": 0.009565429687500002,
+      "shuffled_max": 0.0115234375
+    }
+  },
+  "dinov2|qwen2b": {
+    "raw": {
+      "observed": 0.116796875,
+      "shuffled_mean": 0.009458007812499999,
+      "shuffled_max": 0.01162109375
+    },
+    "proj": {
+      "observed": 0.08330078125,
+      "shuffled_mean": 0.0099609375,
+      "shuffled_max": 0.01298828125
+    }
+  },
+  "dinov2|gemma2_2b": {
+    "raw": {
+      "observed": 0.1,
+      "shuffled_mean": 0.009682617187500001,
+      "shuffled_max": 0.01220703125
+    },
+    "proj": {
+      "observed": 0.06748046875,
+      "shuffled_mean": 0.00998046875,
+      "shuffled_max": 0.01171875
+    }
+  },
+  "dinov2|qwen4b": {
+    "raw": {
+      "observed": 0.0787109375,
+      "shuffled_mean": 0.0094775390625,
+      "shuffled_max": 0.01279296875
+    },
+    "proj": {
+      "observed": 0.047265625,
+      "shuffled_mean": 0.009946289062499999,
+      "shuffled_max": 0.012109375
+    }
+  },
+  "dinov2|qwen35_4b": {
+    "raw": {
+      "observed": 0.1162109375,
+      "shuffled_mean": 0.009589843749999999,
+      "shuffled_max": 0.01123046875
+    },
+    "proj": {
+      "observed": 0.090625,
+      "shuffled_mean": 0.0099853515625,
+      "shuffled_max": 0.01201171875
+    }
+  },
+  "dinov2|gemma3_4b": {
+    "raw": {
+      "observed": 0.11591796875,
+      "shuffled_mean": 0.009711914062500002,
+      "shuffled_max": 0.01201171875
+    },
+    "proj": {
+      "observed": 0.076171875,
+      "shuffled_mean": 0.0100439453125,
+      "shuffled_max": 0.01259765625
+    }
+  },
+  "mae|gpt2": {
+    "raw": {
+      "observed": 0.04560546875,
+      "shuffled_mean": 0.009682617187500001,
+      "shuffled_max": 0.0123046875
+    },
+    "proj": null
+  },
+  "mae|gemma": {
+    "raw": {
+      "observed": 0.0708984375,
+      "shuffled_mean": 0.009770507812499999,
+      "shuffled_max": 0.01201171875
+    },
+    "proj": {
+      "observed": 0.0388671875,
+      "shuffled_mean": 0.009892578124999999,
+      "shuffled_max": 0.01171875
+    }
+  },
+  "mae|gemma270": {
+    "raw": {
+      "observed": 0.06083984375,
+      "shuffled_mean": 0.009638671875,
+      "shuffled_max": 0.0123046875
+    },
+    "proj": {
+      "observed": 0.0302734375,
+      "shuffled_mean": 0.009887695312499998,
+      "shuffled_max": 0.0115234375
+    }
+  },
+  "mae|pythia70m": {
+    "raw": {
+      "observed": 0.04384765625,
+      "shuffled_mean": 0.009599609375000002,
+      "shuffled_max": 0.01123046875
+    },
+    "proj": {
+      "observed": 0.0224609375,
+      "shuffled_mean": 0.009658203125000002,
+      "shuffled_max": 0.01103515625
+    }
+  },
+  "mae|qwen08b": {
+    "raw": {
+      "observed": 0.07041015625,
+      "shuffled_mean": 0.009584960937500001,
+      "shuffled_max": 0.01279296875
+    },
+    "proj": {
+      "observed": 0.037890625,
+      "shuffled_mean": 0.009736328125,
+      "shuffled_max": 0.01171875
+    }
+  },
+  "mae|qwen17b": {
+    "raw": {
+      "observed": 0.0568359375,
+      "shuffled_mean": 0.0094482421875,
+      "shuffled_max": 0.0109375
+    },
+    "proj": {
+      "observed": 0.0298828125,
+      "shuffled_mean": 0.009804687500000001,
+      "shuffled_max": 0.01220703125
+    }
+  },
+  "mae|qwen2b": {
+    "raw": {
+      "observed": 0.08056640625,
+      "shuffled_mean": 0.0095703125,
+      "shuffled_max": 0.01181640625
+    },
+    "proj": {
+      "observed": 0.03916015625,
+      "shuffled_mean": 0.0102099609375,
+      "shuffled_max": 0.01240234375
+    }
+  },
+  "mae|gemma2_2b": {
+    "raw": {
+      "observed": 0.0689453125,
+      "shuffled_mean": 0.009633789062499998,
+      "shuffled_max": 0.01201171875
+    },
+    "proj": {
+      "observed": 0.03408203125,
+      "shuffled_mean": 0.0101220703125,
+      "shuffled_max": 0.01162109375
+    }
+  },
+  "mae|qwen4b": {
+    "raw": {
+      "observed": 0.0544921875,
+      "shuffled_mean": 0.009370117187499999,
+      "shuffled_max": 0.0111328125
+    },
+    "proj": {
+      "observed": 0.0265625,
+      "shuffled_mean": 0.010009765625,
+      "shuffled_max": 0.0115234375
+    }
+  },
+  "mae|qwen35_4b": {
+    "raw": {
+      "observed": 0.0806640625,
+      "shuffled_mean": 0.0093115234375,
+      "shuffled_max": 0.01103515625
+    },
+    "proj": {
+      "observed": 0.04130859375,
+      "shuffled_mean": 0.009887695312500002,
+      "shuffled_max": 0.01171875
+    }
+  },
+  "mae|gemma3_4b": {
+    "raw": {
+      "observed": 0.07939453125,
+      "shuffled_mean": 0.0095751953125,
+      "shuffled_max": 0.01259765625
+    },
+    "proj": {
+      "observed": 0.0390625,
+      "shuffled_mean": 0.009921875,
+      "shuffled_max": 0.01142578125
+    }
+  },
+  "clip|gpt2": {
+    "raw": {
+      "observed": 0.05830078125,
+      "shuffled_mean": 0.009477539062500002,
+      "shuffled_max": 0.0111328125
+    },
+    "proj": null
+  },
+  "clip|gemma": {
+    "raw": {
+      "observed": 0.104296875,
+      "shuffled_mean": 0.00966796875,
+      "shuffled_max": 0.0111328125
+    },
+    "proj": {
+      "observed": 0.06201171875,
+      "shuffled_mean": 0.00955078125,
+      "shuffled_max": 0.0119140625
+    }
+  },
+  "clip|gemma270": {
+    "raw": {
+      "observed": 0.0859375,
+      "shuffled_mean": 0.0094677734375,
+      "shuffled_max": 0.01162109375
+    },
+    "proj": {
+      "observed": 0.0552734375,
+      "shuffled_mean": 0.009575195312500001,
+      "shuffled_max": 0.0115234375
+    }
+  },
+  "clip|pythia70m": {
+    "raw": {
+      "observed": 0.06142578125,
+      "shuffled_mean": 0.009458007812499999,
+      "shuffled_max": 0.01220703125
+    },
+    "proj": {
+      "observed": 0.03779296875,
+      "shuffled_mean": 0.009531250000000002,
+      "shuffled_max": 0.01171875
+    }
+  },
+  "clip|qwen08b": {
+    "raw": {
+      "observed": 0.10234375,
+      "shuffled_mean": 0.0094287109375,
+      "shuffled_max": 0.01171875
+    },
+    "proj": {
+      "observed": 0.0677734375,
+      "shuffled_mean": 0.009501953125,
+      "shuffled_max": 0.01259765625
+    }
+  },
+  "clip|qwen17b": {
+    "raw": {
+      "observed": 0.08349609375,
+      "shuffled_mean": 0.0097314453125,
+      "shuffled_max": 0.01162109375
+    },
+    "proj": {
+      "observed": 0.04921875,
+      "shuffled_mean": 0.009687500000000002,
+      "shuffled_max": 0.01142578125
+    }
+  },
+  "clip|qwen2b": {
+    "raw": {
+      "observed": 0.1185546875,
+      "shuffled_mean": 0.0093994140625,
+      "shuffled_max": 0.01123046875
+    },
+    "proj": {
+      "observed": 0.06962890625,
+      "shuffled_mean": 0.009775390625000002,
+      "shuffled_max": 0.0125
+    }
+  },
+  "clip|gemma2_2b": {
+    "raw": {
+      "observed": 0.09931640625,
+      "shuffled_mean": 0.009565429687499998,
+      "shuffled_max": 0.01123046875
+    },
+    "proj": {
+      "observed": 0.05791015625,
+      "shuffled_mean": 0.00935546875,
+      "shuffled_max": 0.01181640625
+    }
+  },
+  "clip|qwen4b": {
+    "raw": {
+      "observed": 0.08115234375,
+      "shuffled_mean": 0.009404296875,
+      "shuffled_max": 0.0111328125
+    },
+    "proj": {
+      "observed": 0.0431640625,
+      "shuffled_mean": 0.0097509765625,
+      "shuffled_max": 0.01123046875
+    }
+  },
+  "clip|qwen35_4b": {
+    "raw": {
+      "observed": 0.1142578125,
+      "shuffled_mean": 0.009291992187499999,
+      "shuffled_max": 0.0109375
+    },
+    "proj": {
+      "observed": 0.0755859375,
+      "shuffled_mean": 0.009687499999999998,
+      "shuffled_max": 0.01259765625
+    }
+  },
+  "clip|gemma3_4b": {
+    "raw": {
+      "observed": 0.11650390625,
+      "shuffled_mean": 0.009785156250000001,
+      "shuffled_max": 0.01103515625
+    },
+    "proj": {
+      "observed": 0.06787109375,
+      "shuffled_mean": 0.009990234375,
+      "shuffled_max": 0.012109375
+    }
+  },
+  "siglip|gpt2": {
+    "raw": {
+      "observed": 0.06162109375,
+      "shuffled_mean": 0.009794921875,
+      "shuffled_max": 0.0125
+    },
+    "proj": null
+  },
+  "siglip|gemma": {
+    "raw": {
+      "observed": 0.1193359375,
+      "shuffled_mean": 0.009711914062499999,
+      "shuffled_max": 0.0115234375
+    },
+    "proj": {
+      "observed": 0.06474609375,
+      "shuffled_mean": 0.0097998046875,
+      "shuffled_max": 0.01259765625
+    }
+  },
+  "siglip|gemma270": {
+    "raw": {
+      "observed": 0.0982421875,
+      "shuffled_mean": 0.009858398437499999,
+      "shuffled_max": 0.01103515625
+    },
+    "proj": {
+      "observed": 0.05712890625,
+      "shuffled_mean": 0.009321289062500002,
+      "shuffled_max": 0.01123046875
+    }
+  },
+  "siglip|pythia70m": {
+    "raw": {
+      "observed": 0.062890625,
+      "shuffled_mean": 0.0100927734375,
+      "shuffled_max": 0.0123046875
+    },
+    "proj": {
+      "observed": 0.03759765625,
+      "shuffled_mean": 0.00953125,
+      "shuffled_max": 0.01240234375
+    }
+  },
+  "siglip|qwen08b": {
+    "raw": {
+      "observed": 0.11650390625,
+      "shuffled_mean": 0.009863281249999998,
+      "shuffled_max": 0.01171875
+    },
+    "proj": {
+      "observed": 0.07138671875,
+      "shuffled_mean": 0.009707031249999998,
+      "shuffled_max": 0.01259765625
+    }
+  },
+  "siglip|qwen17b": {
+    "raw": {
+      "observed": 0.09560546875,
+      "shuffled_mean": 0.0099169921875,
+      "shuffled_max": 0.012109375
+    },
+    "proj": {
+      "observed": 0.0505859375,
+      "shuffled_mean": 0.0096923828125,
+      "shuffled_max": 0.01171875
+    }
+  },
+  "siglip|qwen2b": {
+    "raw": {
+      "observed": 0.13193359375,
+      "shuffled_mean": 0.00984375,
+      "shuffled_max": 0.0115234375
+    },
+    "proj": {
+      "observed": 0.07353515625,
+      "shuffled_mean": 0.0097412109375,
+      "shuffled_max": 0.01337890625
+    }
+  },
+  "siglip|gemma2_2b": {
+    "raw": {
+      "observed": 0.11337890625,
+      "shuffled_mean": 0.009755859375,
+      "shuffled_max": 0.01201171875
+    },
+    "proj": {
+      "observed": 0.06025390625,
+      "shuffled_mean": 0.009658203124999999,
+      "shuffled_max": 0.0123046875
+    }
+  },
+  "siglip|qwen4b": {
+    "raw": {
+      "observed": 0.09130859375,
+      "shuffled_mean": 0.009653320312500002,
+      "shuffled_max": 0.0111328125
+    },
+    "proj": {
+      "observed": 0.041796875,
+      "shuffled_mean": 0.009970703124999999,
+      "shuffled_max": 0.01181640625
+    }
+  },
+  "siglip|qwen35_4b": {
+    "raw": {
+      "observed": 0.13427734375,
+      "shuffled_mean": 0.009707031250000001,
+      "shuffled_max": 0.01142578125
+    },
+    "proj": {
+      "observed": 0.07919921875,
+      "shuffled_mean": 0.0098486328125,
+      "shuffled_max": 0.012109375
+    }
+  },
+  "siglip|gemma3_4b": {
+    "raw": {
+      "observed": 0.13232421875,
+      "shuffled_mean": 0.00998046875,
+      "shuffled_max": 0.01318359375
+    },
+    "proj": {
+      "observed": 0.067578125,
+      "shuffled_mean": 0.009692382812499999,
+      "shuffled_max": 0.0119140625
+    }
+  }
+}

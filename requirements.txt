@@ -1,0 +1,29 @@
+# Exact versions used for every number in the paper (Python 3.12.10, Windows 11,
+# single RTX 3080 10 GB, CUDA 12.1).
+#
+# torch/torchvision must come from the cu121 index:
+#   pip install torch==2.5.1+cu121 torchvision==0.20.1+cu121 \
+#       --index-url https://download.pytorch.org/whl/cu121
+#   pip install -r requirements.txt
+#
+# The original run used two environments: a venv with torch+transformers for the
+# GPU work, and the system interpreter (which additionally had matplotlib and
+# torchvision) for plotting. One environment with everything below also works.
+
+torch==2.5.1
+torchvision==0.20.1          # not imported directly; transformers' image
+                             # processors pull it in for the vision encoders
+transformers==5.14.1
+tokenizers==0.22.2
+datasets==5.0.1
+huggingface_hub==1.26.0
+safetensors==0.8.0
+numpy==2.5.1
+scipy==1.18.0
+matplotlib==3.11.1           # every figure script
+pillow==12.3.0               # image caching for the cross-modal experiment
+
+# Optional: benchmark sweep only (xeval_bench.py). Any recent release works;
+# the harness version matters only for cross-run comparability, and every
+# reported benchmark number was produced by a single sweep with one version.
+# lm-eval
