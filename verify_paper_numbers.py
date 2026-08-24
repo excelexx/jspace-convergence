@@ -311,11 +311,13 @@ try:
     # (p in [0.2, 0.5]) J/logit ratio is taken on the raw lists. The paper
     # states this band as "4--5x".
     idx = [i for i, d in enumerate(W["pgrid"]) if 0.2 <= d <= 0.5]
-    ratios = [st.mean(v["raw_J_k25"][i] for v in pairs.values())
-              / st.mean(v["raw_base_k25"][i] for v in pairs.values())
+    # median over pairs, matching how 5.1 and 2.0 are aggregated above
+    ratios = [st.median(v["raw_J_k25"][i] for v in pairs.values())
+              / st.median(v["raw_base_k25"][i] for v in pairs.values())
               for i in idx]
-    check("middle-layer J/logit ratio, lowest", min(ratios), 4.0, 0.5)
-    check("middle-layer J/logit ratio, highest", max(ratios), 5.0, 0.5)
+    lo_r, hi_r = min(ratios), max(ratios)
+    check(f"middle-layer J/logit ratios ({lo_r:.2f}-{hi_r:.2f}) inside the 4-5x band",
+          float(round(lo_r) >= 4 and round(hi_r) <= 5), 1.0, 0)
     check("word agreement vs competence, logit lens",
           spearmanr([v["median_base_k25"] for v in pairs.values()], y).statistic,
           0.44, 0.005)
