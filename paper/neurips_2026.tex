@@ -17,7 +17,7 @@
 % 4. "creativeai" option is used for the Creative AI Track
 %  \usepackage[creativeai]{neurips_2026}
 % 5. "sglblindworkshop" option is used for the Workshop with single-blind reviewing
-\usepackage[sglblindworkshop]{neurips_2026}
+\usepackage[dblblindworkshop]{neurips_2026}
 % 6. "dblblindworkshop" option is used for the Workshop with double-blind reviewing
 %  \usepackage[dblblindworkshop]{neurips_2026}
 % 7. "education" option is used for the Education Track
@@ -121,7 +121,7 @@
   
   Re-examining convergence by comparing kernels induced by the J-space, we still find that models converge: the Spearman correlation between competence and alignment is $\rho = 0.56$, $p = 0.016$ among language models and $\rho = 0.97$, $p < 10^{-4}$ between language models and vision encoders. Within-language, though, the J-space converges much more slowly than the full activation space, so part of the apparent link between competence and convergence is carried by superficial structure. Consistent with this, the gap between J-space and full convergence disappears across modalities, where no such structure is shared.
   
-  This convergence is also legible: Using the J-lens at matched layer depth, independently trained models name 5.0 of 25 shared vocabulary items above a position-shuffled floor against 1.9 for the plain logit lens. J-lens overlap converges with competence similarly to the kernel measure, at $\rho = 0.73$, $p=0.0021$.
+  This convergence is also legible: Using the J-lens at matched layer depth, independently trained models name 5.0 of 25 shared vocabulary items above a position-shuffled floor against 1.9 for the plain logit lens. J-lens overlap converges with competence similarly to the kernel measure, at $\rho = 0.73$, $p=0.0021$. Code available at \url{https://github.com/excelexx/jspace-convergence}
 \end{abstract}
 \section{Introduction}
 The Platonic Representation Hypothesis~\citep{huh2024platonic} asserts that
@@ -137,7 +137,7 @@ Thus, we hypothesise that the J-space will provide a more semantically selective
 \paragraph{Motivating experiment}
 We compute alignment using ``mutual $\kappa$-nearest-neighbour overlap'' between pairs of models. We do this once on an ordinary dataset of text documents and once on the same documents with content words randomised but sentence structure preserved. We find that over half of the full alignment is retained, compared with a quarter of J-space alignment. After running a random-dictionary control, we find that roughly two thirds of this drop in retention is explained by the sparse coding rather than the J-lens dictionary, but the remaining third is attributable to the J-space. 
 
-We use the J-space to re-examine the Platonic Representation Hypothesis's central claim, and find find that models do indeed converge under this stricter measure.
+We use the J-space to re-examine the Platonic Representation Hypothesis's central claim, and find that models do indeed converge under this stricter measure.
 
 Our three experiments compare 1) J-space against full alignment for text models (including the content-ablated motivating experiment); 2) text models against vision encoders, which have no J-space of their own; and 3) the J-lens readouts of text-models, where outputs are vocabulary tokens and no machinery is needed. For each case, we test convergence by relating alignment to competence.  The third experiment also compares against the logit lens~\citep{nostalgebraist2020logitlens} to determine whether agreement is attributable to the Jacobian or merely to models predicting similar next words at similar depths.
 
