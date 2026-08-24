@@ -1,12 +1,15 @@
 """Figure 2 of the paper (section 4.3), drawn at print size.
 
   (a) paper/06_wordalign_mean_heatmap.pdf -- mean J-lens word agreement over
-      the 11x11 relative-depth grid, from results/wordalign/mean_grid.json
-      (xw_meangrid.py).
+      the 11x11 relative-depth grid, from results/wordalign/mean_grid_raw.json.
   (b) paper/08_j_minus_logit_vs_depth.pdf -- J-lens minus plain-logit-lens
       agreement against relative depth, mean +- sd within same-family and
       cross-family pairs, from the per-pair grid diagonals in
       results/wordalign/stats.json (xw_stats.py).
+
+Both panels plot the matched top-25 overlap directly. The position-shuffled
+floor (0.1 of 25 words) is reported in the paper's controls section only, so it
+is not subtracted here; the raw_*_k25 fields are used, not the diag_* deltas.
 """
 import json
 
@@ -25,7 +28,7 @@ def sym(A):
     return (A + A.transpose(0, 2, 1)) / 2
 
 
-M = json.load(open("results/wordalign/mean_grid.json", encoding="utf-8"))
+M = json.load(open("results/wordalign/mean_grid_raw.json", encoding="utf-8"))
 PG = M["pgrid"]
 mean_J = sym(M["J"]).mean(0)
 
@@ -42,7 +45,7 @@ ax.set_xticklabels([f"{p:.1f}" for p in PG[::2]])
 ax.set_yticklabels([f"{p:.1f}" for p in PG[::2]])
 ax.tick_params(colors=MUTED, labelsize=8)
 cb = fig.colorbar(im, ax=ax, fraction=0.046)
-cb.set_label("$\\Delta$ = matched $-$ shuffled", color=INK2, fontsize=8.5)
+cb.set_label("shared words / 25", color=INK2, fontsize=8.5)
 cb.ax.tick_params(colors=MUTED, labelsize=7.5)
 fig.tight_layout(pad=0.4)
 fig.savefig(f"{OUT}/06_wordalign_mean_heatmap.pdf", facecolor=SURFACE)
@@ -52,7 +55,7 @@ print(f"wrote {OUT}/06_wordalign_mean_heatmap.pdf")
 S = json.load(open("results/wordalign/stats.json", encoding="utf-8"))
 P = S["pairs"]
 PGb = S["pgrid"]
-D = {k: [j - b for j, b in zip(x["diag_J_k25"], x["diag_base_k25"])]
+D = {k: [j - b for j, b in zip(x["raw_J_k25"], x["raw_base_k25"])]
      for k, x in P.items()}
 
 # p = 0 is dropped from this panel only: there the plain logit lens reads the
@@ -72,7 +75,7 @@ for lab, sel, col in [
 ax.axhline(0, color=MUTED, lw=1.1, ls="--", zorder=2)
 ax.legend(frameon=False, fontsize=8.5, labelcolor=INK2, loc="lower right")
 ax.set_xlabel(r"relative depth  $p = \ell/(L_A-1)$", color=INK2, fontsize=9)
-ax.set_ylabel("$\\Delta$(J-lens) $-$ $\\Delta$(logit lens)", color=INK2, fontsize=9)
+ax.set_ylabel("J-lens $-$ logit-lens overlap", color=INK2, fontsize=9)
 pad = 0.08 * (max(hi) - min(lo))
 ax.set_ylim(min(min(lo) - pad, -0.02), max(hi) + pad)
 ax.set_xlim(PGb[i0] - 0.03, 1.03)

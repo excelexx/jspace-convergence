@@ -206,7 +206,7 @@ the Jacobian side either.
 ```bash
 python xw_all.py          # top-25 word lists, all 255 lens layers -> cache/wordalign/
 python xw_stats.py        # H1-H4 + controls -> results/wordalign/stats.json
-python xw_meangrid.py     # 11x11 mean depth grid -> results/wordalign/mean_grid.json
+python xw_meangrid_raw.py # 11x11 mean depth grid -> results/wordalign/mean_grid_raw.json
 ```
 
 Readout is `softmax(W_U · norm(J_L h))` restricted to the 31,548 strings that

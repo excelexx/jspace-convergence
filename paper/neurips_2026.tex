@@ -117,11 +117,11 @@
 \maketitle
 
 \begin{abstract}
-  The Platonic Representation Hypothesis~\citep{huh2024platonic} asserts that neural networks converge towards a shared representation of reality as they become more competent. Evidence has thus far come from the full activation space, which mixes semantic content with superficial regularities like document length and syntax. We instead measure alignment in the Jacobian space (J-space), the privileged subspace induced by the Jacobian lens (J-lens)~\citep{gurnee2026verbalizable}, and find it is a more semantically selective measure, though a random-dictionary control attributes only part of that selectivity to the J-lens itself.
+  The Platonic Representation Hypothesis~\citep{huh2024platonic} asserts that neural networks converge towards a shared representation of reality as they become more competent. Current evidence for this hypothesis comes from full activation space alignment, which mixes semantic content with superficial regularities like document length and syntax. We instead measure alignment in the Jacobian space (J-space), the privileged subspace induced by the Jacobian lens (J-lens)~\citep{gurnee2026verbalizable}, and find it is a more semantically selective measure, though a random-dictionary control attributes only part of that selectivity to the J-space itself.
   
-  Comparing kernels induced by the J-space, we still find that models converge: the text--text Spearman correlation between competence and alignment is $\rho = 0.56$, $p = 0.016$, and the text--vision correlation is $\rho = 0.97$, $p < 10^{-4}$. Within-language, though, the J-space converges much more slowly than the full activation space, so part of the apparent link between competence and convergence is carried by superficial structure. Consistent with this, the gap between J-space and full convergence disappears across modalities, where no such structure is shared.
+  Comparing kernels induced by the J-space, we still find that models converge: the text--text Spearman correlation between competence and alignment is $\rho=0.56$, $p=0.016$, and the text--vision correlation is $\rho=0.97$, $p<10^{-4}$. Within-language, though, the J-space converges much more slowly than the full activation space, so part of the apparent link between competence and convergence is carried by superficial structure. Consistent with this, the gap between J-space and full convergence disappears across modalities, where no such structure is shared.
   
-  This convergence is also legible: using the J-lens at matched layer depth, independently trained models name 5.0 of 25 shared vocabulary items above a position-shuffled floor against 1.9 for the plain logit lens. J-lens overlap converges at $\rho = 0.73$, $p=0.0021$. Code available at \url{https://github.com/excelexx/jspace-convergence}.
+  This convergence is also legible: using the J-lens at matched layer depth, independently trained models name 5.1 of 25 shared vocabulary items against 2.0 for the plain logit lens. J-lens overlap converges at $\rho=0.74$, $p=0.0020$. Code available at \url{https://github.com/excelexx/jspace-convergence}.
 \end{abstract}
 \section{Introduction}
 The Platonic Representation Hypothesis~\citep{huh2024platonic} asserts that
@@ -135,28 +135,28 @@ technique, the Jacobian lens (J-lens), which recovers the concepts a language mo
 Thus, we hypothesise that the J-space will provide a more semantically selective measure of convergence than the full activation space, in the sense that J-space alignment will drop more sharply when semantic content is removed. 
 
 \paragraph{Motivating experiment}
-We compute alignment using ``mutual $\kappa$-nearest-neighbour overlap'' between pairs of models. We do this once on an ordinary dataset of text documents and once on the same documents with content words randomised but sentence structure preserved. We find that over half of the full alignment is retained, compared with a quarter of J-space alignment. A random-dictionary control separates how much of this gap is attributable to the sparse coding and how much to the J-lens dictionary itself (Section~\ref{sec:textresults})
+We compute alignment using ``mutual $\kappa$-nearest-neighbour overlap'' between pairs of models. We do this once on an ordinary dataset of text documents and once on the same documents with content words randomised but sentence structure preserved. We find that over half of the full alignment is retained, compared with a quarter of J-space alignment. A random-dictionary control separates how much of this gap is attributable to the J-lens itself as opposed to the sparse coding effect of decomposition (Section~\ref{sec:textresults}).
 
 We use the J-space to re-examine the Platonic Representation Hypothesis's central claim, and find that models do indeed converge under this stricter measure.
 
-Our three experiments compare 1) J-space against full alignment for text models (including the content-ablated motivating experiment); 2) text models against vision encoders, which have no J-space of their own; and 3) the J-lens readouts of text models, where outputs are vocabulary tokens and no machinery is needed. For each case, we test convergence by relating alignment to competence. The third experiment also compares against the logit lens~\citep{nostalgebraist2020logitlens} to determine whether agreement is attributable to the Jacobian or merely to models predicting similar next words at similar depths.
+Our three experiments compare 1) J-space against full alignment for text models (including the content-ablated motivating experiment); 2) text models against vision encoders, which have no J-space of their own; and 3) the J-lens readouts of text models, where outputs are vocabulary tokens and no machinery is needed. For each case, we test convergence by relating alignment to competence. The third experiment also compares J-lens overlap against logit lens overlap~\citep{nostalgebraist2020logitlens} to check whether agreement is simply a result of models predicting similar next words at similar depths.
 
 
 \paragraph{Related work}
 Representational similarity has been measured in many ways: RSA compares dissimilarity matrices~\citep{kriegeskorte2008rsa}, SVCCA compares subspaces through canonical correlation~\citep{raghu2017svcca}, and centred kernel alignment compares item--item kernels, with invariance to orthogonal transformation and isotropic scaling~\citep{kornblith2019cka}. \citet{huh2024platonic} measure convergence using mutual $\kappa$-nearest-neighbour overlap~\citep{bestbuddies} and CKNNA.
 
-Whether these alignment scores place weight onto semantic content, however, is less settled. \citet{ding2021grounding} show that similarity measures can disagree with functional measures of model behaviour, and validations of these measures
-have largely focused on whether layers correspond across models, rather than whether such measures isolate meaning. 
+Whether these alignment scores place weight onto semantic content, however, is less settled. \citet{ding2021grounding} show that similarity measures can disagree with functional measures of model behaviour, and the literature surrounding these measures
+have focused on layer correspondence, rather than semantic meaning. 
 
-To our knowledge, previous work varies the \emph{metric}, while always comparing the full activation space. In contrast, we hold the metric fixed and restrict the comparison to a specific \emph{subspace}. 
+Furthermore, previous work varies the \emph{metric}, while always comparing the full activation space. In contrast, we hold the metric fixed and restrict the comparison to a specific \emph{subspace}. 
 
 Since the J-space is defined by the Jacobian to the output, it discards directions that cannot affect the model's predictions. Therefore, we still compare representations, but unlike previous work, restrict our attention to representations which have functional consequences.
 
 \paragraph{Contributions} 
 \begin{enumerate}
-\item We propose measuring alignment between models in the J-space rather than the full activation space, and we validate the J-space as a semantically selective measure of alignment using an intervention. We find that randomising content words removes 74\% of J-space alignment but only 46\% of full-activation alignment. A Gaussian-dictionary control shows that roughly two thirds of this gap comes from the sparse coding the decomposition uses rather than from the J-lens dictionary.
+\item We propose measuring alignment between models in the J-space rather than the full activation space, and we validate the J-space as a semantically selective measure of alignment using an intervention. We find that randomising content words removes 74\% of J-space alignment but only 46\% of full-activation alignment, though only about one third of this gap can be directly attributed to the J-space rather than sparse coding.
 \item We find that part of the existing competence--convergence relationship rests on structure that is shared, but not semantic. Indeed, within language, J-space alignment rises with competence at roughly a third the rate of full activation space, while across modalities the two rates are indistinguishable. 
-\item We show that J-space convergence is meaningful and can be read as words using the J-lens. At matched relative layer depth, independently trained models name 5.0 of 25 shared vocabulary words against 1.9 for the plain logit lens. J-lens readouts also converge as competence increases, at least as closely as the kernel measure.
+\item We show that J-space convergence is meaningful and can be read as words using the J-lens. At matched relative layer depth, independently trained models name 5.1 of 25 shared vocabulary words against 2.0 for the plain logit lens. J-lens readouts also converge as competence increases, at least as closely as the kernel measure.
 \end{enumerate}
 
 \section{Formal setup}
@@ -177,7 +177,7 @@ $\ell \in \{0,\dots,L_A-1\}$ and write $p = \ell/(L_A-1) \in [0,1]$ for the
 corresponding \emph{relative depth}.
 
 We consider alignment over input items. For
-text--text comparisons, item $i$ is a document and both models receive it. For text--vision comparisons, item $i$ is an image--caption pair, with the vision encoder receiving the image and the language model receiving the caption. For each model, layer $\ell$, and item $i$, we mean-pool the residual stream over the item's tokens or patches, giving $h^{A,(\ell)}_i \in \mathbb{R}^{r_A}$.
+text--text comparisons, item $i$ is a document and both models receive it. For text--vision comparisons, item $i$ is an image--caption pair, with each encoder receiving its respective input. For each model, layer $\ell$, and item $i$, we mean-pool the residual stream over the item's tokens or patches, giving $h^{A,(\ell)}_i \in \mathbb{R}^{r_A}$.
 
 For each language model, we compute the fitted J-lens~\citep{gurnee2026verbalizable}.
 \[
@@ -292,9 +292,9 @@ pile-10k dataset~\citep{Nanda2022Pile10K}. Each document is first truncated to 1
   \mathrm{lens}^A_\ell(h) \;=\; \mathrm{softmax}\!\left(W_U^A\,
   \mathrm{norm}^A\!\left(J^A_\ell h\right)\right).
 \]
-Since the 11 models do not share a tokeniser, we restrict the J-lens to the 31,548 single-token strings in all 11 vocabularies. We also index positions by character rather than by token, evaluating at 6,000 character positions that fall at a token-end word boundary in all 11 tokenisers.
+Since the 11 models do not share a tokeniser, we restrict the J-lens to the 31,548 strings that are a single token in all 11 vocabularies. We also index positions by character rather than by token, evaluating at 6,000 character positions that fall at a token-end word boundary in all 11 tokenisers.
 
-We then measure how many of the $t=25$ words are shared between model pairs as a function of relative layer depth $p = \ell/(L_A-1)$. We report this overlap minus the readout overlap obtained when positions are randomly re-paired. To control for the possibility that the two models are simply predicting similar next
+We then measure how many of the $t=25$ words are shared between model pairs as a function of relative layer depth $p = \ell/(L_A-1)$. To control for the possibility that the two models are simply predicting similar next
 words, we compare against the logit lens~\citep{nostalgebraist2020logitlens}, which reveals what the model would predict if it stopped at a given layer by reading the residual stream directly:
 $\mathrm{softmax}(W_U^A\,\mathrm{norm}^A(h))$. As in the first experiment, we then relate the resulting overlap to the mean HellaSwag accuracy of the pair to re-evaluate the convergence trend.
 
@@ -321,14 +321,13 @@ All experiments were run on a single RTX 3080 (10 GB) GPU, taking a total of aro
 \end{table}
 \subsection{Text--text alignment and motivating experiment}
 \label{sec:textresults}
-When we randomise all content words, the full alignment retains a mean of 54.1\% of its original value, while J-space alignment retains only 26.3\%\footnote{Retention is the mean of per-pair ratios rather than the ratio of means.}. J-space alignment therefore depends more heavily on content than the full activation space.
+When we randomise all content words, the full alignment retains a mean of 54.1\% of its original value, while J-space alignment retains only 26.3\%\footnote{Retention is the mean of per-pair ratios rather than the ratio of means.} (Figure~\ref{tab:surrogate}). To test how much of this drop comes from the sparse coding itself, we repeat the ablation experiment with a randomised Gaussian dictionary instead of the J-space dictionary. Under this control, retention is 34.7\%, meaning sparse coding accounts for 69.7\% of the drop between full and J-space retention. However, the remaining third is still attributable to the J-space itself. 
 
-To test how much of this drop comes from the sparse coding itself, we repeat the ablation experiment with a randomised Gaussian dictionary instead of the J-space dictionary. Under this control, retention is 34.7\%, meaning sparse coding accounts for 69.7\% of the drop between full and J-space retention. However, the remaining third is still attributable to the J-space itself. 
+J-space alignment therefore depends more heavily on content than the full activation space.
 
-Mean alignment for the J-space ($0.420$), the remainder ($0.506$), and the full activation ($0.558$) is between $42.0\times$ and $55.7\times$ chance level.
+Mean alignment for the J-space ($0.420$), the remainder ($0.506$), and the full activation ($0.558$) is significant, between $42.0\times$ and $55.7\times$ chance level.
 
-Comparing alignment between two models and the mean of their competences, we find a positive correlation across the J-space (Spearman correlation $\rho = 0.56$, $p = 0.016$), full activation ($\rho = 0.77$, $p = 0.0008$), and remainder ($\rho = 0.87$, $p < 0.0001$) over the 55 pairs (Figure~\ref{fig:lobf-components}(a)). Each model appears in ten pairs, so the pairs are not independent; $p$-values thus come from permuting competence across models while holding alignment values fixed.
-
+For each model pair, we compare alignment and the mean of their competences. We find a positive correlation across the J-space (Spearman correlation $\rho = 0.56$, $p = 0.016$), full activation ($\rho = 0.77$, $p = 0.0008$), and remainder ($\rho = 0.87$, $p < 0.0001$) (Figure~\ref{fig:lobf-components}(a)). Since pairs are not independent, $p$-values  come from permuting competence across models while holding alignment values fixed.
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{07_lobf_components.pdf}
@@ -338,29 +337,24 @@ Comparing alignment between two models and the mean of their competences, we fin
 \end{figure}
 
 The rate of convergence in the J-space is about a third of that in the full activation space. Alignment rises with pair competence at $+0.76 \pm 0.09$ per unit HellaSwag accuracy in the full activation space against $+0.23 \pm 0.07$ in the J-space.
-
 \subsection{Comparing text models and vision encoders}
 
-Alignment between text models and vision encoders for each component is between $6.8\times$ and $7.4\times$ chance. Alignment correlates strongly and
-positively with competence across the J-space ($\rho = 0.97$, $p< 10^{-4}$), the full activation space ($\rho = 0.93$, $p= 0.0001$), and the remainder ($\rho = 0.92$, $p= 0.0002$). We find that the J-space and full activation converge at nearly identical rates. 
+Alignment between text models and vision encoders for each component is significant, between $6.8\times$ and $7.4\times$ chance. Alignment correlates strongly and
+positively with competence across the J-space ($\rho = 0.97$, $p< 10^{-4}$), the full activation space ($\rho = 0.93$, $p= 0.0001$), and the remainder ($\rho = 0.92$, $p= 0.0002$) (Figure~\ref{fig:lobf-components}). 
 
 Unlike the text--text comparison, we do not correlate competence with alignment across all 44 text--vision pairs---since the four encoders differ from one another far more than the text models do, this would obscure the actual trend. Indeed, mean J-space alignment ranges from $0.053$ for MAE to $0.087$ for SigLIP, a spread far exceeding the standard deviation of cross-modal alignment across the 11 text models ($0.0134$). 
 
 We instead average alignment within each encoder, then average these four values. We report the four within-encoder correlations, which range from $+0.95$ to $+0.97$, in Appendix~\ref{app:aggregation}.
 
-Cross-modally, there is no shared superficial structure for a full-space metric to capture, so intuitively, J-space and full alignment should match, and they do. Considered alongside Section~\ref{sec:textresults}, where they diverge, this is further evidence that the within-language gap is explained by superficial structure rather than by a property of the J-space.
+Cross-modally, there is no shared superficial structure for a full-space metric to capture, so intuitively, J-space and full alignment should match, and they do. Considered alongside Section~\ref{sec:textresults} where they diverge, this is further evidence that the within-language gap is explained by superficial structure rather than by a property of the J-space.
 \subsection{Comparing J-lens shared vocabulary for text models}
 \label{sec:wordalign}
-We find that at matched relative layer depth, about 5.1 of 25 words are
-shared, against 2.0 of 25 for the plain logit lens. Subtracting off the
-position-shuffled control, which sits at 0.1 of 25 for the J-lens, we obtain 5.0 of 25
-against 1.9 of 25. 
+We find that at matched relative layer depth, about 5.1 of 25 words are shared, against 2.0 of 25 for the plain logit lens. In particular, for middle layers $p \in [0.2,0.5]$, J-lens alignment beats logit-lens alignment by 4--5$\times$. The logit-lens comparison rules out the trivial explanation that J-lens alignment is the result of models agreeing on superficial next-token predictions, providing further evidence that the alignment reflects semantically
+meaningful content.
 
 We also find that across the 38
 cross-family model pairs, a model's best-matching counterpart layer sits about
-11.0\% of the total number of layers away, consistent with Figure~\ref{fig:wordalign-mean-heatmap}. Conducting the same experiment for the logit lens, we find that the J-lens overlap beats the logit-lens overlap in 50/55 pairs, with a median difference of $+11.7\%$ overlap, or $+2.9$ of 25 words. In particular,
-in the middle layers $p \in [0.2,0.5]$, J-lens alignment beats logit-lens alignment by 3--5$\times$. The logit-lens comparison rules out the trivial explanation that J-lens alignment is the result of models agreeing on superficial next-token predictions, providing further evidence that the alignment reflects semantically
-meaningful content.
+11.1\% of the total number of layers away, consistent with Figure~\ref{fig:wordalign-mean-heatmap}. 
 
 \begin{figure}[t]
   \centering
@@ -375,30 +369,26 @@ meaningful content.
     \textbf{(b)}
   \end{minipage}
   \caption{\textbf{(a)} Mean J-lens top-25 word agreement between language models as a
-    function of each model's relative layer depth $p = \ell/(L_A-1)$. $\Delta$ is the matched overlap minus the position-shuffled
-    overlap; grids are symmetrised before averaging. \textbf{(b)} The shuffle-corrected difference of the J-lens and logit-lens overlap, compared to relative layer depth. $p=0$ is omitted as the logit lens reads the embedding matrix directly, so dominates by construction. Lines are graphed for same-family pairs and cross-family pairs. The shaded region is $\pm 1$ standard deviation across the model pairs in each family group. The mean delta is positive at every depth shown, and peaks in the middle layers. Same-family pairs have noticeably more agreement than cross-family pairs.}
+    function of each model's relative layer depth $p = \ell/(L_A-1)$. Grids are symmetrised before averaging. \textbf{(b)} The difference between J-lens and logit-lens overlap, against relative layer depth. $p=0$ is omitted as the logit lens reads the embedding matrix directly, so dominates by construction. Lines are graphed for same-family pairs and cross-family pairs. The shaded region is $\pm 1$ standard deviation across the model pairs in each family group. The mean difference is positive at every depth shown, and peaks in the middle layers.}
   \label{fig:wordalign-mean-heatmap}
 \end{figure}
 
-We also find that J-lens overlap rises with competence, further validating the results of Section~\ref{sec:textresults}. Over the same 55 pairs, $\rho = +0.73$ ($p = 0.0021$), shown in Figure~\ref{fig:wordalign-pairs}. The plain logit lens gives
-$\rho = +0.44$, which does not reach significance ($p = 0.085$). 
+Finally, J-lens overlap rises with competence, further validating the results of Section~\ref{sec:textresults}. Over the same 55 pairs, overlap and competence correlate at $\rho = +0.74$ ($p = 0.0020$), shown in Figure~\ref{fig:wordalign-pairs}. The plain logit lens gives $\rho = +0.41$, which does not reach significance ($p = 0.11$).
 
 This readable form of alignment correlates with competence at least as closely as the kernel form, providing further evidence to confirm our claim of convergence.
 
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{09_wordalign_pairs_vs_competence.pdf}
-  \caption{J-lens top-25 word agreement per model pair against the pair's mean HellaSwag accuracy, coloured by family composition. Each point is the pair's median $\Delta$ (matched overlap minus
-    position-shuffled overlap) over the eleven relative layer depths. $p$ is a model-label
-    permutation value. Agreement rises with competence.}
+  \caption{J-lens top-25 median overlap over all matched relative layer depths, against the pair's mean HellaSwag accuracy. Points are coloured by family composition, and $p$ is a model-label permutation value. Agreement rises with competence.}
   \label{fig:wordalign-pairs}
 \end{figure}
 
 \subsection{Controls}
-In addition to the random-dictionary control above, we run four further controls:
+In addition to the random-dictionary control above, we run five further controls:
 
 \paragraph{Random-unembedding-row null}
-When we replace the J-lens dictionary with random unembedding rows, J-space alignment exceeds the strongest of five seeded draws in all 55 pairs (mean margin $+0.148$). J-space alignment thus carries information that arbitrary directions do not. For tractability, each null dictionary is a random subset of $20{,}000$ unembedding rows rather than the full dictionary. 
+When we replace the J-lens dictionary with random unembedding rows, J-space alignment exceeds the strongest of five seeded draws in all 55 pairs (mean margin $+0.148$). This shows that J-space alignment captures information that arbitrary directions do not. The null dictionaries use a random subset of $20{,}000$ unembedding rows rather than the full dictionary due to computational constraints.
 
 \paragraph{Lens-fitting corpus}
 To rule out the possibility that J-space alignment emerges from the shared fitting corpus, we refit so that no two compared models share one. The effect is immaterial (Appendix~\ref{app:lensfit}).
@@ -408,6 +398,9 @@ Shuffling image--caption pairings in the text--vision alignment experiments redu
 
 \paragraph{Lens degradation}
 The J-lens is fitted on ordinary text, so the reduced alignment on the content-ablated documents in the first experiment may be a result of the J-lens simply working less well on such documents. We find that degrading the lens cannot reproduce the effect of removing semantic meaning (Appendix~\ref{app:lensdegrade}).
+
+\paragraph{Position-shuffled floor}
+In Experiment 3, some of the top-25 lens overlap is coincidental, since both models naturally rank common tokens highly. We compare each model's top-25 list against the other model's list at a randomly chosen position in the corpus, which preserves the marginal distributions over words while destroying the correspondence between them. Under this control, overlap is 0.1 of 25 words for both the J-lens and logit lens, which is immaterial.
 \section{Conclusion and limitations}
 
 In conclusion, our results suggest that full-space convergence is inflated by surface-level agreement. Within language (where models share superficial regularities), restricting the comparison to the J-space slows convergence to a third of the rate. Across modalities, where no such regularities exist, the two components converge at rates indistinguishable within standard error. Nevertheless, the original convergence claimed by the Platonic Representation Hypothesis still stands, as the J-spaces and J-lenses still align more at higher competence.
@@ -485,14 +478,8 @@ The main paper measures competence with HellaSwag exclusively. Keeping previous 
 \begin{table}[h]
   \centering
   \small
-  \caption{Spearman rank correlation between within-language alignment and
-    competence, per component. The unit is the model pair ($n=55$) and a pair's
-    competence is the mean of its two models'. Because each model appears in ten
-    pairs the pairs are not independent and a standard $p$-value is invalid; the
-    values shown are model-label permutation $p$-values, which hold the
-    alignment values fixed and permute competence across models. The alignment
-    values are those of Table~\ref{tab:surrogate}; only the competence axis
-    varies, here log parameter count and HellaSwag.}
+  \caption{Spearman correlation between within-language alignment and mean competence of the two models, per component. We use both HellaSwag and log parameter count as competence axes. The pairs are not independent, so we use model-label permutation $p$-values, which hold the alignment values fixed and permute competence across models. The alignment
+    values are the same as in Table~\ref{tab:surrogate}, and only the competence axis varies.}
   \label{tab:competence}
   \begin{tabular}{lcc}
     \toprule

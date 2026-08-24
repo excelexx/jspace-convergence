@@ -3,20 +3,22 @@ J-lens WORD overlap against the pair's competence.
 
 This is the Experiment 3 statistic -- vocabulary read straight off the J-lens,
 not the activation-kernel m-NN of Figure 1(a). For each of the 55 pairs,
-y = median over the 11 matched-relative-depth grid points of
-    Delta = mean matched top-25 overlap - mean position-shuffled overlap
-(results/wordalign/stats.json, median_J_k25, the same per-pair headline
-xw_stats.py compares against the logit lens), x = mean HellaSwag acc_norm of
-the two models.
-The right axis restates Delta as words out of 25, the paper's framing.
+y = median over the 11 matched-relative-depth grid points of the mean matched
+top-25 overlap (results/wordalign/stats.json, raw_J_k25), x = mean HellaSwag
+acc_norm of the two models.
+
+The position-shuffled floor (0.1 of 25 words) is NOT subtracted: it is reported
+in the paper's controls section only. Subtracting it moves rho from +0.74 to
++0.73, so the choice is immaterial to the trend.
+The right axis restates the overlap as words out of 25, the paper's framing.
 
 The 55 pairs are not independent (each model appears in 10), so the quoted p
 is a model-label permutation value -- competence permuted across the 11
 models with the overlap values held fixed -- matching tab:competence's
 convention. Colour marks family composition.
 
-Prints the two section 4.3 correlations: rho = +0.73 for the J-lens and
-rho = +0.44 for the plain logit lens.
+Prints the two section 4.3 correlations: rho = +0.74 for the J-lens and
+rho = +0.41 for the plain logit lens.
 """
 import json
 
@@ -45,8 +47,8 @@ assert len(keys) == 55
 
 ab = [k.split("|") for k in keys]
 x = np.array([(hs[a] + hs[b]) / 2 for a, b in ab])
-y = np.array([P[k]["median_J_k25"] for k in keys])
-y_base = np.array([P[k]["median_base_k25"] for k in keys])
+y = np.array([float(np.median(P[k]["raw_J_k25"])) for k in keys])
+y_base = np.array([float(np.median(P[k]["raw_base_k25"])) for k in keys])
 cat = [FAMILY[a] if FAMILY[a] == FAMILY[b] else "cross-family" for a, b in ab]
 
 rho = spearmanr(x, y)[0]
@@ -72,7 +74,7 @@ p_perm_b = hits_b / NPERM
 print(f"  J-lens : rho {rho:+.4f}  label-perm p {p_perm:.5f}  "
       f"slope {fit.slope:+.3f} +/- {fit.stderr:.3f}")
 print(f"  logit  : rho {rho_b:+.4f}  label-perm p {p_perm_b:.5f}")
-print(f"  median Delta over 55 pairs {np.median(y):.3f} "
+print(f"  median overlap over 55 pairs {np.median(y):.3f} "
       f"({25 * np.median(y):.1f} of 25 words)")
 
 fig, ax = plt.subplots(figsize=(6.6, 3.0), facecolor=SURFACE)
@@ -107,7 +109,7 @@ ax.legend(handles=handles, loc="lower right", frameon=False, fontsize=FS_LEG,
           handletextpad=0.4, borderpad=0.2)
 ax.set_xlabel("mean HellaSwag accuracy of the pair", color=INK2,
               fontsize=FS_LABEL)
-ax.set_ylabel("J-lens word agreement Δ", color=INK2, fontsize=FS_LABEL)
+ax.set_ylabel("J-lens word agreement", color=INK2, fontsize=FS_LABEL)
 
 rax = ax.twinx()                       # same data, restated as words out of 25
 rax.set_ylim(0.03 * 25, 0.43 * 25)

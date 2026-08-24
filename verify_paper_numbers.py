@@ -155,8 +155,10 @@ try:
     T, pairs = W["tests"], W["pairs"]
     dj = st.median(p["median_J_k25"] for p in pairs.values())
     db = st.median(p["median_base_k25"] for p in pairs.values())
-    check("J-lens words shared, of 25 (shuffle-corrected)", dj * 25, 5.0, 0.05)
-    check("logit-lens words shared, of 25", db * 25, 1.9, 0.06)
+    # section 4.3 now reports the matched overlap directly; the shuffled floor
+    # is quoted only in the controls subsection
+    check("shuffle-corrected J-lens overlap (controls only)", dj * 25, 5.0, 0.05)
+    check("shuffle-corrected logit-lens overlap (controls only)", db * 25, 1.9, 0.06)
     check("raw J-lens overlap, of 25",
           st.median(st.median(p["raw_J_k25"]) for p in pairs.values()) * 25,
           5.1, 0.05)
@@ -172,7 +174,7 @@ try:
     cross = [p for p in pairs.values() if not p["same_family"]]
     check("cross-family pairs", len(cross), 38, 0)
     check("best-matching counterpart layer, % of depth away",
-          st.mean(p["rowargmax_dp"] for p in cross) * 100, 11.0, 0.1, "%")
+          st.mean(p["rowargmax_dp"] for p in cross) * 100, 11.1, 0.02, "%")
 except (FileNotFoundError, KeyError) as exc:
     skip("word-alignment headline", f"missing {exc}")
 
@@ -300,15 +302,15 @@ try:
     check("word agreement vs competence, J-lens",
           spearmanr([v["median_J_k25"] for v in pairs.values()], y).statistic,
           0.73, 0.005)
-    # section 4.3 states the middle-depth (p in [0.2, 0.5]) J/logit overlap
-    # ratio as "3--5x"; check that band at the precision the paper prints it
+    # section 4.3 now reports the matched overlap directly, so the middle-depth
+    # (p in [0.2, 0.5]) J/logit ratio is taken on the raw lists. The paper
+    # states this band as "4--5x".
     idx = [i for i, d in enumerate(W["pgrid"]) if 0.2 <= d <= 0.5]
-    ratios = [st.mean(v["diag_J_k25"][i] for v in pairs.values())
-              / st.mean(v["diag_base_k25"][i] for v in pairs.values())
+    ratios = [st.mean(v["raw_J_k25"][i] for v in pairs.values())
+              / st.mean(v["raw_base_k25"][i] for v in pairs.values())
               for i in idx]
-    lo_r, hi_r = min(ratios), max(ratios)
-    check(f"middle-layer J/logit ratios ({lo_r:.1f}-{hi_r:.1f}) inside 3-5x band",
-          float(round(lo_r) >= 3 and round(hi_r) <= 5), 1.0, 0)
+    check("middle-layer J/logit ratio, lowest", min(ratios), 4.0, 0.5)
+    check("middle-layer J/logit ratio, highest", max(ratios), 5.0, 0.5)
     check("word agreement vs competence, logit lens",
           spearmanr([v["median_base_k25"] for v in pairs.values()], y).statistic,
           0.44, 0.005)
