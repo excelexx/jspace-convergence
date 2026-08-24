@@ -171,10 +171,15 @@ try:
     check("J-lens beats the logit lens (of 55)", T["H3_J_gt_base"], 50, 0)
     check("median J-lens minus logit-lens overlap", T["H3_median_diff"],
           0.117, 5e-4)
-    cross = [p for p in pairs.values() if not p["same_family"]]
+    # the counterpart-layer offset is measured on the RAW overlap grid, matching
+    # section 4.3's switch away from the shuffle-corrected delta
+    G = load("wordalign/rawgrid_argmax.json")
+    cross = [v for v in G.values() if not v["same_family"]]
     check("cross-family pairs", len(cross), 38, 0)
     check("best-matching counterpart layer, % of depth away",
-          st.mean(p["rowargmax_dp"] for p in cross) * 100, 11.1, 0.02, "%")
+          st.mean(v["rowargmax_dp_raw"] for v in cross) * 100, 11.1, 0.05, "%")
+    check("diagonal > off-diagonal (of 55 pairs)",
+          sum(v["diag_mean_raw"] > v["offdiag_mean_raw"] for v in G.values()), 55, 0)
 except (FileNotFoundError, KeyError) as exc:
     skip("word-alignment headline", f"missing {exc}")
 
@@ -329,8 +334,14 @@ try:
 except (FileNotFoundError, KeyError) as exc:
     skip("prose constants", f"missing {exc}")
 
-skip("random-unembedding-row null (55/55, +0.148)",
-     "prose only, no JSON artifact; also max-over-grid, not the paper's mean")
+try:
+    N = load("randunembed_null.json")["aggregate"]
+    check("random-unembedding null: pairs beating all 5 draws",
+          N["pairs_beating_all_draws"], 55, 0)
+    check("random-unembedding null: mean margin",
+          N["mean_margin_over_strongest"], 0.167, 5e-4)
+except (FileNotFoundError, KeyError) as exc:
+    skip("random-unembedding-row null", f"missing {exc}")
 skip("~40 GPU hours",
      "not recorded; only the 27.5 h lens-refit chain is measured anywhere")
 

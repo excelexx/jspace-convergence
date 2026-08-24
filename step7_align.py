@@ -7,10 +7,14 @@ non-J remainder and the full activation over the band x band layer-pair grid.
 
 It also runs the control reported in section 4.4: the same pipeline with the
 dictionary replaced by random unembedding rows, over R_DRAWS = 5 seeded draws,
-against which J-space alignment is compared per pair.
+against which J-space alignment is compared per pair. The comparison uses
+mean-over-grid aggregation, the same band-mean convention as every other
+alignment number in the paper, and is persisted to
+results/randunembed_null.json.
 
-Output is stdout plus one layer-pair heatmap per model pair. The reference
-table to compare the stdout against is results/jspace_alignment_pilot.md.
+Output is stdout, the null JSON above, plus one layer-pair heatmap per model
+pair. The reference table to compare the stdout against is
+results/jspace_alignment_pilot.md.
 
 This file is also the single source of truth for the sparse-coding conventions:
 crossmodal_utils.load_pilot() parses it and re-executes the named constants and
@@ -219,26 +223,53 @@ def grid_max(La, Lb, G):
 names = list(MODELS)
 pairs = [(a, b) for i, a in enumerate(names) for b in names[i + 1:]]
 grids = {}
+null_records = []
 for a, b in pairs:
     print(f"\n=== alignment: {a} vs {b} (chance = {CHANCE:.3f}, n = {N_DOCS}) ===")
-    results = {}
+    results, means = {}, {}
     for comp in ["J", "full", "perp"]:
         La, Lb, G = mnn_grid(nbrs[a][comp], nbrs[b][comp])
         grids[(a, b, comp)] = (La, Lb, G)
         best, arg = grid_max(La, Lb, G)
         results[comp] = best
+        means[comp] = G.mean().item()
         print(f"  {comp:>5}: max m-NN = {best:.4f}   at layers {arg}"
-              f"   (grid median {G.median():.4f})")
+              f"   (grid mean {means[comp]:.4f}, median {G.median():.4f})")
 
-    # percentile null: each draw gets the SAME max-over-layer-pairs selection as J
-    draws = [grid_max(*mnn_grid(nbrs[a]["randJ"][r], nbrs[b]["randJ"][r]))[0]
+    # percentile null: mean-over-grid, the same band-mean aggregation the paper
+    # uses for every other alignment number (was max-over-grid before 2026-08-24)
+    draws = [mnn_grid(nbrs[a]["randJ"][r], nbrs[b]["randJ"][r])[2].mean().item()
              for r in range(R_DRAWS)]
-    print(f"  randJ null ({R_DRAWS} draws): " +
+    print(f"  randJ null ({R_DRAWS} draws, grid mean): " +
           " ".join(f"{v:.4f}" for v in draws))
     assert max(draws) < 1.0 and min(draws) > CHANCE / 2, "degenerate null draws"
-    n_beat = sum(results["J"] > v for v in draws)
-    print(f"  J ({results['J']:.4f}) exceeds {n_beat}/{R_DRAWS} random-dictionary"
-          f" draws, margin over the strongest {results['J'] - max(draws):+.4f}")
+    n_beat = sum(means["J"] > v for v in draws)
+    print(f"  J mean ({means['J']:.4f}) exceeds {n_beat}/{R_DRAWS} random-dictionary"
+          f" draws, margin over the strongest {means['J'] - max(draws):+.4f}")
+    null_records.append(dict(
+        a=a, b=b, J_mean=round(means["J"], 6),
+        null_means=[round(v, 6) for v in draws], n_beat=n_beat,
+        margin_over_strongest=round(means["J"] - max(draws), 6)))
+
+import json, os
+os.makedirs("results", exist_ok=True)
+_agg = dict(
+    n_pairs=len(null_records),
+    pairs_beating_all_draws=sum(r["n_beat"] == R_DRAWS for r in null_records),
+    mean_margin_over_strongest=round(
+        sum(r["margin_over_strongest"] for r in null_records) / len(null_records), 6),
+    min_margin_over_strongest=round(
+        min(r["margin_over_strongest"] for r in null_records), 6))
+with open("results/randunembed_null.json", "w") as f:
+    json.dump(dict(
+        note="random-unembedding-row null (section 4.4), mean-over-grid "
+             "aggregation; R_DRAWS seeded draws of min(V, 20000) rows",
+        chance=CHANCE, r_draws=R_DRAWS, aggregate=_agg, pairs=null_records,
+    ), f, indent=1)
+print(f"\nrandJ null summary: {_agg['pairs_beating_all_draws']}/{_agg['n_pairs']}"
+      f" pairs beat all {R_DRAWS} draws, mean margin"
+      f" {_agg['mean_margin_over_strongest']:+.4f}"
+      f" (written to results/randunembed_null.json)")
 
 import matplotlib
 matplotlib.use("Agg")

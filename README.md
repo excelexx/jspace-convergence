@@ -31,7 +31,7 @@ marks a number whose source artifact is not in this folder (see
 [Known gaps](#8-known-gaps)). The expected output ends with
 `ALL CHECKED NUMBERS MATCH THE PAPER`.
 
-It recomputes 81 numbers: Table 1 including its Gaussian-dictionary row, the
+It recomputes 84 numbers: Table 1 including its Gaussian-dictionary row, the
 within-language and cross-modal competence correlations, the log-parameter and
 1−bits-per-byte columns of `tab:competence` and `tab:crossaxes`, all twelve
 per-encoder correlations in `tab:perencoder`, the word-agreement headline and

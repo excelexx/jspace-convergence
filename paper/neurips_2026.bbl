@@ -1,4 +1,4 @@
-\begin{thebibliography}{27}
+\begin{thebibliography}{26}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -21,11 +21,6 @@ Guy Dar, Mor Geva, Ankit Gupta, and Jonathan Berant.
   for Computational Linguistics (Volume 1: Long Papers)}, pages 16124--16170,
   2023.
 \newblock \doi{10.18653/v1/2023.acl-long.893}.
-
-\bibitem[Ding et~al.(2021)Ding, Denain, and Steinhardt]{ding2021grounding}
-Frances Ding, Jean-Stanislas Denain, and Jacob Steinhardt.
-\newblock Grounding representation similarity with statistical testing.
-\newblock In \emph{Advances in Neural Information Processing Systems}, 2021.
 
 \bibitem[Dosovitskiy et~al.(2021)Dosovitskiy, Beyer, Kolesnikov,
   et~al.]{dosovitskiy2021imageworth16x16words}
