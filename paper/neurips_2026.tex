@@ -143,9 +143,11 @@ Our three experiments compare 1) J-space against full alignment for text models 
 
 
 \paragraph{Related work}
-Representational similarity has been measured in many ways: RSA compares dissimilarity matrices~\citep{kriegeskorte2008rsa}, SVCCA compares subspaces through canonical correlation~\citep{raghu2017svcca}, and centred kernel alignment (CKA) compares item--item kernels, with invariance to orthogonal transformation and isotropic scaling~\citep{kornblith2019cka}. \citet{huh2024platonic} measure convergence using mutual $\kappa$-nearest-neighbour overlap~\citep{bestbuddies} and CKNNA.
+Representational similarity has been measured in many ways: RSA compares dissimilarity matrices~\citep{kriegeskorte2008rsa}, SVCCA compares subspaces through canonical correlation~\citep{raghu2017svcca}, and centred kernel alignment (CKA) compares item--item kernels, with invariance to orthogonal transformation and isotropic scaling~\citep{kornblith2019cka}. \citet{huh2024platonic} measure convergence using mutual $\kappa$-nearest-neighbour overlap~\citep{bestbuddies} and CKNNA. Some work (\citet{yavari2026activationalignmentgeometryneural}, \citet{raghu2017svcca}) does restrict attention to a subspace, but always by introducing a new measure of alignment. 
 
-Whether these alignment scores place weight onto semantic content, however, is less settled. Furthermore, previous work varies the \emph{metric}, while always comparing the full activation space. In contrast, we hold the metric fixed and restrict the comparison to a specific \emph{subspace}. 
+We instead hold the metric fixed and vary only the \emph{subspace} it is computed in. 
+
+Platonic convergence is also contested. \citet{koepke2026platoscaveexaminingcrossmodal} find that alignment is more about coarse semantic overlap, and \citet{bangachev2026representationalignmentrestslinear} partly attribute alignment to word frequency. These findings suggest that representational alignment measures are not entirely semantic, a question we directly answer.
 
 Since the J-space is defined by the Jacobian to the output, it discards directions that cannot affect the model's predictions. Therefore, we still compare representations but, unlike previous work, restrict our attention to representations that have functional consequences.
 
@@ -393,13 +395,13 @@ The J-lens is fitted on ordinary text, so the reduced alignment on the content-a
 In Experiment 3, some of the top-25 lens overlap is coincidental, since both models naturally rank common tokens highly. We compare each model's top-25 list against the other model's list at a randomly chosen position in the corpus, which preserves the marginal distributions over words while destroying the correspondence between them. Under this control, overlap is 0.1 of 25 words for both the J-lens and logit lens, which is negligible.
 \section{Conclusion and limitations}
 
-In conclusion, our results suggest that full-space convergence is inflated by surface-level agreement. Within language (where models share superficial regularities), restricting the comparison to the J-space slows convergence to a third of the full-space rate. Across modalities, where no such regularities exist, the J-space and full components converge at rates that are indistinguishable within standard error. Nevertheless, the original convergence claimed by the Platonic Representation Hypothesis still stands, as the J-spaces and J-lenses still align more at higher competence.
+We propose measuring alignment in the J-space to isolate shared semantic content. Our results suggest that full-space convergence is inflated by surface-level agreement. Within language (where models share superficial regularities), restricting the comparison to the J-space slows convergence to a third of the full-space rate. Across modalities, where no such regularities exist, the J-space and full components converge at rates that are indistinguishable within standard error. Nevertheless, the original convergence claimed by the Platonic Representation Hypothesis still stands, as the J-spaces and J-lenses still align more at higher competence.
 
 This alignment is meaningful and can be read out as actual words. At the same relative layer depth, language models' J-lenses have significant overlap, and this overlap is greater than with the plain logit lens. Measuring convergence with the J-lens reproduces the result of the first experiment, finding that more competent models share a greater J-lens overlap.
 
 \paragraph{Limitations}
-First, we test only 11 text models and four vision encoders. The text models span 70M--4.3B parameters, and all four vision encoders
-are ViT-Base, so we have no competence axis on the vision side. Future experiments on larger models would require fitting of new J-lenses, which is computationally intensive. Furthermore, HellaSwag is near its floor for our smallest models: Pythia-70M scores 30.8\% and GPT-2 scores 38.5\% against 25\% chance. Thus, competence differences at the bottom of the range are highly compressed.
+First, we use limited compute for experiments, testing only 11 text models and four vision encoders. The text models span 70M--4.3B parameters, and all four vision encoders
+are ViT-Base, so we have no competence axis on the vision side. HellaSwag is near its floor for our smallest models: Pythia-70M scores 30.8\% and GPT-2 scores 38.5\% against 25\% chance. Thus, competence differences at the bottom of the range are highly compressed. We also compute alignment only on a $~1,000$ documents, a scale that \citet{koepke2026platoscaveexaminingcrossmodal} says inflates alignment, though our claim is relative.
 
 Second, we show the semantic weight of the J-space through only the retention statistic and a single random-dictionary control.
 
