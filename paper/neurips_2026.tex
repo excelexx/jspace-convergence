@@ -153,7 +153,7 @@ Since the J-space is defined by the Jacobian to the output, it discards directio
 \begin{enumerate}
 \item We propose measuring alignment between models in the J-space rather than the full activation space, and we validate the J-space as a semantically selective measure of alignment using an intervention. We find that randomising content words removes 74\% of J-space alignment but only 46\% of full-activation alignment, though only about one third of this gap can be directly attributed to the J-space rather than sparse coding.
 \item We find that part of the existing competence--convergence relationship rests on structure that is shared, but not semantic. Indeed, within language, J-space alignment rises with competence at roughly a third the rate of the full activation space, while across modalities the two rates are indistinguishable. 
-\item We show that J-space convergence is meaningful and can be read as words using the J-lens. At matched relative layer depth, independently trained models name 5.1 of 25 shared vocabulary words against 2.0 for the plain logit lens. J-lens readouts also converge as competence increases, at least as closely as the kernel measure.
+\item We show that J-space convergence is meaningful and can be read as words using the J-lens. At matched relative layer depth, independently trained models name 5.1 of 25 shared vocabulary words against 2.0 for the plain logit lens. J-lens readouts also converge as competence increases, at least as closely as the neighbour-overlap measure.
 \end{enumerate}
 
 \section{Formal setup}
@@ -250,8 +250,7 @@ Qwen3-1.7B~\citep{qwen3}, Qwen3.5-2B, Gemma-2-2B~\citep{gemmateam2024gemma2impro
 
 For the first experiment, we use the prefitted J-lenses on Neuronpedia~\citep{neuronpedia}, and compute alignment across all $\binom{11}{2}=55$
 text--text pairs on 1,000 documents from pile-10k~\citep{Nanda2022Pile10K},
-a subset of the Pile~\citep{gao2020pile800gbdatasetdiverse}, following
-Section~\ref{sec:formal}. We take the first 1,000 rows, truncate each to at
+a subset of the Pile~\citep{gao2020pile800gbdatasetdiverse}. We take the first 1,000 rows, truncate each to at
 most 1,500 characters, then to at most 300 tokens, and mean-pool over token
 positions. Any difference in tokeniser efficiency is quite marginal, from
 $3.79$ to $4.19$ characters per token. Measured over the corpus, the least efficient tokeniser still ingests 94.8\% as many characters per document as the most efficient. Neighbourhoods are taken at $\kappa=10$.
