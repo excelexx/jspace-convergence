@@ -1,4 +1,4 @@
-\begin{thebibliography}{29}
+\begin{thebibliography}{30}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -51,6 +51,12 @@ Mor Geva, Avi Caciularu, Kevin Wang, and Yoav Goldberg.
 Aaron Gokaslan and Vanya Cohen.
 \newblock {OpenWebText} corpus.
 \newblock \url{http://Skylion007.github.io/OpenWebTextCorpus}, 2019.
+
+\bibitem[Gr{\"o}ger et~al.(2026)Gr{\"o}ger, Wen, and Brbic]{groger2026revisiting}
+Fabian Gr{\"o}ger, Shuo Wen, and Maria Brbic.
+\newblock Revisiting the platonic representation hypothesis: An aristotelian view.
+\newblock In \emph{Forty-third International Conference on Machine Learning}, 2026.
+\newblock URL \url{https://openreview.net/forum?id=uz0gAAYydl}.
 
 \bibitem[Gurnee et~al.(2026)Gurnee, Sofroniew, Pearce, et~al.]{gurnee2026verbalizable}
 Wes Gurnee, Nicholas Sofroniew, Adam Pearce, et~al.
