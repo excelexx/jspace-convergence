@@ -31,17 +31,30 @@ marks a number whose source artifact is not in this folder (see
 [Known gaps](#8-known-gaps)). The expected output ends with
 `ALL CHECKED NUMBERS MATCH THE PAPER`.
 
-It recomputes 84 numbers: Table 1 including its Gaussian-dictionary row, the
+It recomputes 80 numbers: Table 1 including its Gaussian-dictionary row, the
 within-language and cross-modal competence correlations, the log-parameter and
 1−bits-per-byte columns of `tab:competence` and `tab:crossaxes`, all twelve
-per-encoder correlations in `tab:perencoder`, the word-agreement headline and
-hypotheses H1–H4, the §4.3 competence correlations, the tokenisation control,
+per-encoder correlations in `tab:perencoder`, the word-agreement headline, the §4.3 competence correlations, the tokenisation control,
 and three of the four §4.4 controls. The `SKIP` lines are numbers that cannot
 be recomputed from this folder; §8 lists every one of them and says why.
 
 The paper aggregates each model pair by the **mean** over its layer-pair grid.
 `xmeanmain.py` produces the paper's tables; the verifier re-derives them
 independently from the same artifacts.
+
+The metric appendix has its own checker:
+
+```bash
+python verify_appendix_metrics.py
+```
+
+It covers all 102 numbers in `tab:metricsweep`, `tab:metriccontent`, the CKNNA
+locality paragraph, and the prose that summarises the two tables. Rather than
+hardcoding the paper's values it parses the tables and that prose straight out
+of `paper/neurips_2026.tex` and compares each against
+`metric_sweep/<metric>/results.json` and
+`ablation_sweep/<metric>/results.json`, so a number edited in the tex is
+checked automatically.
 
 ## 2. Environment
 
@@ -105,8 +118,10 @@ activation, plus the seeded
 random-unembedding null (R = 5). It prints the pilot table to stdout and writes
 55 layer-pair heatmaps (`heatmap_*_vs_*.png`); no script reads either back.
 `results/jspace_alignment_pilot.md` is a transcript of that table from the
-original run, kept because it is the only record of the
-random-unembedding-row null (see [Known gaps](#8-known-gaps)).
+original run. The random-unembedding-row null it reports is now recomputed
+under the paper's mean-over-grid aggregation by `xrandunembed_rerun.py`, which
+writes `results/randunembed_null.json` (margin +0.167); the verifier checks
+that file.
 
 **Content ablation (Table 1).** Content words are replaced by
 frequency-matched random words, preserving length, syntax, punctuation and the
@@ -205,8 +220,9 @@ the Jacobian side either.
 
 ```bash
 python xw_all.py          # top-25 word lists, all 255 lens layers -> cache/wordalign/
-python xw_stats.py        # H1-H4 + controls -> results/wordalign/stats.json
+python xw_stats.py        # per-pair overlap statistics -> results/wordalign/stats.json
 python xw_meangrid_raw.py # 11x11 mean depth grid -> results/wordalign/mean_grid_raw.json
+python xw_rawgrid_argmax.py # counterpart-layer offset -> results/wordalign/rawgrid_argmax.json
 ```
 
 Readout is `softmax(W_U · norm(J_L h))` restricted to the 31,548 strings that
@@ -240,10 +256,7 @@ cd paper && pdflatex neurips_2026 && bibtex neurips_2026 && pdflatex neurips_202
 Read before assuming a number can be regenerated from this folder alone.
 
 - **Some numbers are not machine-checkable**, and the verifier lists each as a
-  `SKIP`. The random-unembedding-row null (55/55, mean margin +0.148) exists
-  only as prose in `results/jspace_alignment_pilot.md` — `step7_align.py`
-  prints it and writes no JSON, and it is a max-over-grid statistic rather
-  than the paper's mean. The "~40 GPU hours" figure is an estimate; only the
+  `SKIP`. The "~40 GPU hours" figure is an estimate; only the
   27.5 h lens-refit chain is measured anywhere. The permutation p-values are
   stochastic (rerun `xmeanmain.py` to reproduce them), and the
   convergence-rate slopes (+0.76 ± 0.09 vs +0.23 ± 0.07) are fitted by

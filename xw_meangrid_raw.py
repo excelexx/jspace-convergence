@@ -1,7 +1,7 @@
 """Raw (uncorrected) mean depth grid for Figure 2(a): the 11x11 percentile grid
 over all 55 text-model pairs, scored as the matched top-25 word overlap.
 
-Companion to xw_meangrid.py, which scores the same grid as
+Companion to xw_meangrid_raw.py, which scores the same grid as
     Delta = matched overlap - position-shuffled overlap.
 Section 4.3 reports the matched overlap directly and confines the
 position-shuffled floor to the controls subsection, so xfig_paper.py reads this

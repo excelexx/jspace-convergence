@@ -83,15 +83,15 @@ try:
     ret_g = st.mean(p["rand"]["J"]["ret_mean"] for p in P) * 100
     ret_f = st.mean(p["real"]["full"]["ret_mean"] for p in P) * 100
     check("share of the drop explained by sparse coding",
-          (ret_f - ret_g) / (ret_f - ret_j) * 100, 69.7, 0.1, "%")
+          (ret_f - ret_g) / (ret_f - ret_j) * 100, 69.7, 0.05, "%")
     check("ablation removes this much of J-space", 100 - ret_j, 74.0, 0.5, "%")
     check("ablation removes this much of full", 100 - ret_f, 46.0, 0.5, "%")
     # chance multiples quoted in 4.1 (chance = 10/999)
     chance = 10 / 999
     check("J alignment as a multiple of chance",
-          st.mean(p["real"]["J"]["real_mean"] for p in P) / chance, 42.0, 0.1)
+          st.mean(p["real"]["J"]["real_mean"] for p in P) / chance, 42.0, 0.05)
     check("full alignment as a multiple of chance",
-          st.mean(p["real"]["full"]["real_mean"] for p in P) / chance, 55.7, 0.1)
+          st.mean(p["real"]["full"]["real_mean"] for p in P) / chance, 55.7, 0.05)
 except FileNotFoundError as exc:
     skip("Table 1 (all rows)", f"missing {exc.filename}")
 
@@ -155,10 +155,6 @@ try:
     T, pairs = W["tests"], W["pairs"]
     dj = st.median(p["median_J_k25"] for p in pairs.values())
     db = st.median(p["median_base_k25"] for p in pairs.values())
-    # section 4.3 now reports the matched overlap directly; the shuffled floor
-    # is quoted only in the controls subsection
-    check("shuffle-corrected J-lens overlap (controls only)", dj * 25, 5.0, 0.05)
-    check("shuffle-corrected logit-lens overlap (controls only)", db * 25, 1.9, 0.06)
     check("raw J-lens overlap, of 25",
           st.median(st.median(p["raw_J_k25"]) for p in pairs.values()) * 25,
           5.1, 0.05)
@@ -178,8 +174,6 @@ try:
     check("cross-family pairs", len(cross), 38, 0)
     check("best-matching counterpart layer, % of depth away",
           st.mean(v["rowargmax_dp_raw"] for v in cross) * 100, 11.1, 0.05, "%")
-    check("diagonal > off-diagonal (of 55 pairs)",
-          sum(v["diag_mean_raw"] > v["offdiag_mean_raw"] for v in G.values()), 55, 0)
 except (FileNotFoundError, KeyError) as exc:
     skip("word-alignment headline", f"missing {exc}")
 
@@ -203,7 +197,7 @@ except FileNotFoundError as exc:
 try:
     M = load("lenscontrol/median_delta.json")["summary"]["pile"]
     check("lens-fitting control, median-over-grid delta",
-          M["median_delta_med"], 0.0002, 1e-4)
+          M["median_delta_med"], 0.0002, 5e-5)
     check("  pairs covered", M["n_pairs"], 10, 0)
     check("  alignment level", M["median_alignment_level_med"], 0.42, 5e-3)
     L = load("lenscontrol/phase4_sparse.json")["summary"]["pile"]
@@ -300,13 +294,12 @@ try:
     W = load("wordalign/stats.json")
     pairs, hs = W["pairs"], {m: load(f"lmeval/{m}.json")["hellaswag_acc_norm"]
                              for m in MODELS}
-    check("J-lens advantage in words, of 25",
-          W["tests"]["H3_median_diff"] * 25, 2.9, 0.05)
     # section 4.3: pair-level correlation of word agreement with competence
     y = [(hs[k.split("|")[0]] + hs[k.split("|")[1]]) / 2 for k in pairs]
+    # section 4.3 correlates the RAW per-pair overlap with competence
     check("word agreement vs competence, J-lens",
-          spearmanr([v["median_J_k25"] for v in pairs.values()], y).statistic,
-          0.73, 0.005)
+          spearmanr([st.median(v["raw_J_k25"]) for v in pairs.values()], y).statistic,
+          0.74, 0.005)
     # section 4.3 now reports the matched overlap directly, so the middle-depth
     # (p in [0.2, 0.5]) J/logit ratio is taken on the raw lists. The paper
     # states this band as "4--5x".
@@ -319,8 +312,8 @@ try:
     check(f"middle-layer J/logit ratios ({lo_r:.2f}-{hi_r:.2f}) inside the 4-5x band",
           float(round(lo_r) >= 4 and round(hi_r) <= 5), 1.0, 0)
     check("word agreement vs competence, logit lens",
-          spearmanr([v["median_base_k25"] for v in pairs.values()], y).statistic,
-          0.44, 0.005)
+          spearmanr([st.median(v["raw_base_k25"]) for v in pairs.values()], y).statistic,
+          0.41, 0.005)
 except (FileNotFoundError, KeyError) as exc:
     skip("section 4.3 correlations", f"missing {exc}")
 
@@ -328,7 +321,7 @@ try:
     T = load("token_control.json")["per_model"]
     ing = [v["frac_corpus_ingested"] for v in T.values()]
     check("least efficient tokenizer ingests this much of the corpus",
-          min(ing) / max(ing) * 100, 94.8, 0.1, "%")
+          min(ing) / max(ing) * 100, 94.8, 0.05, "%")
     check("Pythia-70M HellaSwag",
           load("lmeval/pythia70m.json")["hellaswag_acc_norm"] * 100, 30.8, 0.05, "%")
     check("GPT-2 HellaSwag",

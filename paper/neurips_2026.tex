@@ -576,12 +576,12 @@ Thus, the lens degradation cannot reproduce the effect of removing semantic mean
 \end{table}
 The main text measures alignment through mutual $\kappa$-nearest-neighbour overlap. We vary our choice of metric, changing only the function for alignment between two layer pairs (Table~\ref{tab:metricsweep}). Implementations follow \citet{huh2024platonic}. 
 
-We note that regardless of metric, full alignment is always greater than J-space alignment, and the cross-modal correlation result is similarly strong ($+0.94 \leq \rho \leq +0.97$).
+We note that within language, regardless of metric, full alignment is always greater than J-space alignment. Cross-modally the two are near-indistinguishable, with J-space marginally ahead for six of the eight metrics, and the cross-modal correlation result is similarly strong ($+0.94 \leq \rho \leq +0.97$).
 
 Within-language, we find that there is a split along two metrics. The metrics which compare \emph{local neighbourhood structure} (e.g. $\kappa$-NN) follow our main paper's results, and the metrics which compare \emph{global subspace geometry}, i.e. how variance is distributed, do not. 
 
 \paragraph{Global subspace metrics are insensitive to semantic content}
-We repeat the content-ablation experiment of Section~\ref{sec:textresults}, again only varying the metric. Results are shown in Table~\ref{tab:metriccontent}. Under the three global metrics, we find that full-space alignment is essentially unchanged by the ablation: each metric retains over $96.9\%$. For J-space ablation, the same metrics retain $88.1\%$, $85.4\%$, and $77.6\%$. In other words, at most a fifth of J-space alignment is attributable to semantic content. For neighbourhood-based measures, the opposite is true. 
+We repeat the content-ablation experiment of Section~\ref{sec:textresults}, again only varying the metric. Results are shown in Table~\ref{tab:metriccontent}. Under the three global metrics, we find that full-space alignment is essentially unchanged by the ablation: each metric retains at least $96.9\%$. For J-space ablation, the same metrics retain $88.1\%$, $85.4\%$, and $77.6\%$. In other words, under a quarter of J-space alignment is attributable to semantic content. For neighbourhood-based measures, the opposite is true. 
 
 Furthermore, we argue that global subspace metrics are not an accurate measure of J-space alignment, since we compute the J-space as a sparse combination of only 25 vocabulary directions. Thus, its coarse geometry is quite generic, and every model's J-space points in broadly similar directions. As a result, global measures see all J-spaces as similar. As well, the competence--alignment correlations of neighbourhood-based metrics all reach significance with $p<0.02$, but the global subspace metrics are not significant (the smallest is $p=0.267$).
 

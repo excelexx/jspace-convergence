@@ -1,0 +1,26 @@
+\begin{table}[h]
+  \centering
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \caption{Alignment-metric robustness. Both experiments are repeated with the decomposition, preprocessing and layer-band aggregation held fixed, varying only the metric that scores a layer pair. $\rho$(J) is the Spearman correlation between J-space alignment and mean HellaSwag accuracy; J/full is the ratio of OLS slopes of alignment against competence, which the main text reports as $0.30$ for the mutual $\kappa$-NN measure. $p$-values are model-label permutation values. The component ordering (full $>$ non-J $>$ J) and the cross-modal correlation hold under every metric; the within-language J-space correlation holds only under neighbourhood-based measures.}
+  \label{tab:metricsweep}
+  \begin{tabular}{lccccccc}
+    \toprule
+    & \multicolumn{4}{c}{Within language ($n=55$)} & \multicolumn{3}{c}{Cross-modal ($n=11$)} \\
+    \cmidrule(lr){2-5}\cmidrule(lr){6-8}
+    Metric & full & J & $\rho$(J) & J/full slope & full & J & $\rho$(J) \\
+    \midrule
+    \multicolumn{8}{l}{\emph{Neighbourhood-based}} \\
+    mutual $\kappa$-NN (ours) & $0.5577$ & $0.4202$ & $+0.56$\,{\tiny$p=0.016$} & $+0.30$ & $0.0719$ & $0.0726$ & $+0.97$\,{\tiny$p<0.0001$} \\
+    CKNNA & $0.5975$ & $0.4615$ & $+0.63$\,{\tiny$p=0.011$} & $+0.43$ & $0.0761$ & $0.0763$ & $+0.96$\,{\tiny$p<0.0001$} \\
+    cycle $\kappa$-NN & $0.9358$ & $0.9122$ & $+0.63$\,{\tiny$p=0.011$} & $+0.68$ & $0.3672$ & $0.3712$ & $+0.95$\,{\tiny$p<0.0001$} \\
+    edit-distance $\kappa$-NN & $0.1609$ & $0.0936$ & $+0.62$\,{\tiny$p=0.011$} & $+0.23$ & $0.0106$ & $0.0106$ & $+0.95$\,{\tiny$p<0.0001$} \\
+    LCS $\kappa$-NN & $3.5457$ & $2.6809$ & $+0.60$\,{\tiny$p=0.012$} & $+0.28$ & $0.5712$ & $0.5762$ & $+0.97$\,{\tiny$p<0.0001$} \\
+    \midrule
+    \multicolumn{8}{l}{\emph{Global subspace}} \\
+    CKA & $0.8036$ & $0.6892$ & $+0.09$\,{\tiny$p=0.651$} & $-0.00$ & $0.2001$ & $0.2038$ & $+0.97$\,{\tiny$p<0.0001$} \\
+    unbiased CKA & $0.7938$ & $0.6615$ & $-0.19$\,{\tiny$p=0.475$} & $-0.31$ & $0.1687$ & $0.1677$ & $+0.94$\,{\tiny$p=0.0001$} \\
+    SVCCA & $0.6846$ & $0.5869$ & $-0.30$\,{\tiny$p=0.267$} & $-0.55$ & $0.3070$ & $0.3029$ & $+0.94$\,{\tiny$p<0.0001$} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
