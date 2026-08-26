@@ -71,9 +71,8 @@
 \newcommand{\mnn}{\mathrm{m\text{-}NN}}
 
 % Note. For the workshop paper template, both \title{} and \workshoptitle{} are required, with the former indicating the paper title shown in the title and the latter indicating the workshop title displayed in the footnote. 
-\hypersetup{pdftitle={Measuring the Semantic Component of Platonic Convergence
-    in the Jacobian Subspace}}
-\title{Measuring the Semantic Component of Platonic Convergence in the Jacobian Subspace}
+\hypersetup{pdftitle={How Much of Platonic Convergence is Semantic? Measuring Alignment in the Jacobian Subspace}}
+\title{How Much of Platonic Convergence is Semantic? Measuring Alignment in the Jacobian Subspace}
 
 % The \author macro works with any number of authors. There are two commands
 % used to separate the names and addresses of multiple authors: \And and \AND.
@@ -145,12 +144,9 @@ Our three experiments compare 1) J-space against full alignment for text models 
 \paragraph{Related work}
 Representational similarity has been measured in many ways: RSA compares dissimilarity matrices~\citep{kriegeskorte2008rsa}, SVCCA compares subspaces through canonical correlation~\citep{raghu2017svcca}, and centred kernel alignment (CKA) compares item--item kernels, with invariance to orthogonal transformation and isotropic scaling~\citep{kornblith2019cka}. \citet{huh2024platonic} measure convergence using mutual $\kappa$-nearest-neighbour overlap~\citep{bestbuddies} and CKNNA. Some work~\citep{yavari2026activationalignmentgeometryneural, raghu2017svcca} does restrict attention to a subspace, but always by introducing a new measure of alignment. 
 
-We instead vary only the \emph{subspace} the metric is computed in, holding the metric itself fixed; Appendix~\ref{app:metrics} repeats the comparison under seven further metrics. 
+We instead vary only the \emph{subspace} the metric is computed in, holding the metric itself fixed. Appendix~\ref{app:metrics} repeats the comparison under seven further metrics. 
 
-Platonic convergence is also contested. \citet{koepke2026platoscaveexaminingcrossmodal} find that alignment is more about coarse semantic overlap, and \citet{bangachev2026representationalignmentrestslinear} partly attribute alignment to word frequency. That alignment measures pick up non-semantic structure is by now well established; what remains open is how much of the competence--convergence relationship survives once the measurement is confined to directions that can change the model's output. That is the question we answer.
-
-Since the J-space is defined by the Jacobian to the output, it discards directions that cannot affect the model's predictions. Therefore, we still compare representations but, unlike previous work, restrict our attention to representations that have functional consequences.
-
+Platonic convergence is also contested. \citet{koepke2026platoscaveexaminingcrossmodal} find that alignment is more about coarse semantic overlap, and \citet{bangachev2026representationalignmentrestslinear} partly attribute alignment to word frequency. It is well-established that alignment measures capture non-semantic structure. We instead examine how much of the competence--convergence relationship is semantic using the J-space. To our knowledge, the J-space has not yet been used to compute alignment.
 \paragraph{Contributions} 
 \begin{enumerate}
 \item We propose measuring alignment between models in the J-space rather than the full activation space, and we validate the J-space as a semantically selective measure of alignment using an intervention. We find that randomising content words removes 74\% of J-space alignment but only 46\% of full-activation alignment, though only about one third of this gap can be directly attributed to the J-space rather than sparse coding.
@@ -230,7 +226,7 @@ decodes to abstract prototypes. We thus apply the J-lens only to the caption sid
 raw pooled patch features, so on the image side, only $\omega = \fl$ is defined. The image kernel $K^{\img,\,\fl}_{\ell}$ is formed by the same cosine-similarity expression from the preprocessed\footnote{The image side is winsorised per coordinate at the $0.5$th and $99.5$th percentiles, then normalised to unit magnitude.} mean-pooled patch activations.
 
 \subsection{Mutual \texorpdfstring{$\kappa$}{kappa}-nearest-neighbour alignment}
-We compare two kernels through mutual $\kappa$-nearest-neighbour overlap~\citep{bestbuddies}; other metrics are reported in Appendix~\ref{app:metrics}. Taking each item's $\kappa$ nearest neighbours under each kernel (the $\kappa$ largest off-diagonal entries of its row), we define $\mnn(K^{A,\omega}_{\ell},\, K^{B,\omega'}_{\ell'})$ between layer $\ell$ of model $A$ and layer $\ell'$ of model $B$ as the average fraction of neighbours shared by the two kernels, over all $n$ items.
+We compare two kernels through mutual $\kappa$-nearest-neighbour overlap~\citep{bestbuddies}. Taking each item's $\kappa$ nearest neighbours under each kernel (the $\kappa$ largest off-diagonal entries of its row), we define $\mnn(K^{A,\omega}_{\ell},\, K^{B,\omega'}_{\ell'})$ between layer $\ell$ of model $A$ and layer $\ell'$ of model $B$ as the average fraction of neighbours shared by the two kernels, over all $n$ items.
 
 For a text--text comparison, both sides carry the same component, $\omega' =
   \omega$. For a text--vision comparison, the caption side varies over $\omega
@@ -296,7 +292,7 @@ All experiments were run on a single RTX 3080 (10 GB) GPU, taking a total of aro
 \begin{table}
   \centering
   \small
-  \caption{Alignment on real versus content-ablated documents over 55 model pairs. Retention is the content-ablated alignment divided by the original alignment, and is substantially lower for the J-space than for the full space. The lower block repeats the ablation with the J-lens dictionary replaced by a Gaussian dictionary. Bracketed intervals are 95\% percentile bootstrap confidence intervals over the 55 model pairs (2,000 resamples).}
+  \caption{Alignment on real versus content-ablated documents over 55 model pairs. Retention is the mean over all pairs of content-ablated alignment divided by the original alignment, and is substantially lower for the J-space than for the full space. The lower block repeats the ablation with the J-lens dictionary replaced by a Gaussian dictionary. Bracketed intervals are 95\% percentile bootstrap confidence intervals over the 55 model pairs (2,000 resamples).}
   \label{tab:surrogate}
   \begin{tabular}{lccc}
     \toprule
@@ -314,7 +310,7 @@ All experiments were run on a single RTX 3080 (10 GB) GPU, taking a total of aro
 \end{table}
 \subsection{Text--text alignment and motivating experiment}
 \label{sec:textresults}
-When we randomise all content words, the full alignment retains a mean of 54.1\% of its original value, while J-space alignment retains only 26.3\%\footnote{Retention is the mean of per-pair ratios rather than the ratio of means.} (Table~\ref{tab:surrogate}). To test how much of this drop comes from the sparse coding itself, we repeat the ablation experiment with a randomised Gaussian dictionary instead of the J-space dictionary. Under this control, retention is 34.7\%, meaning sparse coding accounts for 69.7\% of the drop between full and J-space retention. However, the remaining third is still attributable to the J-space itself. 
+When we randomise all content words, the full alignment retains a mean of 54.1\% of its original value, while J-space alignment retains only 26.3\% (Table~\ref{tab:surrogate}). To test how much of this drop comes from the sparse coding itself, we repeat the ablation experiment with a randomised Gaussian dictionary instead of the J-space dictionary. Under this control, retention is 34.7\%, meaning sparse coding accounts for 69.7\% of the drop between full and J-space retention. However, the remaining third is still attributable to the J-space itself. 
 
 J-space alignment therefore depends more heavily on content than the full activation space.
 
@@ -417,7 +413,7 @@ minority component of the full activation space, albeit a privileged one, and th
 remainder is close enough to the full activation that the two behave nearly
 identically.
 
-Fifth, our main results use the mutual $\kappa$-nearest-neighbour measure of kernel alignment. Appendix~\ref{app:metrics} repeats the first two experiments under seven new metrics, keeping all else the same. The claim about within-language J-space convergence only holds under neighbourhood-based measures, not under global subspace measures. In the appendix we explain this result and justify why we believe global subspace measures are not appropriate for the J-space.
+Fifth, our main results use the mutual $\kappa$-nearest-neighbour measure of kernel alignment. Appendix~\ref{app:metrics} repeats the first two experiments under seven new metrics, keeping all else the same. The claim about within-language J-space convergence only holds under neighbourhood-based measures, but not global subspace measures; cross-modal results hold under all measures. In the appendix we explain this result and justify why we believe global subspace metrics are not appropriate measures of alignment in the J-space.
 
 Finally, the J-lens is fitted per token position, but we apply it to mean-pooled document vectors. This means we are assuming that the dictionary's validity transfers to those vectors.
 \paragraph{Next steps}
@@ -578,18 +574,18 @@ The main text measures alignment through mutual $\kappa$-nearest-neighbour overl
 
 We note that within language, regardless of metric, full alignment is always greater than J-space alignment. Cross-modally the two are near-indistinguishable, with J-space marginally ahead for six of the eight metrics, and the cross-modal correlation result is similarly strong ($+0.94 \leq \rho \leq +0.97$).
 
-Within-language, we find that there is a split along two metrics. The metrics which compare \emph{local neighbourhood structure} (e.g. $\kappa$-NN) follow our main paper's results, and the metrics which compare \emph{global subspace geometry}, i.e. how variance is distributed, do not. 
+Within-language, we find that there is a split along two metrics. The metrics which compare \emph{local neighbourhood structure} (e.g. $\kappa$-NN) follow our main paper's results, and the metrics which compare \emph{global subspace geometry}, i.e. how variance is distributed, do not. As well, the competence--alignment correlations for neighbourhood-based metrics all reach significance with $p<0.02$, but the correlations for global subspace metrics are not significant (the smallest is $p=0.267$).
 
 \paragraph{Global subspace metrics are insensitive to semantic content}
-We repeat the content-ablation experiment of Section~\ref{sec:textresults}, again only varying the metric. Results are shown in Table~\ref{tab:metriccontent}. Under the three global metrics, we find that full-space alignment is essentially unchanged by the ablation: each metric retains at least $96.9\%$. For J-space ablation, the same metrics retain $88.1\%$, $85.4\%$, and $77.6\%$. In other words, under a quarter of J-space alignment is attributable to semantic content. For neighbourhood-based measures, the opposite is true. 
+We repeat the content-ablation experiment of Section~\ref{sec:textresults}, again only varying the metric. Results are shown in Table~\ref{tab:metriccontent}. Under the three global metrics, we find that full-space alignment is essentially unchanged by the ablation: each metric retains at least $96.9\%$. For J-space ablation, the same metrics retain $88.1\%$, $85.4\%$, and $77.6\%$. In other words, under a quarter of J-space alignment is attributable to semantic content. For neighbourhood-based measures, the opposite is true. Thus, since this paper seeks to measure semantically-significant convergence, global subspace metrics are not appropriate.
 
-Furthermore, we argue that global subspace metrics are not an accurate measure of J-space alignment, since we compute the J-space as a sparse combination of only 25 vocabulary directions. Thus, its coarse geometry is quite generic, and every model's J-space points in broadly similar directions. As a result, global measures see all J-spaces as similar. As well, the competence--alignment correlations of neighbourhood-based metrics all reach significance with $p<0.02$, but the global subspace metrics are not significant (the smallest is $p=0.267$).
+Furthermore, we argue that such metrics are not an accurate measure of J-space alignment, since we compute the J-space as a sparse combination of only 25 vocabulary directions. Thus, its coarse geometry is quite generic, and every model's J-space points in broadly similar directions. As a result, global measures see all J-spaces as similar. For example, GPT-2 and Pythia-70M, our two smallest models, have the highest J-space alignment under CKA. 
 
 Since neighbourhood-based metrics and global metrics are two ends of a spectrum, we can find at what locality the correlations begin to decay. CKNNA restricts the kernel to an item's $k$ nearest neighbours before computing CKA, so for $k=n-1$, it is simply unbiased CKA. As we vary $k$ across the spectrum, we find that J-space correlation decays monotonically, from $\rho = +0.68$ at $k=2$ to $\rho = -0.19$ at $k=999$. The correlation loses significance for $k$ around $50$--$100$. Thus, the within-language claim in our main paper holds for
 neighbourhoods up to roughly $5\%$ of the corpus.
 
 The percentage of the drop in retention explained by the J-space matches our main results only for the neighbour-identity metrics (mutual $\kappa$-NN, LCS, and edit-distance). We note that the global subspace metrics are immaterial as they capture very limited semantic content.  
-\begin{table}[h]
+\begin{table}
   \centering
   \small
   \setlength{\tabcolsep}{5pt}
