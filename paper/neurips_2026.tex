@@ -130,12 +130,12 @@ modalities, are converging to a shared statistical model of reality in their
 representation spaces.'' Concretely, the claim is that alignment between two models grows with their competence. To our knowledge, alignment has thus far been computed over the full representational spaces.\footnote{We say ``full activation space'' rather than ``full representational space'', since every quantity we compare is a mean-pooled residual-stream vector at a given layer.} We show this method conflates semantic content with confounding surface-level similarities like syntax, length, and formatting.
 
 Recently, \citet{gurnee2026verbalizable} introduced a new interpretability
-technique, the Jacobian lens (J-lens), which recovers the concepts a language model is poised to verbalise at a given layer. The J-lens induces the J-space, a privileged subset of internal representations available for report and reasoning. The subspace is both semantically significant, acting as a ``global workspace'' for the model, and privileged, capturing a median of only 6--7\% of a concept vector's variance~\citep{gurnee2026verbalizable}.
+technique, the Jacobian lens (J-lens), which recovers the concepts a language model is poised to verbalise at a given layer. The J-lens induces the J-space, a privileged subspace of internal representations available for report and reasoning. The subspace is both semantically significant, acting as a ``global workspace'' for the model, and privileged, capturing a median of only 6--7\% of a concept vector's variance~\citep{gurnee2026verbalizable}.
 
 Thus, we hypothesise that the J-space will provide a more semantically selective measure of convergence than the full activation space, in the sense that J-space alignment will drop more sharply when semantic content is removed. 
 
 \paragraph{Motivating experiment}
-We compute alignment using ``mutual $\kappa$-nearest-neighbour overlap'' between pairs of models. Other metrics are reported in Appendix~\ref{app:metrics}. We do this once on an ordinary dataset of text documents and once on the same documents with content words randomised but sentence structure preserved. We find that over half of the full alignment is retained, compared with a quarter of J-space alignment. A random-dictionary control separates how much of this gap is attributable to the J-lens itself as opposed to the sparse coding effect of decomposition (Section~\ref{sec:textresults}).
+We compute alignment using ``mutual $\kappa$-nearest-neighbour overlap'' between pairs of models. Other metrics are reported in Appendix~\ref{app:metrics}. We do this once on an ordinary dataset of text documents and once on the same documents with content words randomised but sentence structure preserved. We find that over half of the full alignment is retained, compared with just over a quarter of J-space alignment. A random-dictionary control separates how much of this gap is attributable to the J-lens itself as opposed to the sparse coding effect of decomposition (Section~\ref{sec:textresults}).
 
 We use the J-space to re-examine the Platonic Representation Hypothesis's central claim, and find that models do indeed converge under this stricter measure.
 
@@ -143,9 +143,9 @@ Our three experiments compare 1) J-space against full alignment for text models 
 
 
 \paragraph{Related work}
-Representational similarity has been measured in many ways: RSA compares dissimilarity matrices~\citep{kriegeskorte2008rsa}, SVCCA compares subspaces through canonical correlation~\citep{raghu2017svcca}, and centred kernel alignment (CKA) compares item--item kernels, with invariance to orthogonal transformation and isotropic scaling~\citep{kornblith2019cka}. \citet{huh2024platonic} measure convergence using mutual $\kappa$-nearest-neighbour overlap~\citep{bestbuddies} and CKNNA. Some work (\citet{yavari2026activationalignmentgeometryneural}, \citet{raghu2017svcca}) does restrict attention to a subspace, but always by introducing a new measure of alignment. 
+Representational similarity has been measured in many ways: RSA compares dissimilarity matrices~\citep{kriegeskorte2008rsa}, SVCCA compares subspaces through canonical correlation~\citep{raghu2017svcca}, and centred kernel alignment (CKA) compares item--item kernels, with invariance to orthogonal transformation and isotropic scaling~\citep{kornblith2019cka}. \citet{huh2024platonic} measure convergence using mutual $\kappa$-nearest-neighbour overlap~\citep{bestbuddies} and CKNNA. Some work~\citep{yavari2026activationalignmentgeometryneural, raghu2017svcca} does restrict attention to a subspace, but always by introducing a new measure of alignment. 
 
-We instead vary only the \emph{subspace} the metric is computed in, holding the metric itself fixed; Appendix~\ref{app:metrics} repeats the comparison under eight metrics. 
+We instead vary only the \emph{subspace} the metric is computed in, holding the metric itself fixed; Appendix~\ref{app:metrics} repeats the comparison under seven further metrics. 
 
 Platonic convergence is also contested. \citet{koepke2026platoscaveexaminingcrossmodal} find that alignment is more about coarse semantic overlap, and \citet{bangachev2026representationalignmentrestslinear} partly attribute alignment to word frequency. That alignment measures pick up non-semantic structure is by now well established; what remains open is how much of the competence--convergence relationship survives once the measurement is confined to directions that can change the model's output. That is the question we answer.
 
@@ -287,7 +287,7 @@ pile-10k dataset~\citep{Nanda2022Pile10K}. Each document is first truncated to a
 Since the 11 models do not share a tokeniser, we restrict the J-lens to the 31,548 strings that are a single token in all 11 vocabularies. We also index positions by character rather than by token, evaluating at 6,000 character positions that fall at a token-end word boundary in all 11 tokenisers.
 
 We then measure how many of the $t=25$ words are shared between model pairs as a function of relative layer depth $p = \ell/(L_A-1)$. We compare against the logit lens~\citep{nostalgebraist2020logitlens}, which outputs the next-token prediction if the model stopped at a given layer by reading the residual stream directly:
-$\mathrm{softmax}(W_U^A\,\mathrm{norm}^A(h))$. This allows us to rule out the possibility that J-lens agreement is a result of models simply predicting similar next words. 
+$\mathrm{softmax}(W_U^A\,\mathrm{norm}^A(h))$. 
 
 We then relate J-lens overlap to mean HellaSwag accuracy for each model pair to re-evaluate the convergence trend measured in Experiment 1.
 
@@ -318,7 +318,7 @@ When we randomise all content words, the full alignment retains a mean of 54.1\%
 
 J-space alignment therefore depends more heavily on content than the full activation space.
 
-Mean alignment for the J-space ($0.420$), the non-J remainder ($0.506$), and the full activation ($0.558$) is significant, between $42.0\times$ and $55.7\times$ the chance level.
+Mean alignment for the J-space ($0.420$), the non-J remainder ($0.506$), and the full activation space ($0.558$) is significant, between $42.0\times$ and $55.7\times$ the chance level.
 
 For each model pair, we compare alignment and the mean of their competences. We find a positive correlation across the J-space (Spearman correlation $\rho = +0.56$, $p = 0.016$), full activation ($\rho = +0.77$, $p = 0.0008$), and remainder ($\rho = +0.87$, $p < 0.0001$) (Figure~\ref{fig:lobf-components}(a)). Since pairs are not independent, $p$-values come from permuting competence across models while holding alignment values fixed.
 \begin{figure}[t]
@@ -403,7 +403,7 @@ This alignment is meaningful and can be read out as actual words. At the same re
 
 \paragraph{Limitations}
 First, we use limited compute for experiments, testing only 11 text models and four vision encoders. The text models span 70M--4.3B parameters, and all four vision encoders
-are ViT-Base, so we have no competence axis on the vision side. HellaSwag is near its floor for our smallest models: Pythia-70M scores 30.8\% and GPT-2 scores 38.5\% against 25\% chance. Thus, competence differences at the bottom of the range are highly compressed. We also compute alignment only on a $~1,000$ documents, a scale that \citet{koepke2026platoscaveexaminingcrossmodal} says inflates alignment, though our claim is relative.
+are ViT-Base, so we have no competence axis on the vision side. HellaSwag is near its floor for our smallest models: Pythia-70M scores 30.8\% and GPT-2 scores 38.5\% against 25\% chance. Thus, competence differences at the bottom of the range are highly compressed. We also compute alignment only on about 1,000 documents, a scale that \citet{koepke2026platoscaveexaminingcrossmodal} argue inflates alignment, though our claim is relative.
 
 Second, we show the semantic weight of the J-space through only the retention statistic and a single random-dictionary control.
 
@@ -417,7 +417,7 @@ minority component of the full activation space, albeit a privileged one, and th
 remainder is close enough to the full activation that the two behave nearly
 identically.
 
-Fifth, our main results use the mutual $\kappa$-nearest-neighbour measure of kernel alignment. Appendix~\ref{app:metrics} repeats the first two experiments under seven new metrics, keeping all else the same. The claim about within-language J-space convergence only holds under neighbourhood-based measures, not under global subspace measures. We explain this result and provide justification for why we believe the global subspace measures are not appropriate for the J-space in the appendix.
+Fifth, our main results use the mutual $\kappa$-nearest-neighbour measure of kernel alignment. Appendix~\ref{app:metrics} repeats the first two experiments under seven new metrics, keeping all else the same. The claim about within-language J-space convergence only holds under neighbourhood-based measures, not under global subspace measures. In the appendix we explain this result and justify why we believe global subspace measures are not appropriate for the J-space.
 
 Finally, the J-lens is fitted per token position, but we apply it to mean-pooled document vectors. This means we are assuming that the dictionary's validity transfers to those vectors.
 \paragraph{Next steps}
