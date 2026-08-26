@@ -71,9 +71,9 @@
 \newcommand{\mnn}{\mathrm{m\text{-}NN}}
 
 % Note. For the workshop paper template, both \title{} and \workshoptitle{} are required, with the former indicating the paper title shown in the title and the latter indicating the workshop title displayed in the footnote. 
-\hypersetup{pdftitle={Not All Representational Convergence Is Semantic:
-    Measuring Alignment in the Jacobian Subspace}}
-\title{Not All Representational Convergence Is Semantic: Measuring Alignment in the Jacobian Subspace}
+\hypersetup{pdftitle={Measuring the Semantic Component of Platonic Convergence
+    in the Jacobian Subspace}}
+\title{Measuring the Semantic Component of Platonic Convergence in the Jacobian Subspace}
 
 % The \author macro works with any number of authors. There are two commands
 % used to separate the names and addresses of multiple authors: \And and \AND.
@@ -145,9 +145,9 @@ Our three experiments compare 1) J-space against full alignment for text models 
 \paragraph{Related work}
 Representational similarity has been measured in many ways: RSA compares dissimilarity matrices~\citep{kriegeskorte2008rsa}, SVCCA compares subspaces through canonical correlation~\citep{raghu2017svcca}, and centred kernel alignment (CKA) compares item--item kernels, with invariance to orthogonal transformation and isotropic scaling~\citep{kornblith2019cka}. \citet{huh2024platonic} measure convergence using mutual $\kappa$-nearest-neighbour overlap~\citep{bestbuddies} and CKNNA. Some work (\citet{yavari2026activationalignmentgeometryneural}, \citet{raghu2017svcca}) does restrict attention to a subspace, but always by introducing a new measure of alignment. 
 
-We instead hold the metric fixed and vary only the \emph{subspace} it is computed in. 
+We instead vary only the \emph{subspace} the metric is computed in, holding the metric itself fixed; Appendix~\ref{app:metrics} repeats the comparison under eight metrics. 
 
-Platonic convergence is also contested. \citet{koepke2026platoscaveexaminingcrossmodal} find that alignment is more about coarse semantic overlap, and \citet{bangachev2026representationalignmentrestslinear} partly attribute alignment to word frequency. These findings suggest that representational alignment measures are not entirely semantic, a question we directly answer.
+Platonic convergence is also contested. \citet{koepke2026platoscaveexaminingcrossmodal} find that alignment is more about coarse semantic overlap, and \citet{bangachev2026representationalignmentrestslinear} partly attribute alignment to word frequency. That alignment measures pick up non-semantic structure is by now well established; what remains open is how much of the competence--convergence relationship survives once the measurement is confined to directions that can change the model's output. That is the question we answer.
 
 Since the J-space is defined by the Jacobian to the output, it discards directions that cannot affect the model's predictions. Therefore, we still compare representations but, unlike previous work, restrict our attention to representations that have functional consequences.
 

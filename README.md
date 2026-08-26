@@ -1,6 +1,6 @@
-# Not All Representational Convergence Is Semantic — code and artifacts
+# Measuring the Semantic Component of Platonic Convergence in the Jacobian Subspace
 
-### Measuring Alignment in the Jacobian Subspace
+### Code and artifacts
 
 The pipelines that produce every number and figure in the paper, the result
 artifacts they wrote, and the paper source.
