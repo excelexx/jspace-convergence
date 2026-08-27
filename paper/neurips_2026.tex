@@ -123,6 +123,24 @@
   This convergence is also legible: using the J-lens at matched layer depth, independently trained models name 5.1 of 25 shared vocabulary words against 2.0 for the plain logit lens. J-lens overlap rises with competence ($\rho = +0.74$, $p = 0.0020$). Overall, full-space alignment is partially confounded by superficial structure, and semantically selective measures like the J-space can help isolate meaningful convergence. Code available at [placeholder].
 \end{abstract}
 \section{Introduction}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{01_teaser.pdf}
+  \caption{\textbf{Measuring Platonic convergence in the J-space.}
+    \textbf{(a)} The J-lens splits a pooled activation into a J-space component
+    and a non-J remainder, respectively. The document shown above is the
+    example found in Section~3.1. The list of words is illustrative.
+    \textbf{(b)} Randomising content words retains $26.3\%$ of J-space
+    alignment and $54.1\%$ of full-activation alignment. When applying the same
+    J-space measurement with a random Gaussian dictionary rather than a J-lens,
+    it is found that this alignment retains $34.7\%$.
+    \textbf{(c)} In regards to language, J-space alignment rises with
+    competence at a rate that is approximately one third the rate that full
+    activation alignment does. Across modalities, J-space alignment and full
+    activation alignment converge at around equal rates
+    (Figure~\ref{fig:lobf-components}).}
+  \label{fig:teaser}
+\end{figure}
 The Platonic Representation Hypothesis~\citep{huh2024platonic} asserts that
 ``Neural networks, trained with different objectives on different data and
 modalities, are converging to a shared statistical model of reality in their
