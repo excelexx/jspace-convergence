@@ -151,14 +151,14 @@ representation spaces.'' Concretely, the claim is that alignment between two mod
 Recently, \citet{gurnee2026verbalizable} introduced a new interpretability
 technique, the Jacobian lens (J-lens), which recovers the concepts a language model is poised to verbalise at a given layer. The J-lens induces the J-space, a privileged subspace of internal representations available for report and reasoning. It is semantically significant, acting as a ``global workspace'' for the model, and privileged, capturing a median of only 6--7\% of a concept vector's variance~\citep{gurnee2026verbalizable}.
 
-Thus, we hypothesise that the J-space will provide a more semantically selective measure of convergence than the full activation space, in the sense that J-space alignment will drop more sharply when semantic content is removed. 
+Thus, we hypothesise that the J-space will provide a more semantically selective measure of convergence than the full activation space, in the sense that J-space alignment will drop more sharply when semantic content is removed (Figure~\ref{fig:teaser}). 
 
 \paragraph{Motivating experiment}
 We compute alignment using ``mutual $\kappa$-nearest-neighbour overlap'' between pairs of models. Other metrics are reported in Appendix~\ref{app:metrics}. We do this once on an ordinary dataset of text documents and once on the same documents with content words randomised but sentence structure preserved. We find that over half of the full alignment is retained, compared with just over a quarter of J-space alignment. A random-dictionary control separates how much of this gap is attributable to the J-lens itself as opposed to the sparse coding effect of decomposition (Section~\ref{sec:textresults}).
 
 We use the J-space to re-examine the Platonic Representation Hypothesis's central claim, and find that models do indeed converge under this stricter measure.
 
-Our three experiments (Figure~\ref{fig:teaser}) compare 1) J-space against full alignment for text models (including the content-ablated motivating experiment); 2) text models against vision encoders, which have no J-space of their own; and 3) the J-lens readouts of text models, where outputs are vocabulary tokens and no machinery is needed. For each case, we calculate convergence as the correlation between alignment and competence. The third experiment also compares J-lens overlap with logit lens overlap~\citep{nostalgebraist2020logitlens} as a control.
+Our three experiments compare 1) J-space against full alignment for text models (including the content-ablated motivating experiment); 2) text models against vision encoders, which have no J-space of their own; and 3) the J-lens readouts of text models, where outputs are vocabulary tokens and no machinery is needed. For each case, we calculate convergence as the correlation between alignment and competence. The third experiment also compares J-lens overlap with logit lens overlap~\citep{nostalgebraist2020logitlens} as a control.
 
 
 \paragraph{Related work}
