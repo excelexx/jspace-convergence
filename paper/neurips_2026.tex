@@ -84,11 +84,12 @@
 
 
 \author{%
-  Alexander Zhang \\
-  University of Oxford
-  \And
-  Michael Shihong Zhang \\
-  University of Waterloo
+% Author block withheld for double-blind submission; restore for camera-ready.
+%  Alexander Zhang \\
+%  University of Oxford
+%  \And
+%  Michael Shihong Zhang \\
+%  University of Waterloo
   % examples of more authors
   % \And
   % Coauthor \\
@@ -187,7 +188,7 @@ the text model to the kernel built from raw pooled patch features.
 
 Let $A, B,\dots$ denote language models with residual widths $r_A, r_B, \dots$
 and layer counts $L_A, L_B, \dots$ that generally differ. We index layers by
-$\ell \in \{0,\dots,L_A-1\}$ and write $p = \ell/(L_A-1) \in [0,1]$ for the
+$\ell \in \{0,\dots,L_A-1\}$ and write $\lambda = \ell/(L_A-1) \in [0,1]$ for the
 corresponding \emph{relative depth}.
 
 We consider alignment over input items. For
@@ -301,7 +302,7 @@ pile-10k dataset~\citep{Nanda2022Pile10K}. Each document is first truncated to a
 \]
 Since the 11 models do not share a tokeniser, we restrict the J-lens to the 31,548 strings that are a single token in all 11 vocabularies. We also index positions by character rather than by token, evaluating at 6,000 character positions that fall at a token-end word boundary in all 11 tokenisers.
 
-We then measure how many of the $t=25$ words are shared between model pairs as a function of relative layer depth $p = \ell/(L_A-1)$. We compare against the logit lens~\citep{nostalgebraist2020logitlens}, which outputs the next-token prediction if the model stopped at a given layer by reading the residual stream directly:
+We then measure how many of the $t=25$ words are shared between model pairs as a function of relative layer depth $\lambda = \ell/(L_A-1)$. We compare against the logit lens~\citep{nostalgebraist2020logitlens}, which outputs the next-token prediction if the model stopped at a given layer by reading the residual stream directly:
 $\mathrm{softmax}(W_U^A\,\mathrm{norm}^A(h))$. 
 
 We then relate J-lens overlap to mean HellaSwag accuracy for each model pair to re-evaluate the convergence trend measured in Experiment 1.
@@ -359,7 +360,7 @@ Cross-modally, there is no shared superficial structure for a full-space metric 
 Results for other metrics are reported in Appendix~\ref{app:metrics}.
 \subsection{Text--text shared J-lens output}
 \label{sec:wordalign}
-We find that at matched relative layer depth, about 5.1 of 25 words are shared, against 2.0 of 25 for the plain logit lens. In particular, for middle layers $p \in [0.2, 0.5]$, J-lens alignment beats logit lens alignment by 4--5$\times$. The logit lens comparison rules out the explanation that J-lens alignment arises because models might agree on next-token predictions.
+We find that at matched relative layer depth, about 5.1 of 25 words are shared, against 2.0 of 25 for the plain logit lens. In particular, for middle layers $\lambda \in [0.2, 0.5]$, J-lens alignment beats logit lens alignment by 4--5$\times$. The logit lens comparison rules out the explanation that J-lens alignment arises because models might agree on next-token predictions.
 
 We also find that across the 38
 cross-family model pairs, a model's best-matching counterpart layer sits, on average,
@@ -378,7 +379,7 @@ cross-family model pairs, a model's best-matching counterpart layer sits, on ave
     \textbf{(b)}
   \end{minipage}
   \caption{\textbf{(a)} Mean J-lens top-25 word agreement between language models as a
-    function of each model's relative layer depth $p = \ell/(L_A-1)$. Grids are symmetrised before averaging. \textbf{(b)} The difference between J-lens and logit lens overlap, against relative layer depth. $p=0$ is omitted as the logit lens reads the embedding matrix directly, and so dominates by construction. Lines are shown for same-family and cross-family pairs. The shaded region is $\pm 1$ standard deviation across the model pairs in each family group. The mean difference is positive at every depth shown, and peaks in the middle layers.}
+    function of each model's relative layer depth $\lambda = \ell/(L_A-1)$. Grids are symmetrised before averaging. \textbf{(b)} The difference between J-lens and logit lens overlap, against relative layer depth. $\lambda=0$ is omitted as the logit lens reads the embedding matrix directly, and so dominates by construction. Lines are shown for same-family and cross-family pairs. The shaded region is $\pm 1$ standard deviation across the model pairs in each family group. The mean difference is positive at every depth shown, and peaks in the middle layers.}
   \label{fig:wordalign-mean-heatmap}
 \end{figure}
 
