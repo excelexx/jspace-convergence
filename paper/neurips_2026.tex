@@ -118,7 +118,7 @@
 \begin{abstract}
   The Platonic Representation Hypothesis~\citep{huh2024platonic} asserts that neural networks converge towards a shared representation of reality as they become more competent. Current evidence for this hypothesis comes from full activation space alignment, which mixes semantic content with superficial regularities like document length and syntax. We instead measure alignment in the Jacobian space (J-space), the privileged subspace induced by the Jacobian lens (J-lens)~\citep{gurnee2026verbalizable}, and find it is a more semantically selective measure, though a random-dictionary control attributes only part of that selectivity to the J-space itself.
   
-  Comparing kernels induced by the J-space, we still find that models converge: the text--text Spearman correlation between competence and alignment is $\rho = +0.56$, $p = 0.016$, and the text--vision correlation is $\rho = +0.97$, $p < 10^{-4}$. Within language, though, the J-space converges much more slowly than the full activation space, so part of the apparent link between competence and convergence is carried by superficial structure. Consistent with this, the gap between J-space and full convergence disappears across modalities, where no such structure is shared.
+  Measuring alignment in the J-space, we still find that models converge: the text--text Spearman correlation between competence and alignment is $\rho = +0.56$, $p = 0.0162$, and the text--vision correlation is $\rho = +0.97$, $p < 10^{-4}$. Within language, though, the J-space converges much more slowly than the full activation space, so part of the apparent link between competence and convergence is carried by superficial structure. Consistent with this, the gap between J-space and full convergence disappears across modalities, where no such structure is shared.
   
   This convergence is also legible: using the J-lens at matched layer depth, independently trained models name 5.1 of 25 shared vocabulary words against 2.0 for the plain logit lens. J-lens overlap rises with competence ($\rho = +0.74$, $p = 0.0020$). Code available at [placeholder].
 \end{abstract}
@@ -129,7 +129,7 @@ modalities, are converging to a shared statistical model of reality in their
 representation spaces.'' Concretely, the claim is that alignment between two models grows with their competence. To our knowledge, alignment has thus far been computed over the full representational spaces.\footnote{We say ``full activation space'' rather than ``full representational space'', since every quantity we compare is a mean-pooled residual-stream vector at a given layer.} We show this method conflates semantic content with confounding surface-level similarities like syntax, length, and formatting.
 
 Recently, \citet{gurnee2026verbalizable} introduced a new interpretability
-technique, the Jacobian lens (J-lens), which recovers the concepts a language model is poised to verbalise at a given layer. The J-lens induces the J-space, a privileged subspace of internal representations available for report and reasoning. The subspace is both semantically significant, acting as a ``global workspace'' for the model, and privileged, capturing a median of only 6--7\% of a concept vector's variance~\citep{gurnee2026verbalizable}.
+technique, the Jacobian lens (J-lens), which recovers the concepts a language model is poised to verbalise at a given layer. The J-lens induces the J-space, a privileged subspace of internal representations available for report and reasoning. It is semantically significant, acting as a ``global workspace'' for the model, and privileged, capturing a median of only 6--7\% of a concept vector's variance~\citep{gurnee2026verbalizable}.
 
 Thus, we hypothesise that the J-space will provide a more semantically selective measure of convergence than the full activation space, in the sense that J-space alignment will drop more sharply when semantic content is removed. 
 
@@ -316,7 +316,7 @@ J-space alignment therefore depends more heavily on content than the full activa
 
 Mean alignment for the J-space ($0.420$), the non-J remainder ($0.506$), and the full activation space ($0.558$) is significant, between $42.0\times$ and $55.7\times$ the chance level.
 
-For each model pair, we compare alignment and the mean of their competences. We find a positive correlation across the J-space (Spearman correlation $\rho = +0.56$, $p = 0.016$), full activation ($\rho = +0.77$, $p = 0.0008$), and remainder ($\rho = +0.87$, $p < 0.0001$) (Figure~\ref{fig:lobf-components}(a)). Since pairs are not independent, $p$-values come from permuting competence across models while holding alignment values fixed.
+For each model pair, we compare alignment and the mean of their competences. We find a positive correlation across the J-space (Spearman correlation $\rho = +0.56$, $p = 0.0162$), full activation ($\rho = +0.77$, $p = 0.0008$), and remainder ($\rho = +0.87$, $p < 0.0001$) (Figure~\ref{fig:lobf-components}(a)). Since pairs are not independent, $p$-values come from permuting competence across models while holding alignment values fixed.
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{07_lobf_components.pdf}
@@ -577,7 +577,7 @@ We note that within language, regardless of metric, full alignment is always gre
 Within-language, we find that there is a split along two metrics. The metrics which compare \emph{local neighbourhood structure} (e.g. $\kappa$-NN) follow our main paper's results, and the metrics which compare \emph{global subspace geometry}, i.e. how variance is distributed, do not. As well, the competence--alignment correlations for neighbourhood-based metrics all reach significance with $p<0.02$, but the correlations for global subspace metrics are not significant (the smallest is $p=0.267$).
 
 \paragraph{Global subspace metrics are insensitive to semantic content}
-We repeat the content-ablation experiment of Section~\ref{sec:textresults}, again only varying the metric. Results are shown in Table~\ref{tab:metriccontent}. Under the three global metrics, we find that full-space alignment is essentially unchanged by the ablation: each metric retains at least $96.9\%$. For J-space ablation, the same metrics retain $88.1\%$, $85.4\%$, and $77.6\%$. In other words, under a quarter of J-space alignment is attributable to semantic content. For neighbourhood-based measures, the opposite is true. Thus, since this paper seeks to measure semantically-significant convergence, global subspace metrics are not appropriate.
+We repeat the content-ablation experiment of Section~\ref{sec:textresults}, again only varying the metric. Results are shown in Table~\ref{tab:metriccontent}. Under the three global metrics, we find that full-space alignment is essentially unchanged by the ablation: each metric retains at least $96.9\%$. Notably, CKA and unbiased CKA both measure retention values above $100\%$, meaning that ablating semantic content nominally increased these metrics' alignment. For J-space ablation, the same metrics retain $88.1\%$, $85.4\%$, and $77.6\%$. In other words, under a quarter of J-space alignment is attributable to semantic content. For neighbourhood-based measures, the opposite is true. Thus, since this paper seeks to measure semantically-significant convergence, global subspace metrics are not appropriate.
 
 Furthermore, we argue that such metrics are not an accurate measure of J-space alignment, since we compute the J-space as a sparse combination of only 25 vocabulary directions. Thus, its coarse geometry is quite generic, and every model's J-space points in broadly similar directions. As a result, global measures see all J-spaces as similar. For example, GPT-2 and Pythia-70M, our two smallest models, have the highest J-space alignment under CKA. 
 
@@ -614,46 +614,5 @@ The percentage of the drop in retention explained by the J-space matches our mai
 \newpage
 \input{checklist.tex}
 
+
 \end{document}
-
-\begin{comment}
-
-\begin{table}[h]
-  \centering
-  \small
-  \setlength{\tabcolsep}{4pt}
-  \caption{J-space and full alignment on different metrics, with all other parts of the experiment identical to the main paper. $\rho(\text{J})$ is the J-space correlation between alignment and mean HellaSwag competence, J/full is the ratio of the rates of convergence. $p$-values are model-label permutation values. Neighbourhood metrics reproduce main results, global metrics do not.}
-  \label{tab:metricsweep}
-  \begin{tabular}{lccccccc}
-    \toprule
-    & \multicolumn{4}{c}{Within language ($n=55$)} & \multicolumn{3}{c}{Cross-modal ($n=11$)} \\
-    \cmidrule(lr){2-5}\cmidrule(lr){6-8}
-    Metric & full & J & $\rho$(J) & J/full slope & full & J & $\rho$(J) \\
-    \midrule
-    \multicolumn{8}{l}{\emph{Neighbourhood-based}} \\
-    mutual $\kappa$-NN (ours) & $0.5577$ & $0.4202$ & $+0.56$\,{\tiny$p=0.016$} & $+0.30$ & $0.0719$ & $0.0726$ & $+0.97$\,{\tiny$p<0.0001$} \\
-    CKNNA & $0.5975$ & $0.4615$ & $+0.63$\,{\tiny$p=0.011$} & $+0.43$ & $0.0761$ & $0.0763$ & $+0.96$\,{\tiny$p<0.0001$} \\
-    cycle $\kappa$-NN & $0.9358$ & $0.9122$ & $+0.63$\,{\tiny$p=0.011$} & $+0.68$ & $0.3672$ & $0.3712$ & $+0.95$\,{\tiny$p<0.0001$} \\
-    edit-distance $\kappa$-NN & $0.1609$ & $0.0936$ & $+0.62$\,{\tiny$p=0.011$} & $+0.23$ & $0.0106$ & $0.0106$ & $+0.95$\,{\tiny$p<0.0001$} \\
-    LCS $\kappa$-NN & $3.5457$ & $2.6809$ & $+0.60$\,{\tiny$p=0.012$} & $+0.28$ & $0.5712$ & $0.5762$ & $+0.97$\,{\tiny$p<0.0001$} \\
-    \midrule
-    \multicolumn{8}{l}{\emph{Global subspace}} \\
-    CKA & $0.8036$ & $0.6892$ & $+0.09$\,{\tiny$p=0.651$} & $-0.00$ & $0.2001$ & $0.2038$ & $+0.97$\,{\tiny$p<0.0001$} \\
-    unbiased CKA & $0.7938$ & $0.6615$ & $-0.19$\,{\tiny$p=0.475$} & $-0.31$ & $0.1687$ & $0.1677$ & $+0.94$\,{\tiny$p=0.0001$} \\
-    SVCCA & $0.6846$ & $0.5869$ & $-0.30$\,{\tiny$p=0.267$} & $-0.55$ & $0.3070$ & $0.3029$ & $+0.94$\,{\tiny$p<0.0001$} \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-The main text measures alignment through mutual $\kappa$-nearest-neighbour overlap. We vary our choice of metric, changing only the function for alignment between two layer pairs (Table~\ref{tab:metricsweep}). Implementations follow \citet{huh2024platonic}. 
-
-We note that regardless of metric, full alignment is always greater than J-space alignment, and the cross-modal correlation result is similarly strong ($+0.94 \leq \rho \leq +0.97$).
-
-Within-language, we find that there is a split along two metrics. The metrics which compare \emph{local neighbourhood structure} (e.g. $\kappa$-NN) follow our main paper's results, and the metrics which compare \emph{global subspace geometry}, i.e. how variance is distributed, do not. 
-
-We argue that global subspace metrics are not an accurate measure for our purposes, since the we compute the J-space as a sparse combination of only 25 vocabulary directions. Thus, its coarse geometry is quite generic, and every model's J-space points in broadly similar directions. As a result, global measures see all J-spaces as similar and the weakest models as the most similar of all. Indeed, for CKA, GPT-2 and Pythia-70M is the highest scoring model pair of all 55. 
-
-As well, the competence--alignment correlations of neighbourhood-based metrics all reach significance with $p<0.02$, but the global subspace metrics are not significant (the smallest is $p=0.267$).
-
-Since neighbourhood-based metrics and global metrics are two ends of a spectrum, we can find at what locality the correlations begin to decay. CKNNA restricts the kernel to an item's $k$ nearest neighbours before computing CKA, so for $k=n-1$, it is simply unbiased CKA. As we vary $k$ across the spectrum, we find that J-space correlation decays monotonically, from $\rho = +0.68$ at $k=2$ to $\rho = -0.19$ at $k=999$. The correlation loses significance for $k$ around $50$--$100$. Thus, the within-language claim in our main paper holds for
-neighbourhoods up to roughly $5\%$ of the corpus.
-\end{comment}
