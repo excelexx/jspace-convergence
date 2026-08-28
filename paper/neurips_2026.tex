@@ -112,6 +112,12 @@
   % Address \\
   % \texttt{email} \\
 }
+% LaTeX centres float-only pages by default (\@fptop = 0pt plus 1fil).
+% Pin it to 0pt so a table that lands on its own page sits at the top.
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+
 \begin{document}
 \raggedbottom
 
