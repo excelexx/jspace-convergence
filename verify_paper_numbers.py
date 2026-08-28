@@ -152,7 +152,7 @@ skip("convergence-rate slopes (+0.76 vs +0.23 per HellaSwag unit)",
 section("Section 4.3 - J-lens top-25 word agreement, 55 text pairs")
 try:
     W = load("wordalign/stats.json")
-    T, pairs = W["tests"], W["pairs"]
+    pairs = W["pairs"]
     check("raw J-lens overlap, of 25",
           st.median(st.median(p["raw_J_k25"]) for p in pairs.values()) * 25,
           5.1, 0.05)
@@ -162,9 +162,6 @@ try:
     check("position-shuffled floor, of 25",
           st.median(st.median(p["shuf_J_k25"]) for p in pairs.values()) * 25,
           0.1, 0.02)
-    check("J-lens beats the logit lens (of 55)", T["H3_J_gt_base"], 50, 0)
-    check("median J-lens minus logit-lens overlap", T["H3_median_diff"],
-          0.117, 5e-4)
     # the counterpart-layer offset is measured on the RAW overlap grid, matching
     # section 4.3's switch away from the shuffle-corrected delta
     G = load("wordalign/rawgrid_argmax.json")

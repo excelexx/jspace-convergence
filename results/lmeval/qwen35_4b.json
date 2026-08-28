@@ -1,12 +1,9 @@
 {
-  "model": "qwen35_4b",
-  "hf": "Qwen/Qwen3.5-4B",
-  "hellaswag_acc_norm": 0.654,
-  "hellaswag_stderr": 0.012286441216174263,
-  "gsm8k_strict": 0.72,
-  "gsm8k_flexible": 0.73,
-  "limits": {
-    "hellaswag": 1500,
-    "gsm8k": 200
-  }
+ "model": "qwen35_4b",
+ "hf": "Qwen/Qwen3.5-4B",
+ "hellaswag_acc_norm": 0.654,
+ "hellaswag_stderr": 0.012286441216174263,
+ "limits": {
+  "hellaswag": 1500
+ }
 }

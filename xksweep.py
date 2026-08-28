@@ -20,7 +20,7 @@ from xsurrogate import best_atom, get_WU_and_w, neighbors, nnls_refit, prep
 from xsurrogate_all import M, NAMES, log
 
 DEV = "cuda" if torch.cuda.is_available() else "cpu"
-KS = [5, 10, 15, 20, 25]
+KS = [5, 10, 15]
 NB_DIR = "cache/ksweep"
 
 

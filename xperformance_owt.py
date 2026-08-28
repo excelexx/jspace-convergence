@@ -31,19 +31,19 @@ LOGIT_BUDGET = 120_000_000
 # positions scored per cross-entropy call (bounds the float32 upcast)
 CE_CHUNK = 128
 
-# hf id, dtype, windows per forward pass (3080, 10GB)
+# hf id, dtype. Windows per forward pass are derived from LOGIT_BUDGET.
 MODELS = {
-    "pythia70m": ("EleutherAI/pythia-70m-deduped", torch.float16, 8),
-    "gpt2":      ("gpt2", torch.float16, 8),
-    "gemma270":  ("google/gemma-3-270m", torch.bfloat16, 8),
-    "qwen08b":   ("Qwen/Qwen3.5-0.8B", torch.bfloat16, 4),
-    "gemma":     ("google/gemma-3-1b-pt", torch.bfloat16, 4),
-    "qwen17b":   ("Qwen/Qwen3-1.7B", torch.bfloat16, 2),
-    "qwen2b":    ("Qwen/Qwen3.5-2B-Base", torch.bfloat16, 2),
-    "gemma2_2b": ("google/gemma-2-2b", torch.bfloat16, 2),
-    "qwen4b":    ("Qwen/Qwen3-4B", torch.bfloat16, 1),
-    "qwen35_4b": ("Qwen/Qwen3.5-4B", torch.bfloat16, 1),
-    "gemma3_4b": ("google/gemma-3-4b-pt", torch.bfloat16, 1),
+    "pythia70m": ("EleutherAI/pythia-70m-deduped", torch.float16),
+    "gpt2":      ("gpt2", torch.float16),
+    "gemma270":  ("google/gemma-3-270m", torch.bfloat16),
+    "qwen08b":   ("Qwen/Qwen3.5-0.8B", torch.bfloat16),
+    "gemma":     ("google/gemma-3-1b-pt", torch.bfloat16),
+    "qwen17b":   ("Qwen/Qwen3-1.7B", torch.bfloat16),
+    "qwen2b":    ("Qwen/Qwen3.5-2B-Base", torch.bfloat16),
+    "gemma2_2b": ("google/gemma-2-2b", torch.bfloat16),
+    "qwen4b":    ("Qwen/Qwen3-4B", torch.bfloat16),
+    "qwen35_4b": ("Qwen/Qwen3.5-4B", torch.bfloat16),
+    "gemma3_4b": ("google/gemma-3-4b-pt", torch.bfloat16),
 }
 
 
@@ -53,7 +53,7 @@ def load_text():
     return "\n\n".join(docs), len(docs)
 
 
-def score(name, hf, dtype, bs, text):
+def score(name, hf, dtype, text):
     tok = AutoTokenizer.from_pretrained(hf)
     model = AutoModelForCausalLM.from_pretrained(hf, dtype=dtype)
     inner = getattr(model, "model", None)
@@ -80,7 +80,7 @@ def score(name, hf, dtype, bs, text):
     # vocabularies against GPT-2's 50k, so size the batch from CTX x vocab and
     # cap the requested batch accordingly.
     vocab = int(getattr(model.config, "vocab_size", 0)) or len(tok)
-    bs = max(1, min(bs, LOGIT_BUDGET // (CTX * vocab)))
+    bs = max(1, LOGIT_BUDGET // (CTX * vocab))
     print(f"    vocab {vocab:,} -> {bs} window(s)/forward", flush=True)
 
     nll_sum = 0.0
@@ -122,9 +122,9 @@ def main():
         print(f"sample: {ndoc} OpenWebText docs, "
               f"{len(text.encode('utf-8')):,} bytes", flush=True)
         for name in todo:
-            hf, dtype, bs = MODELS[name]
-            print(f"=== {name} ({hf}, {bs} win/fwd) ===", flush=True)
-            rec[name] = score(name, hf, dtype, bs, text)
+            hf, dtype = MODELS[name]
+            print(f"=== {name} ({hf}) ===", flush=True)
+            rec[name] = score(name, hf, dtype, text)
             print(f"  performance {rec[name]['performance']:.4f}", flush=True)
             json.dump(rec, open(OUT, "w", encoding="utf-8"), indent=2)
 

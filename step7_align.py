@@ -12,9 +12,8 @@ mean-over-grid aggregation, the same band-mean convention as every other
 alignment number in the paper, and is persisted to
 results/randunembed_null.json.
 
-Output is stdout, the null JSON above, plus one layer-pair heatmap per model
-pair. The reference table to compare the stdout against is
-results/jspace_alignment_pilot.md.
+Output is stdout plus the null JSON above. The reference table to compare the
+stdout against is results/jspace_alignment_pilot.md.
 
 This file is also the single source of truth for the sparse-coding conventions:
 crossmodal_utils.load_pilot() parses it and re-executes the named constants and
@@ -215,29 +214,19 @@ def mnn_grid(nbrs_a, nbrs_b):
     G = torch.tensor([[mnn(nbrs_a[a], nbrs_b[b]) for b in Lb] for a in La])
     return La, Lb, G
 
-def grid_max(La, Lb, G):
-    flat = G.argmax().item()
-    ia, ib = divmod(flat, G.shape[1])
-    return G.max().item(), (La[ia], Lb[ib])
-
 names = list(MODELS)
 pairs = [(a, b) for i, a in enumerate(names) for b in names[i + 1:]]
-grids = {}
 null_records = []
 for a, b in pairs:
     print(f"\n=== alignment: {a} vs {b} (chance = {CHANCE:.3f}, n = {N_DOCS}) ===")
-    results, means = {}, {}
+    means = {}
     for comp in ["J", "full", "perp"]:
         La, Lb, G = mnn_grid(nbrs[a][comp], nbrs[b][comp])
-        grids[(a, b, comp)] = (La, Lb, G)
-        best, arg = grid_max(La, Lb, G)
-        results[comp] = best
         means[comp] = G.mean().item()
-        print(f"  {comp:>5}: max m-NN = {best:.4f}   at layers {arg}"
-              f"   (grid mean {means[comp]:.4f}, median {G.median():.4f})")
+        print(f"  {comp:>5}: mean m-NN over the grid = {means[comp]:.4f}")
 
     # percentile null: mean-over-grid, the same band-mean aggregation the paper
-    # uses for every other alignment number (was max-over-grid before 2026-08-24)
+    # uses for every other alignment number
     draws = [mnn_grid(nbrs[a]["randJ"][r], nbrs[b]["randJ"][r])[2].mean().item()
              for r in range(R_DRAWS)]
     print(f"  randJ null ({R_DRAWS} draws, grid mean): " +
@@ -270,25 +259,3 @@ print(f"\nrandJ null summary: {_agg['pairs_beating_all_draws']}/{_agg['n_pairs']
       f" pairs beat all {R_DRAWS} draws, mean margin"
       f" {_agg['mean_margin_over_strongest']:+.4f}"
       f" (written to results/randunembed_null.json)")
-
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-
-COMPS = ["J", "full", "perp"]
-for a, b in pairs:
-    fig, axes = plt.subplots(1, len(COMPS), figsize=(4.2 * len(COMPS), 3.6))
-    vmax = max(grids[(a, b, c)][2].max().item() for c in COMPS)
-    for ax, comp in zip(axes, COMPS):
-        La, Lb, G = grids[(a, b, comp)]
-        im = ax.imshow(G, vmin=0, vmax=vmax, aspect="auto", origin="lower")
-        ax.set_title(comp)
-        ax.set_xlabel(f"{b} layer"); ax.set_ylabel(f"{a} layer")
-        ax.set_xticks(range(len(Lb)), Lb); ax.set_yticks(range(len(La)), La)
-        fig.colorbar(im, ax=ax, fraction=0.046)
-    fig.suptitle(f"m-NN alignment: {a} vs {b} (chance {CHANCE:.3f})")
-    fig.tight_layout()
-    out = f"heatmap_{a}_vs_{b}.png"
-    fig.savefig(out, dpi=140)
-    plt.close(fig)
-    print(f"saved {out}")

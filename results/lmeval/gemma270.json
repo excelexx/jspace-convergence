@@ -1,12 +1,9 @@
 {
-  "model": "gemma270",
-  "hf": "google/gemma-3-270m",
-  "hellaswag_acc_norm": 0.45866666666666667,
-  "hellaswag_stderr": 0.012870047751392345,
-  "gsm8k_strict": 0.01,
-  "gsm8k_flexible": 0.015,
-  "limits": {
-    "hellaswag": 1500,
-    "gsm8k": 200
-  }
+ "model": "gemma270",
+ "hf": "google/gemma-3-270m",
+ "hellaswag_acc_norm": 0.45866666666666667,
+ "hellaswag_stderr": 0.012870047751392345,
+ "limits": {
+  "hellaswag": 1500
+ }
 }

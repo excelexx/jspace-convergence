@@ -71,31 +71,6 @@ def run_text(cfg, manifest, log):
     return records
 
 
-def run_vision(cfg, manifest, log):
-    cap_layers = manifest["cap_layers"]
-    img_layers = manifest["img_layers"]
-    img_cache = {(e, L): prep_artifact(cfg, "img", f"{e}_L{L}")
-                 for e in C.ENCODERS for L in img_layers[e]}
-    records = []
-    t0 = time.time()
-    for tname in C.MODELS:
-        cap = {(c, L): prep_artifact(cfg, "cap", f"{tname}_{c}_L{L}")
-               for c in C.COMPS for L in cap_layers[tname]}
-        for enc in C.ENCODERS:
-            rec = dict(text=tname, enc=enc)
-            for c in C.COMPS:
-                vals = [score_pair(cfg, cap[(c, Lt)], img_cache[(enc, Li)])
-                        for Lt in cap_layers[tname] for Li in img_layers[enc]]
-                rec[c] = float(np.mean(vals))
-            records.append(rec)
-            log(f"  vision {tname} x {enc}: "
-                + " ".join(f"{c} {rec[c]:.4f}" for c in C.COMPS)
-                + f"  [{time.time()-t0:.0f}s]")
-        del cap
-        torch.cuda.empty_cache()
-    return records
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--name", required=True)
@@ -128,15 +103,13 @@ def main():
 
     import scorer as S
     tr = run_text(cfg, manifest, log)
-    vr = run_vision(cfg, manifest, log)
     payload = dict(metric=args.name, config=cfg, n_perm=args.n_perm,
                    text_pairs=tr, text_stats=S.stats_text(tr, args.n_perm),
-                   vision_pairs=vr,
-                   vision_stats=S.stats_vision(vr, args.n_perm),
                    complete=True, seconds=time.time() - t0,
-                   note="alignment = mean of the metric over the band x band "
-                        "layer-pair grid; paper-identical decomposition and "
-                        "preprocessing, CKNNA neighbourhood size varied")
+                   note="within-language alignment = mean of the metric over "
+                        "the band x band layer-pair grid; paper-identical "
+                        "decomposition and preprocessing, CKNNA "
+                        "neighbourhood size varied")
     with open(res_path, "w") as f:
         json.dump(payload, f, indent=1)
     log("text stats: " + json.dumps(

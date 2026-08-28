@@ -40,8 +40,6 @@ for a, b in pairs:
     out[f"{a}|{b}"] = {
         "rowargmax_dp_raw": sum(abs(PGRID[i]-PGRID[j]) for i, j in enumerate(rows))/11,
         "same_family": FAMILY[a] == FAMILY[b],
-        "diag_mean_raw": sum(P[i][i] for i in range(11))/11,
-        "offdiag_mean_raw": sum(P[i][j] for i in range(11) for j in range(11) if i != j)/110,
     }
     print(f"  {a:>10} x {b:<10} dp_raw {out[f'{a}|{b}']['rowargmax_dp_raw']:.4f}", flush=True)
     _c.clear()

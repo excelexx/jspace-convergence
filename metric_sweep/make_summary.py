@@ -180,21 +180,6 @@ def main():
                      f"{s['full']['slope']:+.4f} ± {s['full']['slope_se']:.4f} | "
                      f"{s['J']['slope']:+.4f} ± {s['J']['slope_se']:.4f} | "
                      f"{ratio:.2f} |")
-        L.append("")
-        L.append("### Per-encoder J-space correlation with competence")
-        L.append("")
-        L.append("| metric | " + " | ".join(
-            ["DINOv2", "MAE", "CLIP", "SigLIP"]) + " |")
-        L.append("|---|---|---|---|---|")
-        for m in ORDER:
-            d = have_v.get(m)
-            if not d:
-                continue
-            pe = d["vision_stats"]["per_encoder"]
-            L.append(f"| {LABEL[m]} | " + " | ".join(
-                f"{pe[e]['J']['rho']:+.2f}{sig(pe[e]['J'].get('perm_p'))}"
-                for e in ["dinov2", "mae", "clip", "siglip"]) + " |")
-        L.append("")
 
     # ---- headline findings (computed, not hardcoded) ----
     L.append("## Headline findings")

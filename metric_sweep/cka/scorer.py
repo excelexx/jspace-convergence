@@ -212,16 +212,7 @@ def stats_vision(records, n_perm):
     hs = C.hellaswag(list(C.MODELS))
     models = list(C.MODELS)
     by = {(r["text"], r["enc"]): r for r in records}
-    per_encoder, averaged = {}, {}
-    for enc in C.ENCODERS:
-        per_encoder[enc] = {}
-        for c in C.COMPS:
-            al = [by[(m, enc)][c] for m in models]
-            rho = C.spearman([hs[m] for m in models], al)
-            per_encoder[enc][c] = dict(
-                mean=float(np.mean(al)), rho=rho,
-                perm_p=C.perm_p_models(al, [hs[m] for m in models], rho,
-                                       n_perm=n_perm))
+    averaged = {}
     for c in C.COMPS:
         al = [float(np.mean([by[(m, e)][c] for e in C.ENCODERS])) for m in models]
         rho = C.spearman([hs[m] for m in models], al)
@@ -232,7 +223,7 @@ def stats_vision(records, n_perm):
                                                   rho, n_perm=n_perm),
                            slope=slope, slope_se=se,
                            per_model={m: v for m, v in zip(models, al)})
-    return dict(per_encoder=per_encoder, averaged=averaged)
+    return dict(averaged=averaged)
 
 
 def main():

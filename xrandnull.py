@@ -43,10 +43,13 @@ def seed_of(variant, name, L):
     return int(h, 16)
 
 
-def make_dict(WUeff, J, seed):
-    """Gaussian dictionary shaped like the J-lens one, with unit-norm rows."""
+def make_dict(n_vocab, d_model, seed):
+    """Gaussian dictionary shaped like the J-lens one, with unit-norm rows.
+
+    Only the shape is shared with the real dictionary; the paper describes this
+    arm as a Gaussian dictionary replacing the J-lens one, nothing more."""
     g = torch.Generator(device=DEV).manual_seed(seed)
-    D = torch.randn(WUeff.shape[0], J.shape[1], generator=g, device=DEV)
+    D = torch.randn(n_vocab, d_model, generator=g, device=DEV)
     return D / D.norm(dim=1, keepdim=True).clamp(min=1e-8)
 
 
@@ -59,23 +62,21 @@ def decompose(name, corpus):
     acts = torch.load(real_path if corpus == "real" else surr_acts_path(name),
                       weights_only=False)
     lens = torch.load(lens_path, map_location="cpu", weights_only=False)
-    WU, w = get_WU_and_w(hf)
-    WUeff = WU.to(DEV) * w.to(DEV)
+    WU, _ = get_WU_and_w(hf)
+    n_vocab = WU.shape[0]
     del WU
-    WUeff -= WUeff.mean(dim=0, keepdim=True)
 
     nbrs = {VARIANT: {c: {} for c in COMPS}}
     for L in sorted(acts.keys()):
         H0 = acts[L].to(DEV, torch.float32)
         q = torch.quantile(H0.abs().flatten(), 0.95)
         H0 = H0.clamp(-q, q)
-        J = lens["J"][L].to(DEV, torch.float32)
-        D = make_dict(WUeff, J, seed_of(VARIANT, name, L))
+        D = make_dict(n_vocab, lens["J"][L].shape[1],
+                      seed_of(VARIANT, name, L))
         HJ = nnomp_batch(H0, D)
         nbrs[VARIANT]["J"][L] = neighbors(prep(HJ)).cpu()
-        del D, HJ, H0, J
+        del D, HJ, H0
         torch.cuda.empty_cache()
-    del WUeff
     torch.cuda.empty_cache()
     os.makedirs(NB_DIR, exist_ok=True)
     torch.save(dict(nbrs=nbrs), cache)
