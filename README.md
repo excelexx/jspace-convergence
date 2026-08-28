@@ -1,4 +1,4 @@
-# Measuring the Semantic Component of Platonic Convergence in the Jacobian Subspace
+# How Much of Platonic Convergence is Semantic? Measuring Alignment in the Jacobian Subspace
 
 ### Code and artifacts
 
@@ -31,7 +31,7 @@ marks a number whose source artifact is not in this folder (see
 [Known gaps](#8-known-gaps)). The expected output ends with
 `ALL CHECKED NUMBERS MATCH THE PAPER`.
 
-It recomputes 80 numbers: Table 1 including its Gaussian-dictionary row, the
+It recomputes 78 numbers: Table 1 including its Gaussian-dictionary row, the
 within-language and cross-modal competence correlations, the log-parameter and
 1−bits-per-byte columns of `tab:competence` and `tab:crossaxes`, all twelve
 per-encoder correlations in `tab:perencoder`, the word-agreement headline, the §4.3 competence correlations, the tokenisation control,
@@ -103,7 +103,7 @@ Gated repos (Gemma) need `huggingface-cli login` with accepted licences.
 ```bash
 python step2_download.py         # the 11 prefitted J-lenses -> lenses/
 python step6_acts.py             # pooled activations, 11 models -> acts_{model}.pt
-python step7_align.py            # 55-pair alignment + random-unembedding null + heatmaps
+python step7_align.py            # 55-pair alignment + random-unembedding null
 ```
 
 `step6_acts.py` takes the first 1,000 rows of `NeelNanda/pile-10k`, truncates
@@ -115,8 +115,8 @@ already exists, so it is resumable.
 ≤25-atom non-negative sparse code, and reports m-NN alignment (κ = 10, chance
 0.010) for the J component, the non-J remainder (`perp`) and the full
 activation, plus the seeded
-random-unembedding null (R = 5). It prints the pilot table to stdout and writes
-55 layer-pair heatmaps (`heatmap_*_vs_*.png`); no script reads either back.
+random-unembedding null (R = 5). It prints the pilot table to stdout; no script
+reads it back.
 `results/jspace_alignment_pilot.md` is a transcript of that table from the
 original run. The random-unembedding-row null it reports is now recomputed
 under the paper's mean-over-grid aggregation by `xrandunembed_rerun.py`, which
@@ -167,7 +167,7 @@ python xlc_phase2.py         # h1-vs-h2 stability gate -> results/lenscontrol/ph
 python xlc_phase4.py         # decompose the Pile eval activations -> results/lenscontrol/sparse/
 python xlc_phase45_score.py  # J against the null -> results/lenscontrol/phase4_sparse.json
 python xlc_median_delta.py   # the paper's +0.0002 -> results/lenscontrol/median_delta.json
-python xlc_fig_median.py     # Figure 4
+python xlc_fig_median.py     # Figure 5
 ```
 
 Scope is the 10 pairs among Pythia-70M, GPT-2, Gemma-3-270M, Qwen3.5-0.8B and
@@ -178,7 +178,7 @@ figure and its +0.0002 are computed from.
 **Competence.** `xeval_bench.py` runs HellaSwag (0-shot, limit 1500,
 `acc_norm`) for all 11 models through one lm-eval harness into
 `results/lmeval/{model}.json`. It needs `lm-eval` installed and its module
-importable. `hellaswag_acc_norm` is the competence axis of Figure 1, Figure 3
+importable. `hellaswag_acc_norm` is the competence axis of Figure 2, Figure 4
 and `tab:competence`.
 
 The second competence axis is tokeniser-invariant:
@@ -197,10 +197,10 @@ python xconvert_clip.py                   # one-time CLIP pickle -> safetensors 
 python xstage1_text.py                    # caption activations, 11 models -> cache/text_acts/
 python xstage1_vision.py                  # image activations, 4 encoders -> cache/vision/
 python xstage6_measB.py                   # measurement B -> results/measB.json
-python xstage7_controls.py --shuffle      # shuffled-pair null -> results/control_shuffle.json
+python xstage7_controls.py                # shuffled-pair null -> results/control_shuffle.json
 ```
 
-`--shuffle` rewrites `results/control_shuffle.json` with the 44 raw cells the
+It rewrites `results/control_shuffle.json` with the 44 raw cells the
 paper's 0.0096 is averaged over. The shipped copy additionally carries 40
 projected cells from a withdrawn pipeline; nothing reads them.
 
@@ -264,9 +264,9 @@ Read before assuming a number can be regenerated from this folder alone.
   27.5 h lens-refit chain is measured anywhere. The permutation p-values are
   stochastic (rerun `xmeanmain.py` to reproduce them), and the
   convergence-rate slopes (+0.76 ± 0.09 vs +0.23 ± 0.07) are fitted by
-  `xplot_pairlevel_fig1.py` into the Figure 1 legend rather than stored. The
+  `xplot_pairlevel_fig1.py` into the Figure 2 legend rather than stored. The
   shuffled-pair control is another; see the bullet on it below.
-- **Figure 4 cannot be rebuilt here.** `xlc_fig_median.py` and
+- **Figure 5 cannot be rebuilt here.** `xlc_fig_median.py` and
   `xlc_median_delta.py` read `results/lenscontrol/sparse/*.pt`, the
   neighbour-set cache `xlc_phase4.py` writes; it is deliberately not shipped
   (99 MB as written by the run behind the paper, about 40 MB from the trimmed

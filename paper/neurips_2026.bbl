@@ -1,4 +1,4 @@
-\begin{thebibliography}{30}
+\begin{thebibliography}{31}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -43,9 +43,11 @@ Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn,
 \newblock In \emph{International Conference on Learning Representations}, 2021.
 \newblock URL \url{https://arxiv.org/abs/2010.11929}.
 
-\bibitem[Gao et~al.(2020)Gao, Biderman, Black,
-  et~al.]{gao2020pile800gbdatasetdiverse}
-Leo Gao, Stella Biderman, Sid Black, et~al.
+\bibitem[Gao et~al.(2020)Gao, Biderman, Black, Golding, Hoppe, Foster, Phang,
+  He, Thite, Nabeshima, Presser, and Leahy]{gao2020pile800gbdatasetdiverse}
+Leo Gao, Stella Biderman, Sid Black, Laurence Golding, Travis Hoppe, Charles
+  Foster, Jason Phang, Horace He, Anish Thite, Noa Nabeshima, Shawn Presser,
+  and Connor Leahy.
 \newblock The {P}ile: An {800GB} dataset of diverse text for language modeling,
   2020.
 \newblock URL \url{https://arxiv.org/abs/2101.00027}.
@@ -79,13 +81,17 @@ Aaron Gokaslan and Vanya Cohen.
 Fabian Gr{\"o}ger, Shuo Wen, and Maria Brbic.
 \newblock Revisiting the platonic representation hypothesis: An aristotelian
   view.
-\newblock In \emph{Forty-third International Conference on Machine Learning},
-  2026.
+\newblock In \emph{Proceedings of the 43rd International Conference on Machine
+  Learning}, 2026.
 \newblock URL \url{https://openreview.net/forum?id=uz0gAAYydl}.
 
-\bibitem[Gurnee et~al.(2026)Gurnee, Sofroniew, Pearce,
-  et~al.]{gurnee2026verbalizable}
-Wes Gurnee, Nicholas Sofroniew, Adam Pearce, et~al.
+\bibitem[Gurnee et~al.(2026)Gurnee, Sofroniew, Pearce, Piotrowski, Kauvar,
+  Chen, Soligo, Bogdan, Ong, Wang, Thompson, Abrahams, Kantamneni, Ameisen,
+  Batson, and Lindsey]{gurnee2026verbalizable}
+Wes Gurnee, Nicholas Sofroniew, Adam Pearce, Mateusz Piotrowski, Isaac Kauvar,
+  Runjin Chen, Anna Soligo, Paul Bogdan, Euan Ong, Rowan Wang, Ben Thompson,
+  David Abrahams, Subhash Kantamneni, Emmanuel Ameisen, Joshua Batson, and Jack
+  Lindsey.
 \newblock Verbalizable representations form a global workspace in language
   models, 2026.
 \newblock URL \url{https://arxiv.org/abs/2607.15495}.
@@ -117,7 +123,9 @@ A.~Sophia Koepke, Daniil Zverev, Shiry Ginosar, and Alexei~A. Efros.
   Hinton]{kornblith2019cka}
 Simon Kornblith, Mohammad Norouzi, Honglak Lee, and Geoffrey Hinton.
 \newblock Similarity of neural network representations revisited.
-\newblock In \emph{International Conference on Machine Learning}, 2019.
+\newblock In \emph{Proceedings of the 36th International Conference on Machine
+  Learning}, volume~97 of \emph{Proceedings of Machine Learning Research},
+  pages 3519--3529. PMLR, 2019.
 
 \bibitem[Kriegeskorte et~al.(2008)Kriegeskorte, Mur, and
   Bandettini]{kriegeskorte2008rsa}
@@ -132,6 +140,11 @@ Johnny Lin.
   networks, 2023.
 \newblock URL \url{https://www.neuronpedia.org}.
 \newblock Software available from neuronpedia.org.
+
+\bibitem[Merity et~al.(2016)Merity, Xiong, Bradbury, and
+  Socher]{merity2016pointer}
+Stephen Merity, Caiming Xiong, James Bradbury, and Richard Socher.
+\newblock Pointer sentinel mixture models, 2016.
 
 \bibitem[Nanda(2022)]{Nanda2022Pile10K}
 Neel Nanda.
@@ -195,7 +208,8 @@ Alec Radford, Jong~Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh,
 Maithra Raghu, Justin Gilmer, Jason Yosinski, and Jascha Sohl-Dickstein.
 \newblock {SVCCA}: Singular vector canonical correlation analysis for deep
   learning dynamics and interpretability.
-\newblock In \emph{Advances in Neural Information Processing Systems}, 2017.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~30, pages 6076--6085, 2017.
 
 \bibitem[Srinivasan et~al.(2021)Srinivasan, Raman, Chen, Bendersky, and
   Najork]{wit}
@@ -216,8 +230,8 @@ Qwen Team.
 
 \bibitem[Yang et~al.(2025)Yang, Li, Yang, et~al.]{qwen3}
 An~Yang, Anfeng Li, Baosong Yang, et~al.
-\newblock Qwen3 technical report.
-\newblock \emph{arXiv preprint arXiv:2505.09388}, 2025.
+\newblock Qwen3 technical report, 2025.
+\newblock URL \url{https://arxiv.org/abs/2505.09388}.
 
 \bibitem[Yavari and
   Esfahlani(2026)]{yavari2026activationalignmentgeometryneural}
