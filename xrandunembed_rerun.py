@@ -17,7 +17,6 @@ import torch
 from crossmodal_utils import load_pilot
 
 P = load_pilot()
-torch.manual_seed(0)
 R_DRAWS = 5
 
 t0 = time.time()
@@ -33,7 +32,7 @@ for name, cfg in P.MODELS.items():
     WUeff = WU.to(P.DEV) * w.to(P.DEV)
     del WU
     WUeff -= WUeff.mean(dim=0, keepdim=True)
-    Vsz, d = WUeff.shape
+    Vsz = WUeff.shape[0]
     Drs = []
     for r in range(R_DRAWS):
         g = torch.Generator().manual_seed(1000 + r)

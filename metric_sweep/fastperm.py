@@ -6,9 +6,8 @@ fixed each permutation reduces to a dot product. That turns a per-draw
 scipy.stats.spearmanr call into one batched matmul, which is ~100x faster and
 lets the sweep use the same 200k draws without dominating the runtime.
 
-common.py keeps the naive loops as _perm_p_pairs_naive and
-_perm_p_models_naive; the two paths draw their permutations differently, so
-they agree to Monte-Carlo error rather than bit-exactly.
+Spearman's rho is Pearson correlation on ranks, so with the alignment ranks
+fixed each permutation is a dot product and the batched form is exact.
 """
 import numpy as np
 from scipy.stats import rankdata

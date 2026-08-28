@@ -298,49 +298,19 @@ def spearman(x, y):
 def perm_p_pairs(align, hs, pair_names, rho_obs, n_perm=200_000, seed=0):
     """Model-label permutation for pair-level stats (the paper's null).
 
-    Delegates to the vectorised implementation; _perm_p_pairs_naive below is
-    the reference loop it reproduces."""
+    Delegates to the vectorised implementation in fastperm.py."""
     import fastperm
     return fastperm.perm_p_pairs(align, hs, pair_names, rho_obs, n_perm, seed)
 
-
-def _perm_p_pairs_naive(align, hs, pair_names, rho_obs, n_perm=200_000, seed=0):
-    """Reference implementation, one scipy spearmanr per draw."""
-    rng = np.random.default_rng(seed)
-    models = sorted(hs)
-    vals = np.array([hs[m] for m in models])
-    idx = {m: i for i, m in enumerate(models)}
-    ia = np.array([idx[u] for u, _ in pair_names])
-    ib = np.array([idx[v] for _, v in pair_names])
-    a = np.asarray(align)
-    hits = 0
-    for _ in range(n_perm):
-        p = rng.permutation(vals)
-        y = (p[ia] + p[ib]) / 2
-        if abs(spearman(y, a)) >= abs(rho_obs) - 1e-12:
-            hits += 1
-    return (hits + 1) / (n_perm + 1)
 
 
 def perm_p_models(align, hs_vals, rho_obs, n_perm=200_000, seed=0):
     """Model-level permutation for the 11-point cross-modal stats.
 
-    Delegates to the vectorised implementation; _perm_p_models_naive below is
-    the reference loop it reproduces."""
+    Delegates to the vectorised implementation in fastperm.py."""
     import fastperm
     return fastperm.perm_p_models(align, hs_vals, rho_obs, n_perm, seed)
 
-
-def _perm_p_models_naive(align, hs_vals, rho_obs, n_perm=200_000, seed=0):
-    """Reference implementation, one scipy spearmanr per draw."""
-    rng = np.random.default_rng(seed)
-    v = np.asarray(hs_vals)
-    a = np.asarray(align)
-    hits = 0
-    for _ in range(n_perm):
-        if abs(spearman(rng.permutation(v), a)) >= abs(rho_obs) - 1e-12:
-            hits += 1
-    return (hits + 1) / (n_perm + 1)
 
 
 def ols(x, y):

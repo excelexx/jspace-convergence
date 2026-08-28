@@ -7,7 +7,9 @@ PNG under cache/images/eval/ for xstage1_vision.py; eval_manifest.json pins
 the frozen set (caption, caption hash, image hash over raw RGB bytes, and the
 source URL, since the images themselves are not shipped) and is read by
 xstage1_text.py for the captions.
-Idempotent: skips outputs that already exist."""
+
+The rebuild guard keys on the manifest alone: if eval_manifest.json is present
+the stage returns early, so delete it to force a re-fetch."""
 import hashlib
 import json
 import os

@@ -1,13 +1,14 @@
 """Tokenisation control for section 3.1: how much text does each model see?
 
 The 11 models do not share a vocabulary, so the fixed 300-token cap covers a
-different amount of each document per model. This measures how often the cap
-actually binds and how much of the corpus each model ingests, supporting the
-paper's statement that tokeniser efficiency ranges from 3.79 to 4.19 characters
-per token and that the least efficient tokeniser still ingests 94.8% as many
-characters as the most efficient.
+different amount of each document per model. This measures how much of the
+corpus each model ingests, supporting the paper's statement that tokeniser
+efficiency ranges from 3.79 to 4.19 characters per token and that the least
+efficient tokeniser still ingests 94.8% as many characters as the most
+efficient.
 
-CPU only; no model weights are loaded, only tokenisers.
+Only tokenisers are loaded here, but importing xsurrogate pulls in the pilot
+constants, which selects a device.
 """
 import json
 

@@ -10,9 +10,10 @@ co-occurrence do not.
 
 Substitution is per occurrence, not per type.
 
-The corpus is written once to cache/surrogate_docs.json and reused by
-xsurrogate_all.py, xrandnull.py and xksweep.py, so every number in Table 1 and
-in the lens-degradation control is computed against the same ablated text.
+The corpus is written once to cache/surrogate_docs.json and read by
+xsurrogate_all.py, which caches the activations the Gaussian-dictionary arm
+then reuses, so both arms of Table 1 are computed against the same ablated
+text.
 
 This module is also the numerical core for experiment 1, imported by those
 scripts. The numerics themselves are the pilot's, lifted out of

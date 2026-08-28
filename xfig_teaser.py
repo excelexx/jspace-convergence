@@ -23,8 +23,8 @@ SURFACE, INK, INK2, MUTED, GRID = "#fcfcfb", "#0b0b0b", "#52514e", "#898781", "#
 BLUE, ORANGE, GREEN = "#2a78d6", "#eb6834", "#1baf7a"
 MONO = "DejaVu Sans Mono"
 # same scale as 07_lobf_components.pdf (FS_LABEL..FS_NOTE = 11,12,9.5,9.5,8.5)
-# at this canvas's 0.77x relative size
-FS_TITLE, FS_LABEL, FS_TICK, FS_NOTE, FS_MONO = 9.2, 8.4, 7.3, 6.5, 7.0
+# at this canvas's 0.74x relative size
+FS_TITLE, FS_LABEL, FS_NOTE, FS_MONO = 9.2, 8.4, 6.5, 7.0
 
 RET = [("full activation", 54.1, BLUE, False),
        ("J-space", 26.3, GREEN, False),
@@ -187,5 +187,4 @@ for j, (lab, sl, note) in enumerate(SLOPES):
            color=GREEN, fontsize=FS_NOTE, va="center", fontweight="bold")
 
 fig.savefig("01_teaser.pdf", facecolor=SURFACE)
-fig.savefig("01_teaser.png", facecolor=SURFACE, dpi=280)
-print("wrote 01_teaser.pdf / .png")
+print("wrote 01_teaser.pdf")
