@@ -2,8 +2,8 @@
 
 For every (model, band layer, half) this accumulates the averaged Jacobian in
 fp64 with the project's causal JVP estimator over that half of WikiText-103,
-using only documents that tokenise to exactly T=300 (shorter ones are
-skipped). Accumulators are checkpointed, so a run resumes where it stopped.
+using documents of at least T=300 tokens, each truncated to T (shorter ones
+are skipped). Accumulators are checkpointed, so a run resumes where it stopped.
 Before anything accumulates, the suffix wiring gate (xlc_suffix.py) is
 asserted for every layer in the band: replaying blocks L..end on the captured
 hidden state must reproduce the model's own pre-final-norm state.
@@ -62,7 +62,6 @@ def fit_model(name):
 
     fac = None
     for half, pool in halves.items():
-        # qualifying docs: tokenize to exactly T_FIT
         accs = {L: JAccumulator(
             d, f"results/lenscontrol/jfit/{name}_L{L}_{half}.pt")
             for L in band}

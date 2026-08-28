@@ -1,11 +1,9 @@
 """Raw (uncorrected) mean depth grid for Figure 3(a): the 11x11 percentile grid
 over all 55 text-model pairs, scored as the matched top-25 word overlap.
 
-Companion to xw_meangrid_raw.py, which scores the same grid as
-    Delta = matched overlap - position-shuffled overlap.
 Section 4.3 reports the matched overlap directly and confines the
-position-shuffled floor to the controls subsection, so xfig_paper.py reads this
-file rather than mean_grid.json.
+position-shuffled floor to the controls subsection, so this grid is scored on
+the matched overlap with no correction applied.
 
 Reads the top-25 word lists cached by xw_all.py.
 Writes results/wordalign/mean_grid_raw.json.

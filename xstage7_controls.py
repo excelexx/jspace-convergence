@@ -1,14 +1,12 @@
 """Shuffled image-caption control for the text-vision measurement (section 4.2).
 
---shuffle : the shuffled image-caption control the paper reports. For each of
-            the 44 (encoder, text model) pairs it finds the best raw layer
-            pair, then re-pairs images with captions under 20 seeded
-            permutations. Raw kernels on both sides; neighbour sets are built
-            here straight from the Stage 1 activations, so no Jacobian and no
-            cached feature blob is needed.
-            -> results/control_shuffle.json
+For each of the 44 (encoder, text model) pairs this finds the best raw layer
+pair, then re-pairs images with captions under 20 seeded permutations. Raw
+kernels on both sides; neighbour sets are built here straight from the Stage 1
+activations, so no Jacobian and no cached feature blob is needed.
+
+-> results/control_shuffle.json
 """
-import argparse
 import json
 import os
 
@@ -77,8 +75,4 @@ def shuffle_all():
 
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--shuffle", action="store_true")
-    args = ap.parse_args()
-    if args.shuffle:
-        shuffle_all()
+    shuffle_all()

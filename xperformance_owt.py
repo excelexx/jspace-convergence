@@ -8,8 +8,7 @@ alongside it. Results go to results/performance_owt.json, read by xmeanmain.py
 and verify_paper_numbers.py.
 
 The document sample is FIXED (cache/owt/sample_4M.json, ~4M GPT-2 tokens,
-17.7MB) so every model is scored on identical bytes; per-model token counts
-differ and are recorded.
+17.7MB) so every model is scored on identical bytes.
 
 Scoring: the sample is concatenated once, tokenised per model, and split into
 windows of CTX tokens. Within each window the first token is context only; NLL

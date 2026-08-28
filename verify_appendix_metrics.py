@@ -15,9 +15,10 @@ number added, edited or reordered in the tex is therefore checked
 automatically, and neither a table row nor a summarising sentence can stop
 matching its artifact without being noticed.
 
-Permutation p-values are reported but not asserted: they are Monte-Carlo and
-move between runs. Everything else is asserted at the precision the paper
-prints it.
+Everything is asserted at the precision the paper prints it. The three
+permutation p-value claims are asserted as inequalities (p<0.02, the smallest
+global p, and where significance is lost across the CKNNA sweep) rather than as
+point values, since they are Monte-Carlo and move between runs.
 """
 import json
 import os
@@ -236,7 +237,7 @@ try:
 except (FileNotFoundError, KeyError, ValueError, AttributeError) as exc:
     print(f"  [SKIP] appendix prose  {exc}")
 
-print(f"\n  permutation p-values are Monte-Carlo and are reported, not asserted")
+print("\n  permutation p-values are asserted as inequalities, not point values")
 print(f"\n{'=' * 72}\n"
       f"{'ALL %d APPENDIX NUMBERS MATCH THE PAPER' % CHECKED if not FAIL else '%d MISMATCH(ES) of %d' % (FAIL, CHECKED)}"
       f"\n{'=' * 72}")

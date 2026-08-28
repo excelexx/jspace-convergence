@@ -36,8 +36,8 @@ FS_LABEL, FS_TITLE, FS_TICK, FS_LEG, FS_NOTE = 11, 12, 9.5, 9.5, 8.5
 hs = {m: json.load(open(f"results/lmeval/{m}.json", encoding="utf-8"))
       ["hellaswag_acc_norm"] for m in M_ORDER}
 # Legend p-values, printed by xmeanmain.py: model-label permutation values
-# within-language (55 pairs, 200k permutations: 164, 17 and 3219 hits) and
-# exact permutation values cross-modally (n=11).
+# within-language (55 pairs) and exact permutation values cross-modally
+# (n=11). These are the paper's section 4.1 and tab:perencoder values.
 # Store the UNROUNDED values: fmt() renders "< 0.0001" below 1e-4, so a
 # pre-rounded 0.0001 would print as an equality and disagree with the tables --
 # perp in particular MUST stay unrounded.

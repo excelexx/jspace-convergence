@@ -153,8 +153,6 @@ section("Section 4.3 - J-lens top-25 word agreement, 55 text pairs")
 try:
     W = load("wordalign/stats.json")
     T, pairs = W["tests"], W["pairs"]
-    dj = st.median(p["median_J_k25"] for p in pairs.values())
-    db = st.median(p["median_base_k25"] for p in pairs.values())
     check("raw J-lens overlap, of 25",
           st.median(st.median(p["raw_J_k25"]) for p in pairs.values()) * 25,
           5.1, 0.05)
