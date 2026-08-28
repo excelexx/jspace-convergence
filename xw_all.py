@@ -13,7 +13,7 @@ are a token-end word boundary in ALL 11 tokenizers.  Two read-outs per layer:
 
 Writes cache/wordalign/{model}.pt (+ _DONE markers, resumable), consumed by
 xw_stats.py (per-pair statistics) and xw_meangrid_raw.py (the mean depth grid
-behind Figure 2(a)).
+behind Figure 3(a)).
 """
 import os, json, copy, hashlib
 import torch

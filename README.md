@@ -233,16 +233,20 @@ p = L/(N−1). Cost: about 8 minutes of extraction plus 3 minutes of statistics.
 
 ## 7. Figures and paper
 
-The paper has four figures, in five PDF files (Figure 2 is a two-panel
+The paper has five figures, in six PDF files (Figure 3 is a two-panel
 figure). Their producers:
 
 ```bash
-python xplot_pairlevel_fig1.py     # -> paper/07_lobf_components.pdf              (Figure 1)
+python xfig_teaser.py              # -> paper/01_teaser.pdf                       (Figure 1)
+python xplot_pairlevel_fig1.py     # -> paper/07_lobf_components.pdf              (Figure 2)
 python xfig_paper.py               # -> paper/06_wordalign_mean_heatmap.pdf,
-                                   #    paper/08_j_minus_logit_vs_depth.pdf       (Figure 2)
-python xplot_wordalign_pairs.py    # -> paper/09_wordalign_pairs_vs_competence.pdf (Figure 3)
-python xlc_fig_median.py           # -> paper/10_lens_fitting_control.pdf         (Figure 4)
+                                   #    paper/08_j_minus_logit_vs_depth.pdf       (Figure 3)
+python xplot_wordalign_pairs.py    # -> paper/09_wordalign_pairs_vs_competence.pdf (Figure 4)
+python xlc_fig_median.py           # -> paper/10_lens_fitting_control.pdf         (Figure 5)
 ```
+
+The numbers in that column are the paper's figure numbers, not the PDF
+filename prefixes; the two have not matched since the teaser was added.
 
 
 Build the paper:
@@ -328,11 +332,11 @@ that control).
 README.md                     this file
 requirements.txt              pinned versions
 verify_paper_numbers.py       recomputes the paper's numbers, no GPU needed
-*.py                          39 scripts, flat (they import each other)
+*.py                          40 scripts, flat (they import each other)
 eval_manifest.json            the frozen 1,024-pair WIT eval set
 run_manifest_lenscontrol.json lens provenance and the WikiText-103 half split
 tests/                        JVP correctness gate for the lens-refit estimator
-paper/                        LaTeX source, bibliography, five figure PDFs, compiled PDF
+paper/                        LaTeX source, bibliography, six figure PDFs, compiled PDF
 results/                      the artifacts every number is computed from
 ```
 
@@ -347,7 +351,7 @@ Script families, by prefix:
 | `xmeanmain`, `xtokencontrol` | the paper's tables and the tokenisation control |
 | `xeval_bench`, `xperformance_owt` | competence axes: HellaSwag and 1 - bits-per-byte |
 | `xlc_*` | control: disjoint lens-fitting corpora |
-| `xplot_*`, `xfig_paper` | the paper's figures |
+| `xplot_*`, `xfig_*` | the paper's figures, including the teaser |
 
 `results/jspace_alignment_pilot.md` is the text–text pilot table, and the only
 record of the random-unembedding-row null.

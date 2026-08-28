@@ -1,4 +1,4 @@
-"""Figure 1 of the paper (paper/07_lobf_components.pdf): alignment against
+"""Figure 2 of the paper (paper/07_lobf_components.pdf): alignment against
 competence for the full activation, the non-J remainder and the J-space.
 
 (a) within-language: one point per MODEL PAIR (55), x = mean HellaSwag of the

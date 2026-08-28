@@ -10,7 +10,7 @@ key names below): the paper reports that the J-lens wins in 50/55 pairs with a
 median difference of +0.117, or +2.9 of 25 words.
 
 Writes results/wordalign/stats.json, read by verify_paper_numbers.py,
-xfig_paper.py (Figure 2(b)) and xplot_wordalign_pairs.py (Figure 3).
+xfig_paper.py (Figure 3(b)) and xplot_wordalign_pairs.py (Figure 4).
 """
 import json
 import torch

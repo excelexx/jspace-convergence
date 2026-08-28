@@ -8,7 +8,7 @@ steps: each pair is summarised by the mean over its layer-pair grid, and pairs
     Table 3  tab:competence  within-language alignment vs competence
     Table 4  tab:crossaxes   cross-modal alignment vs three competence axes
 
-Rows are printed as LaTeX. Figure 1's legend values are the HellaSwag columns
+Rows are printed as LaTeX. Figure 2's legend values are the HellaSwag columns
 of Table 3 (panel a) and Table 4 (panel b); the mean alignment levels quoted in
 prose in section 4.1 are Table 1's first column.
 

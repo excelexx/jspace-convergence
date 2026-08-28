@@ -1,8 +1,8 @@
-"""Figure 3 of the paper (paper/09_wordalign_pairs_vs_competence.pdf): per-pair
+"""Figure 4 of the paper (paper/09_wordalign_pairs_vs_competence.pdf): per-pair
 J-lens WORD overlap against the pair's competence.
 
 This is the Experiment 3 statistic -- vocabulary read straight off the J-lens,
-not the activation-kernel m-NN of Figure 1(a). For each of the 55 pairs,
+not the activation-kernel m-NN of Figure 2(a). For each of the 55 pairs,
 y = median over the 11 matched-relative-depth grid points of the mean matched
 top-25 overlap (results/wordalign/stats.json, raw_J_k25), x = mean HellaSwag
 acc_norm of the two models.

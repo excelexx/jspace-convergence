@@ -12,7 +12,8 @@ so 0.05 means the observed value beat every draw.
 
 This is what backs the appendix sentence "All three alignment conditions
 remain far above the random-dictionary null for every pair" and the null
-crosses in the middle panel of Figure 10_lens_fitting_control.pdf. The paper's
+crosses in the middle panel of Figure 5 (paper/10_lens_fitting_control.pdf).
+The paper's
 +0.0002 is the median-over-grid difference and comes from
 xlc_median_delta.py, not from here.
 

@@ -1,4 +1,4 @@
-"""Figure 2 of the paper (section 4.3), drawn at print size.
+"""Figure 3 of the paper (section 4.3), drawn at print size.
 
   (a) paper/06_wordalign_mean_heatmap.pdf -- mean J-lens word agreement over
       the 11x11 relative-depth grid, from results/wordalign/mean_grid_raw.json.

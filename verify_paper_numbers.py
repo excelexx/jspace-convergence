@@ -144,7 +144,7 @@ except (FileNotFoundError, KeyError) as exc:
 skip("p-values on those correlations",
      "model-label permutation, stochastic; rerun xmeanmain.py to reproduce")
 skip("convergence-rate slopes (+0.76 vs +0.23 per HellaSwag unit)",
-     "fitted by xplot_pairlevel_fig1.py into the Figure 1 legend, not stored")
+     "fitted by xplot_pairlevel_fig1.py into the Figure 2 legend, not stored")
 
 # --------------------------------------------------------------------------
 # Section 4.3 - shared J-lens vocabulary

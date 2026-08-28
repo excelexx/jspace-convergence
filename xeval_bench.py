@@ -1,7 +1,7 @@
 """Competence axis for all three experiments: HellaSwag 0-shot (limit 1500,
 acc_norm) for the 11 text models, through one consistent lm_eval harness.
 
-`hellaswag_acc_norm` is the x-axis of Figure 1, Figure 3, tab:competence and
+`hellaswag_acc_norm` is the x-axis of Figure 2, Figure 4, tab:competence and
 tab:crossaxes. Results go to results/lmeval/{model}.json, printed as each model
 finishes; idempotent, so an interrupted sweep resumes.
 

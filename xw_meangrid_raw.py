@@ -1,4 +1,4 @@
-"""Raw (uncorrected) mean depth grid for Figure 2(a): the 11x11 percentile grid
+"""Raw (uncorrected) mean depth grid for Figure 3(a): the 11x11 percentile grid
 over all 55 text-model pairs, scored as the matched top-25 word overlap.
 
 Companion to xw_meangrid_raw.py, which scores the same grid as
