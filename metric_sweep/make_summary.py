@@ -272,9 +272,8 @@ def main():
                  "that reject it -- CKA, unbiased CKA and SVCCA -- all score "
                  "**global subspace geometry**.")
         L.append("")
-        L.append("This is not a numerical artifact. CKA's J values have "
-                 "comparable spread to every other metric (sd 0.049, "
-                 "range/sd 5.1). The sign is explained by *which* pairs these "
+        L.append("This is not a numerical artifact. The sign is "
+                 "explained by *which* pairs these "
                  "metrics rank highest: under CKA the most J-similar model "
                  "pairs are the **least** competent ones -- gpt2 x pythia70m "
                  "scores highest of all 55 pairs (0.792) at the lowest "

@@ -52,9 +52,6 @@ def fit_model(name):
     tok = AutoTokenizer.from_pretrained(cfg["hf"])
     model = AutoModelForCausalLM.from_pretrained(
         cfg["hf"], dtype=torch.float32, attn_implementation="eager")
-    inner = getattr(model, "model", None)
-    if inner is not None and hasattr(inner, "vision_tower"):
-        inner.vision_tower = None
     model = model.to("cuda").eval()
     for p in model.parameters():
         p.requires_grad_(False)

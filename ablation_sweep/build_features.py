@@ -82,11 +82,8 @@ def clamped(acts, L):
     return H.clamp(-q, q)
 
 
-def build_model(name, cfg, also_real_jlens=False):
-    """also_real_jlens rebuilds the copied real columns, for validation only."""
+def build_model(name, cfg):
     targets = list(TARGETS)
-    if also_real_jlens:
-        targets += [("real", c) for c in JLENS_COMPS]
     real = torch.load(os.path.join(C.ROOT, cfg["acts"]), weights_only=False)
     abl = torch.load(os.path.join(C.ROOT, f"acts_surr_{name}.pt"),
                      weights_only=False)
@@ -134,8 +131,6 @@ def build_model(name, cfg, also_real_jlens=False):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--models", default=None, help="comma list; default all")
-    ap.add_argument("--also_real_jlens", action="store_true",
-                    help="also rebuild the copied real columns (validation)")
     args = ap.parse_args()
     names = ([n.strip() for n in args.models.split(",")] if args.models
              else list(C.MODELS))
@@ -144,7 +139,7 @@ def main():
         os.makedirs(f"{OUT}/{c}", exist_ok=True)
     t0 = time.time()
     for name in names:
-        build_model(name, C.MODELS[name], args.also_real_jlens)
+        build_model(name, C.MODELS[name])
         print(f"[{name} done {time.time()-t0:.0f}s]", flush=True)
 
     if not args.models:

@@ -240,8 +240,6 @@ def main():
     ap.add_argument("--metric", required=True, choices=ALL_METRICS)
     ap.add_argument("--outdir", default=".")
     ap.add_argument("--n_perm", type=int, default=200_000)
-    ap.add_argument("--skip_text", action="store_true")
-    ap.add_argument("--skip_vision", action="store_true")
     args = ap.parse_args()
 
     out = os.path.abspath(args.outdir)
@@ -274,7 +272,7 @@ def main():
                         "layer-pair grid; identical decomposition and "
                         "preprocessing to the paper, metric varied")
 
-    if not args.skip_text:
+    if True:
         tr = run_text(scorer, manifest, log)
         payload["text_pairs"] = tr
         payload["text_stats"] = stats_text(tr, args.n_perm)
@@ -285,7 +283,7 @@ def main():
             json.dump(payload, f, indent=1)
 
     scorer._self_cache.clear()
-    if not args.skip_vision:
+    if True:
         vr = run_vision(scorer, manifest, log)
         payload["vision_pairs"] = vr
         payload["vision_stats"] = stats_vision(vr, args.n_perm)
@@ -294,7 +292,7 @@ def main():
                  payload["vision_stats"]["averaged"][c].items()
                  if k != "per_model"} for c in C.COMPS}))
 
-    payload["complete"] = not (args.skip_text or args.skip_vision)
+    payload["complete"] = True
     payload["seconds"] = time.time() - t0
     with open(res_path, "w") as f:
         json.dump(payload, f, indent=1)

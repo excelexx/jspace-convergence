@@ -70,11 +70,7 @@ def main():
                r"J-space alignment and mean HellaSwag accuracy; J/full is the "
                r"ratio of OLS slopes of alignment against competence, which the "
                r"main text reports as $0.30$ for the mutual $\kappa$-NN "
-               r"measure. $p$-values are model-label permutation values. The "
-               r"component ordering (full $>$ non-J $>$ J) and the cross-modal "
-               r"correlation hold under every metric; the within-language "
-               r"J-space correlation holds only under neighbourhood-based "
-               r"measures.}")
+               r"measure. $p$-values are model-label permutation values.}")
     out.append(r"  \label{tab:metricsweep}")
     out.append(r"  \begin{tabular}{lccccccc}")
     out.append(r"    \toprule")
