@@ -592,7 +592,7 @@ Thus, lens degradation cannot reproduce the effect of removing semantic meaning.
 \end{table}
 The main text measures alignment through mutual $\kappa$-nearest-neighbour overlap. We vary our choice of metric, changing only the function for alignment between two layer pairs (Table~\ref{tab:metricsweep}). Implementations follow \citet{huh2024platonic}. 
 
-We note that within language, regardless of metric, full alignment is always greater than J-space alignment. Cross-modally the two are near-indistinguishable, with J-space marginally ahead for five of the eight metrics, while the cross-modal correlation result is similarly strong ($+0.94 \leq \rho \leq +0.97$).
+We note that within language, regardless of metric, full alignment is always greater than J-space alignment. Cross-modally the two are near-indistinguishable, with J-space marginally ahead for six of the eight metrics, while the cross-modal correlation result is similarly strong ($+0.94 \leq \rho \leq +0.97$).
 
 Within-language, metrics split into two groups. Metrics which compare \emph{local neighbourhood structure} (e.g. $\kappa$-NN) follow our main paper's results, and metrics which compare \emph{global subspace geometry}, i.e. how variance is distributed, do not. Furthermore, the competence--alignment correlations for neighbourhood-based metrics all reach significance with $p<0.02$, but the correlations for global subspace metrics are not significant (the smallest is $p=0.267$).
 
